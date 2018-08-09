@@ -44,7 +44,7 @@ class GenerateUrl
             }
             $url = rtrim($url,'-') . '/';
         }
-        $url .= str_replace([' ', '/'], '-', $offer->getEmployer()->getName());
+        $url .= str_replace([' ', '/'], '-', $offer->getProposer()->getName());
         $url .= '/' . str_replace([' ', '/'], '-', $offer->getTitle());
 
         return strtolower($url);

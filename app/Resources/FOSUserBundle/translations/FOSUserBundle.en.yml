@@ -95,8 +95,8 @@ login:
   title: Welcome! Sign in
   subtitle: Sign in to enjoy all services
   noaccount: Don't have an account yet? Register as
-  candidate: Candidate
-  employer: Employer
+  voter: Voter
+  proposer: Proposer
   sign: Please sign in
   forgotPassword:
     title: Forgot Password ?

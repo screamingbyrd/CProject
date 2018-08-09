@@ -1,6 +1,6 @@
 <?php
 
-namespace CandidateBundle\Tests\Controller;
+namespace VoterBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

@@ -4,17 +4,17 @@ dashboard_admin:
         fr: "/tableau-de-bord"
     defaults: { _controller: AdminBundle:Admin:index }
 
-list_employer_admin:
+list_proposer_admin:
     locales:
-        en: "/employer/list"
+        en: "/proposer/list"
         fr: "/employeur/liste"
-    defaults: { _controller: AdminBundle:Admin:listEmployer }
+    defaults: { _controller: AdminBundle:Admin:listProposer }
 
-list_candidate_admin:
+list_voter_admin:
     locales:
-        en: "/candidate/list"
+        en: "/voter/list"
         fr: "/candidat/liste"
-    defaults: { _controller: AdminBundle:Admin:listCandidate }
+    defaults: { _controller: AdminBundle:Admin:listVoter }
 
 list_admin:
     locales:

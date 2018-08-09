@@ -27,8 +27,4 @@ php bin/console doctrine:schema:update --force
 
 php bin/console doctrine:fixtures:load --append
 
-Now you need to install elastic search on your computer
-
-php bin/console fos:elastica:populate
-
 You are ready to go

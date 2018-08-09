@@ -75,7 +75,7 @@
         -moz-transition: -moz-transform 0.5s cubic-bezier(0.9, 0.26, 0.58, 1) false false;
         -o-transition: -o-transform 0.5s cubic-bezier(0.9, 0.26, 0.58, 1) false false;
     }
-    .background-employer-in-offer-search {
+    .background-proposer-in-offer-search {
         min-height: 124px;
         width: 30%;
         position: relative;
@@ -85,7 +85,7 @@
         border-bottom-left-radius: 3px;
         border-top-left-radius: 3px;
     }
-    .background-employer-in-offer-search .layer {
+    .background-proposer-in-offer-search .layer {
          border-top-right-radius: 0;
          border-bottom-left-radius: 3px;
      }
@@ -100,7 +100,7 @@
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
     }
-    .logo-employer-in-offer-search {
+    .logo-proposer-in-offer-search {
         width: 13%;
         max-width: 73px;
         margin-left: -31px;
@@ -204,21 +204,21 @@
                         <a class='offer-element' href="{{ path('show_offer', {'id': offer.id, 'url':offer.offerUrl}) }}">
                             {% if offer.image is not null and offer.image.imageName is not null %}
                                 {% set image =  'uploads' ~ vich_uploader_asset(offer.image, 'imageFile', 'AppBundle\\Entity\\Image') %}
-                            {% elseif offer.employer.coverImage.imageName is not null %}
-                                {% set image =  'uploads' ~ vich_uploader_asset(offer.employer.coverImage, 'imageFile', 'AppBundle\\Entity\\Image') %}
-                            {% elseif offer.employer.logo.imageName is not null %}
-                                {% set image =  'uploads' ~ vich_uploader_asset(offer.employer.logo, 'imageFile', 'AppBundle\\Entity\\Image') %}
+                            {% elseif offer.proposer.coverImage.imageName is not null %}
+                                {% set image =  'uploads' ~ vich_uploader_asset(offer.proposer.coverImage, 'imageFile', 'AppBundle\\Entity\\Image') %}
+                            {% elseif offer.proposer.logo.imageName is not null %}
+                                {% set image =  'uploads' ~ vich_uploader_asset(offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image') %}
                             {% else %}
                                 {% set image = 'images/default_cover_image6.jpg' %}
                             {% endif %}
-                            <div class="background-employer-in-offer-search" style="background-repeat: no-repeat;background-size: cover;background-image: url({{ asset(image) }});">
+                            <div class="background-proposer-in-offer-search" style="background-repeat: no-repeat;background-size: cover;background-image: url({{ asset(image) }});">
                                 <div class="layer layer-offer-element animated">
                                 </div>
                             </div>
-                            {% if offer.employer.logo.imageName is not null and offer.employer.coverImage.imageName is not null %}<img class="logo-employer-in-offer-search" src="{{ asset('uploads' ~ vich_uploader_asset(offer.employer.logo, 'imageFile', 'AppBundle\\Entity\\Image')) }}"/>{% endif %}
+                            {% if offer.proposer.logo.imageName is not null and offer.proposer.coverImage.imageName is not null %}<img class="logo-proposer-in-offer-search" src="{{ asset('uploads' ~ vich_uploader_asset(offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image')) }}"/>{% endif %}
                             <div class="offer-search-element">
                                 <div class="offer-element-details">
-                                    <div class="offer-element-name">{{ offer.employer.name }}</div>
+                                    <div class="offer-element-name">{{ offer.proposer.name }}</div>
                                     <div class="offer-element-title">{{ offer.title |truncate(20, true)}}</div>
                                     <div><span class="other-element">{{ offer.location }}</span></div>
                                     <div class="offer-element-other"><span class="other-element offer-item-contract item-contract-{{ offer.contractType.name }}"><i class="fa fa-file-text-o"></i>{{ offer.contractType.name | trans }}</span><span class="other-element"><i class="fa fa-clock-o"></i>{{ offer.startDate|time_diff }}</span></div>

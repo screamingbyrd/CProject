@@ -2,12 +2,12 @@ password:
   require: The password must contain a least 6 character an uppercase, a lowercase and a number.
 
 
-candidate:
+voter:
   age: Your current age is not valid!
   minTitle: Title must be longer than {{ limit }} characters.
   maxTitle: Title must be smaller than {{ limit }} characters.
 
-employer:
+proposer:
   minName: Company name must be longer than {{ limit }} characters.
   maxName: Company name must be smaller than {{ limit }} characters.
 

@@ -62,11 +62,11 @@ class RegisterUser
     }
 
     /**
-     * This method adds a collaborator to an existing employer.
+     * This method adds a collaborator to an existing proposer.
      *
      * @return User
      **/
-    public function addCollaborator($email, $employer){
+    public function addCollaborator($email, $proposer){
 
         $email_exist = $this->userManager->findUserByEmail($email);
 
@@ -83,7 +83,7 @@ class RegisterUser
         $user->SetLastName('');
         $user->setPlainPassword('0000');
         $user->addRole('ROLE_EMPLOYER');
-        $user->setEmployer($employer);
+        $user->setProposer($proposer);
         $this->userManager->updateUser($user);
 
 

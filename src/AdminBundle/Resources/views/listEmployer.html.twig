@@ -6,43 +6,43 @@
 
 {% block body %}
     {%  if (app.user.roles is defined) and ('ROLE_ADMIN' in app.user.roles) %}
-        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.employer.return' | trans }}</a>
+        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
     {% endif %}
     <div class="container">
 
-        <h2>{{ 'admin.dashboard.employerList' | trans }}</h2>
+        <h2>{{ 'admin.dashboard.proposerList' | trans }}</h2>
 
-        <input type="text" id="myInput" onkeyup="showEmployer()" placeholder="{{ 'admin.enterCompnay'|trans }}" title="Type in a name" class="search-employer">
+        <input type="text" id="myInput" onkeyup="showProposer()" placeholder="{{ 'admin.enterCompnay'|trans }}" title="Type in a name" class="search-proposer">
 
         <table class="table table-bordered table-striped well">
             <thead>
                 <tr>
-                    <th>{{ 'form.offer.search.employerPH' | trans }}</th>
+                    <th>{{ 'form.offer.search.proposerPH' | trans }}</th>
                     <th>{{ 'form.registration.email' | trans }}</th>
-                    <th>{{ 'employer.credit.title' | trans }}</th>
+                    <th>{{ 'proposer.credit.title' | trans }}</th>
                     <th>{{ 'dashboard.action' | trans }}</th>
                 </tr>
             </thead>
 
-            <tbody id="table-employer">
-                {% for employer in employers %}
+            <tbody id="table-proposer">
+                {% for proposer in proposers %}
                     <tr>
                         <td>
-                            <a class="employer-title" href="{{ path('employer_offers', { 'id': employer.employer.id }) }}">
-                                {{ employer.employer.name }}
+                            <a class="proposer-title" href="{{ path('proposer_offers', { 'id': proposer.proposer.id }) }}">
+                                {{ proposer.proposer.name }}
                             </a>
                         </td>
-                        <td>{{ employer.email }}</td>
+                        <td>{{ proposer.email }}</td>
 
-                        <td>{{ employer.employer.credit }}</td>
+                        <td>{{ proposer.proposer.credit }}</td>
                         <td>
-                            <a class="btn btn-primary" href="{{ path('edit_employer', { 'id': employer.employer.id }) }}">
-                                {{ 'dashboard.employer.editOffer' | trans }}
+                            <a class="btn btn-primary" href="{{ path('edit_proposer', { 'id': proposer.proposer.id }) }}">
+                                {{ 'dashboard.proposer.editOffer' | trans }}
                             </a>
-                            <button class="modal-open btn btn-danger" data-href="{{ path('delete_employer', { 'id': employer.employer.id }) }}">
+                            <button class="modal-open btn btn-danger" data-href="{{ path('delete_proposer', { 'id': proposer.proposer.id }) }}">
                                 {{ 'delete' | trans }}
                             </button>
-                            <a class="btn btn-primary" href="{{ path('jobnow_bills', { 'id': employer.employer.id }) }}">
+                            <a class="btn btn-primary" href="{{ path('jobnow_bills', { 'id': proposer.proposer.id }) }}">
                                 {{ 'price.bills' | trans }}
                             </a>
                         </td>
@@ -57,7 +57,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{ 'admin.sureEmployer'|trans }}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{ 'admin.sureProposer'|trans }}</h4>
                     </div>
                     <div class="modal-footer">
                         <a type="button" class="btn btn-default" id="modal-btn-yes">{{ 'yes'|trans }}</a>
@@ -67,17 +67,17 @@
             </div>
         </div>
         <script>
-            function showEmployer() {
+            function showProposer() {
                 let input, filter, ul, li, a, i;
                 input = document.getElementById("myInput");
                 filter = input.value.toUpperCase();
-                ul = document.getElementById("table-employer");
+                ul = document.getElementById("table-proposer");
                 a = ul.getElementsByTagName("tr");
                 for (i = 0; i < a.length; i++) {
                     a[i].style.display = "none";
                 }
                 for (i = 0; i < a.length; i++) {
-                    let h = a[i].getElementsByClassName("employer-title")[0];
+                    let h = a[i].getElementsByClassName("proposer-title")[0];
                     if (h.innerHTML.toUpperCase().indexOf(filter) > -1) {
                         a[i].style.display = "";
                     } else {

@@ -5,19 +5,19 @@ root:
         path: /%locale%/
         permanent: true
 
-employer:
-    resource: "@EmployerBundle/Resources/config/routing.yml"
+proposer:
+    resource: "@ProposerBundle/Resources/config/routing.yml"
     type: "be_simple_i18n"
     prefix:
-         en: "/{_locale}/employer"
+         en: "/{_locale}/proposer"
          fr: "/{_locale}/employeur"
 
-candidate:
-    resource: "@CandidateBundle/Resources/config/routing.yml"
+voter:
+    resource: "@VoterBundle/Resources/config/routing.yml"
     type: "be_simple_i18n"
     prefix:
         en: "/{_locale}/candidat"
-        fr: "/{_locale}/candidate"
+        fr: "/{_locale}/voter"
 
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"

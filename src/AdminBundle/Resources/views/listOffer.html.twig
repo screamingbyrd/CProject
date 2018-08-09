@@ -6,7 +6,7 @@
 
 {% block body %}
     {%  if (app.user.roles is defined) and ('ROLE_ADMIN' in app.user.roles) %}
-        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.employer.return' | trans }}</a>
+        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
     {% endif %}
     <div class="container">
 
@@ -20,8 +20,8 @@
         <h2>{{ 'admin.dashboard.offerList' | trans }}</h2>
 
         <div class="container-button-offers">
-            <input type="text" id="myInput-offer" onkeyup="showEmployer()" placeholder="{{ 'admin.enterTitle' | trans }}" title="{{ 'admin.enterTitle' | trans }}" class="search-employer">
-            <input type="text" id="myInput-id" onkeyup="showOffer()" placeholder="ID" class="search-employer">
+            <input type="text" id="myInput-offer" onkeyup="showProposer()" placeholder="{{ 'admin.enterTitle' | trans }}" title="{{ 'admin.enterTitle' | trans }}" class="search-proposer">
+            <input type="text" id="myInput-id" onkeyup="showOffer()" placeholder="ID" class="search-proposer">
             <a href="{{ path('list_offer_admin', {'archived':   archived ? 0:1 }) }}" class="element-offer-list btn btn-primary element-offer-list global-a">
                 {% if archived %}
                     {{ 'admin.offerList.nonArchivedOffers' | trans }}
@@ -51,12 +51,12 @@
                 <th>{{ 'admin.offerList.creationDate' | trans }}</th>
                 <th>ID</th>
                 <th>{{ 'form.registration.title.title' | trans }}</th>
-                <th>{{ 'form.offer.search.employerPH' | trans }}</th>
+                <th>{{ 'form.offer.search.proposerPH' | trans }}</th>
                 <th>{{ 'dashboard.action' | trans }}</th>
             </tr>
             </thead>
 
-            <tbody id="table-candidate">
+            <tbody id="table-voter">
             {% for offer in offers %}
                 {% if active %}
                     {%  set condition = offer.isActive %}
@@ -72,7 +72,7 @@
                             {{ offer.title }}
                         </a>
                     </td>
-                    <td>{{ offer.employer.name }}</td>
+                    <td>{{ offer.proposer.name }}</td>
                     <td>
                         {% if offer.validated is null or offer.validated == false %}
                             <a class="btn btn-success" href="{{ path('change_validation_status', {'id':offer.id, 'status':1}) }}">{{ 'admin.offerList.valid'|trans }}</a>
@@ -89,7 +89,7 @@
                             <ul class="dropdown-menu dropdown-menu-right offers-button-menu">
                                 <li>
                                     <a href="{{ path('edit_offer', { 'id': offer.id }) }}" class="btn btn-primary">
-                                        {{ 'dashboard.employer.editOffer' | trans }}
+                                        {{ 'dashboard.proposer.editOffer' | trans }}
                                     </a>
                                 </li>
                                <li>
@@ -148,11 +148,11 @@
         </div>
 
         <script>
-            function showEmployer() {
+            function showProposer() {
                 let input, filter, ul, li, a, i;
                 input = document.getElementById("myInput-offer");
                 filter = input.value.toUpperCase();
-                ul = document.getElementById("table-candidate");
+                ul = document.getElementById("table-voter");
                 a = ul.getElementsByTagName("tr");
                 for (i = 0; i < a.length; i++) {
                     a[i].style.display = "none";
@@ -171,7 +171,7 @@
                 let input, filter, ul, li, a, i;
                 input = document.getElementById("myInput-id");
                 filter = input.value.toUpperCase();
-                ul = document.getElementById("table-candidate");
+                ul = document.getElementById("table-voter");
                 a = ul.getElementsByTagName("tr");
                 for (i = 0; i < a.length; i++) {
                     a[i].style.display = "none";

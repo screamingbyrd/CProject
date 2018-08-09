@@ -1,0 +1,265 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}
+    Search offer
+{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron searchpage-jumbotron">
+        <h2>{{ 'offer.search.title' | trans }}</h2>
+
+        <form method="post" action="" id="search-offer-form" class="search-bar">
+
+
+            <div class="row form-group search-input-container">
+                <div class="col-md-3">
+                    <select title="Category" id="category-input" multiple class="select2" data-placeholder="{{ 'form.offer.search.categoryPH' | trans }}">
+                        <option></option>
+                        {% for tag in tags %}
+                            <option value="{{ tag.name }}">{{ tag.name|trans }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class=" col-md-4">
+                    <input value="{{ keyword }}" class="form-control" type="text" id="keyword-input" placeholder="{{ 'form.offer.search.keyword' | trans }}" title="{{ 'form.offer.search.keyword' | trans }}">
+                </div>
+                <div class="col-md-3">
+                    {{ autoComplete|raw  }}
+                    {{ autoCompleteScript|raw  }}
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="jobnow-button searchOffer" value="Search">
+                </div>
+                {#<div class="col-md-2">#}
+                    {#<select title="Proposer" id="proposer-input" class="select2" data-placeholder="{{ 'form.offer.search.proposerPH' | trans }}">#}
+                        {#<option></option>#}
+                        {#<option value="0">-- {{ 'form.offer.search.empty'|trans }} --</option>#}
+                        {#{% for proposer in proposers %}#}
+                            {#<option value="{{ proposer.name }}" {% if chosenProposer is defined and proposer.name == chosenProposer %}selected{% endif %}>{{ proposer.name |truncate(20, true)}}</option>#}
+                        {#{% endfor %}#}
+                    {#</select>#}
+                {#</div>#}
+            </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="contractType-list">
+                            {% for type in contractType %}
+                                <li class="contract-type">
+                                    <input type="checkbox" name="filter_job_type[]" class="type-contract-checkbox" value="{{ type.name }}" checked="checked" id="job_type_{{ type.name }}">
+                                    {{  type.name | trans }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-1" style="display: none">
+                        <select id="number-of-offer" class="col-md-1 col-md-offset-3 form-control">
+                            <option value="20" selected>20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
+        </form>
+    </div>
+
+    <style>
+        .searchpage-jumbotron::after{
+            content: '';
+            background-image:url({{asset('images/jobnow-home.jpg')}});
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position:absolute;
+            z-index: -1;
+        }
+    </style>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="{% if featuredOffer is defined and featuredOffer|length > 0 and chosenProposer is null %}col-md-8{% endif %}">
+                <ul id="myUL">
+
+                </ul>
+            </div>
+            {% if featuredOffer is defined and featuredOffer|length > 0 and chosenProposer is null %}
+            <div class="col-md-3 featured-offer-search">
+                <h1>{{ 'featured.offer.title'|trans }}</h1>
+                <ul >
+                    {% for offer in featuredOffer %}
+                        <li class="zoom">
+                            <a href="{{ path('show_offer', {'id': offer.offer.id, 'url':offer.offer.offerUrl}) }}">
+                                <div class="thumbnail  featured-offer-item">
+                                    {% if offer.offer.image is not null and offer.offer.image.imageName is not null %}
+                                        {% set image =  'uploads' ~ vich_uploader_asset(offer.offer.image, 'imageFile', 'AppBundle\\Entity\\Image') %}
+                                    {% elseif offer.offer.proposer.coverImage.imageName is not null %}
+                                        {% set image =  'uploads' ~ vich_uploader_asset(offer.offer.proposer.coverImage, 'imageFile', 'AppBundle\\Entity\\Image') %}
+                                    {% elseif offer.offer.proposer.logo.imageName is not null %}
+                                        {% set image =  'uploads' ~ vich_uploader_asset(offer.offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image') %}
+                                    {% else %}
+                                        {% set image = 'images/default_cover_image6.jpg' %}
+                                    {% endif %}
+                                    <div class="caption background-offer" style="display: flex; justify-content: center;align-items: center;background-repeat: no-repeat;background-size: cover;background-image: url({{ asset(image) }});min-height: 110px;">
+                                        <div class="layer">
+                                        </div>
+                                        <div class="offer-thumb-image-div">
+                                            {% if offer.offer.proposer.logo.imageName is not null and offer.offer.proposer.coverImage.imageName is not null %}<img src="{{asset('uploads' ~ vich_uploader_asset(offer.offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image')) }}" class="offer-thumb-logo" />{% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="caption">
+                                        <h3>{{ offer.offer.title|truncate(20, true) }} # {{ offer.offer.id }}</h3>
+                                        <p><span class="other-element offer-location"><i class="fa fa-map-marker"></i>{{ offer.offer.location|truncate(20, true) }}</span><span class="other-element"><i class="fa fa-file-text-o"></i>{{ offer.offer.contractType.name |trans }}</span></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <div id="paginator-offer">
+
+        </div>
+
+        <script>
+            let searchedTags = [];
+            function searchOffer(row, totalItem) {
+
+                $(".search-result").removeClass('fadeIn').addClass('fadeOut');
+                //$("#myUL").html(loader);
+                let keyword = $("#keyword-input").val();
+                let location = $("#place_input").val();
+                let proposer = $("#proposer-input").val();
+                let tags = $("#category-input").val();
+                let url = window.location.href;
+                let type = $('input:checkbox:checked.type-contract-checkbox').map(function () {
+                    return this.value;
+                }).get();
+
+                url = "{{ path('search_offer') }}";
+                $.ajax({
+                    url: url,
+                    data: {keyword:keyword,location:location,proposer:proposer,type:type,row:row,number:totalItem,tags:tags}
+                }).done(function( data ) {
+                    if(detectmob()){
+                        if(tags.length >= searchedTags.length){
+                            let $el = $('.searchpage-jumbotron');
+                            let bottom = $el.position().top + $el.outerHeight(true) - 40;
+                            $('html, body').animate({
+                                scrollTop: bottom
+                            }, 500);
+                        }
+                        searchedTags = tags;
+                    }
+                    $('#loading').hide();
+
+                    $("#myUL").html(data);
+                    let total = $('#hidden-search-info').data('total');
+                    let page = $('#hidden-search-info').data('page');
+                    let str = '<a onClick="onPage('+(page==1?1:(page-1))+')" href="#">&laquo;</a>'
+
+                    for (i = 1; i <= total; i++) {
+                        str += '<a onClick="onPage(' + i + ')" class="offer-page-link ' + (i == page?'selected-page':'') + '" href="#">' + i + '</a>';
+                    }
+
+                    str += '<a onClick="onPage('+(page==total?total:(page+1))+')" href="#">&raquo;</a>';
+                    document.getElementById("paginator-offer").innerHTML = str;
+                });
+            }
+
+            window.onload = function() {
+                let arrayTags = {{ chosenTags|json_encode|raw }};
+                if(arrayTags != null){
+                    arrayTags.forEach(function(element) {
+                        let option = new Option(element.text, element.value);
+                        option.selected = true;
+
+                        $("#category-input").append(option);
+                    });
+                }
+
+                let total = $('#number-of-offer').val();
+                searchOffer(1,total);
+            };
+
+            $("#search-offer-form input[type='submit']").click(function(e) {
+                    e.preventDefault();
+                    let total = $('#number-of-offer').val();
+                    searchOffer(1,total);
+            });
+
+            $(".type-contract-checkbox").change(function() {
+                let total = $('#number-of-offer').val();
+                searchOffer(1,total);
+            });
+
+            $("#proposer-input").change(function() {
+                let total = $('#number-of-offer').val();
+                searchOffer(1,total);
+            });
+
+            $("#category-input").change(function() {
+                let total = $('#number-of-offer').val();
+                searchOffer(1,total);
+            });
+
+            $('#number-of-offer').change(function() {
+                let page = $('#hidden-search-info').data('page');
+                let total = this.value;
+                searchOffer(page,total);
+            });
+
+            function onPage(page){
+                let total = $('#number-of-offer').val();
+                searchOffer(page,total);
+            }
+
+            function detectmob() {
+                if( navigator.userAgent.match(/Android/i)
+                    || navigator.userAgent.match(/webOS/i)
+                    || navigator.userAgent.match(/iPhone/i)
+                    || navigator.userAgent.match(/iPad/i)
+                    || navigator.userAgent.match(/iPod/i)
+                    || navigator.userAgent.match(/BlackBerry/i)
+                    || navigator.userAgent.match(/Windows Phone/i)
+                ){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+
+            // let featuredOfferTop = $('.featured-offer-search').offset().top;
+            // let featuredOfferLeft = $('.featured-offer-search').offset().left;
+            // let featuredOfferWidth = $('.featured-offer-search').outerWidth();
+            // $(window).scroll(function() {
+            //     let currentScroll = $(window).scrollTop();
+            //     if (currentScroll +160 >= featuredOfferTop && detectmob() == false) {
+            //         $('.featured-offer-search').css({
+            //             position: 'fixed',
+            //             top: '55px',
+            //             left: featuredOfferLeft,
+            //             width: featuredOfferWidth,
+            //         });
+            //     } else {
+            //         $('.featured-offer-search').css({
+            //             position: 'static'
+            //         });
+            //     }
+            // });
+
+        </script>
+
+    </div>
+
+{% endblock %}

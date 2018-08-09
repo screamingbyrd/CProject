@@ -2,21 +2,21 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block title %}
-    {{ 'employer.credit.title' | trans }}  - {{ parent() }}
+    {{ 'proposer.credit.title' | trans }}  - {{ parent() }}
 {% endblock %}
 
 {% block body %}
 
     {%  if (app.user.roles is defined) and ('ROLE_EMPLOYER' in app.user.roles) %}
-        <a href="{{ path('dashboard_employer') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.employer.return' | trans }}</a>
+        <a href="{{ path('dashboard_proposer') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
     {% endif %}
     <div class="jumbotron homepage-jumbotron">
-        <h2>{{ 'employer.credit.title' | trans }}</h2>
+        <h2>{{ 'proposer.credit.title' | trans }}</h2>
     </div>
     <div class="container jobnow-container buy-container">
 
         {#{%  if (app.user.roles is defined) and ('ROLE_EMPLOYER' in app.user.roles) %}#}
-            {#<h3>{{ 'employer.credit.have'|trans({'%credit%': credit}) }}</h3>#}
+            {#<h3>{{ 'proposer.credit.have'|trans({'%credit%': credit}) }}</h3>#}
         {#{% endif %}#}
 
         {#<h3>{{ 'price.ourPackages' | trans }}</h3>#}
@@ -39,7 +39,7 @@
                 <div class="credit-choice">
                     {#<img src="..." alt="...">#}
                     <div class="header-credit-choice">
-                        <h3>5 {{ 'employer.credit.title' | trans }}</h3>
+                        <h3>5 {{ 'proposer.credit.title' | trans }}</h3>
                     </div>
                     <div class="caption">
                         <img class="logo-choice" src="{{asset('images/bill.svg')}}">
@@ -54,7 +54,7 @@
                 <div class="credit-choice">
                     {#<img src="..." alt="...">#}
                     <div class="header-credit-choice">
-                        <h3>10 {{ 'employer.credit.title' | trans }}</h3>
+                        <h3>10 {{ 'proposer.credit.title' | trans }}</h3>
                     </div>
                     <div class="caption">
                         <img class="logo-choice" src="{{asset('images/stack.svg')}}">
@@ -75,7 +75,7 @@
             {% if credit >0 %}
                 <div class="shadow-box">
                     {{ 'price.go'|trans }}
-                    <a href="{{ path('dashboard_employer') }}" class="btn btn-primary" style="float: right;" role="button">{{ 'dashboard.title'|trans }}</a>
+                    <a href="{{ path('dashboard_proposer') }}" class="btn btn-primary" style="float: right;" role="button">{{ 'dashboard.title'|trans }}</a>
                 </div>
             {% endif %}
         {% endif %}

@@ -57,21 +57,21 @@
         </div>
 
         <div class="content-mail">
-            <h3>{{ 'email.application.employer.applied'| trans}}</h3>
+            <h3>{{ 'email.application.proposer.applied'| trans}}</h3>
             <div><a href="{{ path('show_offer', {'id':offer.id,'url':offer.offerUrl}) }}">{{ offer.title }}</a></div>
 
             <div class="other-footer">
                 <a href="{{ asset(link) }}" download>
-                    {{ 'email.application.employer.download'|trans }}
+                    {{ 'email.application.proposer.download'|trans }}
                 </a>
             </div>
             <div class="other-footer">
-                {{ 'email.application.employer.comment'| trans}}
+                {{ 'email.application.proposer.comment'| trans}}
             </div>
             {% if linkCover is not null and linkCover != '' %}
                 <div class="other-footer">
                     <a href="{{ asset(linkCover) }}" download>
-                        {{ 'email.application.employer.downloadCoverLetter'|trans }}
+                        {{ 'email.application.proposer.downloadCoverLetter'|trans }}
                     </a>
                 </div>
             {% endif %}

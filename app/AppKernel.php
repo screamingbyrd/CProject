@@ -18,10 +18,9 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new EmployerBundle\EmployerBundle(),
-            new CandidateBundle\CandidateBundle(),
+            new ProposerBundle\ProposerBundle(),
+            new VoterBundle\VoterBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
-            new FOS\ElasticaBundle\FOSElasticaBundle(),
             new AdminBundle\AdminBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             new Ivory\SerializerBundle\IvorySerializerBundle(),
@@ -31,7 +30,6 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new BeSimple\I18nRoutingBundle\BeSimpleI18nRoutingBundle(),
             new \Trt\SwiftCssInlinerBundle\TrtSwiftCssInlinerBundle(),
-
 
         ];
 

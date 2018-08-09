@@ -230,7 +230,7 @@ class OfferType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_employer';
+        return 'appbundle_proposer';
     }
 
 

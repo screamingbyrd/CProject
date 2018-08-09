@@ -50,6 +50,6 @@ class ContactType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_candidate';
+        return 'appbundle_voter';
     }
 }

@@ -47,7 +47,7 @@ class AdType extends AbstractType
                     'data-date-format' => 'dd-mm-yyyy']))
             ->add('endDate',      DateType::class, array('required' => false,'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
-                'label' => 'dashboard.employer.slot.endDate',
+                'label' => 'dashboard.proposer.slot.endDate',
 
                 'attr' => [
                     'class' => 'form-control input-inline datepicker',

@@ -1,0 +1,37 @@
+create_voter:
+    locales:
+        en: "/register"
+        fr: "/inscription"
+    defaults: { _controller: VoterBundle:Voter:create }
+edit_voter:
+    locales:
+        en: "/edit"
+        fr: "/editer"
+    defaults: { _controller: VoterBundle:Voter:edit }
+delete_voter:
+    locales:
+        en: "/delete"
+        fr: "/supprimer"
+    defaults: { _controller: VoterBundle:Voter:delete }
+show_voter:
+    locales:
+        en: "/{id}"
+        fr: "/{id}"
+    requirements:
+      id: \d+
+    defaults: { _controller: VoterBundle:Voter:show }
+dashboard_voter:
+    locales:
+        en: "/dashboard"
+        fr: "/tableau-de-bord"
+    defaults: { _controller: VoterBundle:Voter:dashboard }
+search_voter:
+    locales:
+        en: "/search"
+        fr: "/chercher"
+    defaults: { _controller: VoterBundle:Voter:search }
+erase_ununsed_cvs:
+    locales:
+        en: "/erase-unused-cvs"
+        fr: "/supprimer-cv-inutile"
+    defaults: { _controller: VoterBundle:Voter:eraseUnusedCvs }

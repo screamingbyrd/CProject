@@ -6,7 +6,7 @@ to: to
 homepage:
   title: Find the career you deserve
   subtitle: Your job search starts and ends with us
-  ourMission: Our mission is to empower locally implanted companies to find the perfect candidate for them when the time is right. We also work for the candidates to help them find and get their ideal job in Luxembourg. Our dedicated team of recruiting experts work everyday to offer the best customer service and match for both employers and candidates. Our brand new website offers a continued development for a better experience every day.
+  ourMission: Our mission is to empower locally implanted companies to find the perfect voter for them when the time is right. We also work for the voters to help them find and get their ideal job in Luxembourg. Our dedicated team of recruiting experts work everyday to offer the best customer service and match for both proposers and voters. Our brand new website offers a continued development for a better experience every day.
   category: Catégories
   ourPartners: Nos partenaire
 
@@ -15,8 +15,8 @@ searchPage:
 
 how:
   title: An explanation is always better
-  employers: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect candidate at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the candidates come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of candidates and make sure to get candidates that match your job posting, making it easier to choose the right candidate.
-  candidates: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect candidate at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the candidates come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of candidates and make sure to get candidates that match your job posting, making it easier to choose the right candidate.
+  proposers: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect voter at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the voters come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of voters and make sure to get voters that match your job posting, making it easier to choose the right voter.
+  voters: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect voter at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the voters come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of voters and make sure to get voters that match your job posting, making it easier to choose the right voter.
 
 
 header:
@@ -25,8 +25,8 @@ header:
   findjob: Find a job
   register: Register
   how: How It works
-  candidates:
-    title: Candidates
+  voters:
+    title: Voters
     findJob: Find a job
     companies: Companies
     submit: Submit your resume
@@ -35,14 +35,14 @@ header:
       alert: Mes alertes
       applied: Mes candidatures
       favorites: Mes favoris
-    register: Candidate
-  employers:
-    title: Employers
+    register: Voter
+  proposers:
+    title: Proposers
     post: Post a job
-    findCandidate: Find a candidate
+    findVoter: Find a voter
     pricing: Pricing
     dashboard: Dashborard
-    register: Employer
+    register: Proposer
   about:
     title: About us
     faq: FAQ
@@ -59,13 +59,13 @@ form:
   registration:
     title:
       title: Title
-      candidate: Register as a candidate
-      employer: Register as an employer
+      voter: Register as a voter
+      proposer: Register as an proposer
       create: Create your account
       edit: Edit your informations
     subTitle:
-      candidate: Your hunt for the perfect job position starts here!
-      employer: Your lookout for the perfect candidate starts now!
+      voter: Your hunt for the perfect job position starts here!
+      proposer: Your lookout for the perfect voter starts now!
     complete: Complet your profile
     completed: Profile completed
     already: Already have a profile?
@@ -83,12 +83,12 @@ form:
     socialMedia: Link social media
     description: Description
     license: Driving Licence(s)
-    success: You are now registered as employer !
-    edited: The employer has been modified !
-    editedCandidate: Your account has been modified !
+    success: You are now registered as proposer !
+    edited: The proposer has been modified !
+    editedVoter: Your account has been modified !
     error: Email already used, try again !
-    successEmployer: You successfully registered as an employer !
-    successCandidate: You successfully registered as a candidate !
+    successProposer: You successfully registered as an proposer !
+    successVoter: You successfully registered as a voter !
     error: E-mail adress already used !
     language: Languages
     exp0: -- Your experience --
@@ -173,13 +173,13 @@ form:
       keyword: Keywords
       location: Location
       search: Search
-      employerPH: Select a company
+      proposerPH: Select a company
       categoryPH: Select tag(s)
       empty: empty
 
 dashboard:
   title: Dashboard
-  employer:
+  proposer:
     slot:
       title: Slot
       use: Les slots vous permettent de mettre en ligne une offre de votre choix, modifiable a volonté, en ligne pendant un an.
@@ -203,7 +203,7 @@ dashboard:
     editProfile: Edit my profile
     watchProfile: Watch my profile
     return: Return to dashboard
-  candidate:
+  voter:
     list: A quick summary of which job posting you’ve applied to
     appliedThe: Applied the
     appliedOffers: My offers
@@ -215,7 +215,7 @@ dashboard:
   action: Action
   view: View
   applied: Applied
-  viewCandidate: View the list of candidates
+  viewVoter: View the list of voters
   not: Not activated
 
 slot:
@@ -268,7 +268,7 @@ offer:
   watchSimilar: Watch all similar offers
   experience: Experience
   startDate: Start date
-  candidatesList: Candidates who applied to this offer:
+  votersList: Voters who applied to this offer:
   link: Redirection link
   inSlot: In slot
 
@@ -295,22 +295,22 @@ offer:
     cv: CV
   applied:
     success: You applied to the offer %title% !
-    candidate: You applied to the offer
-    employer: A candidate applied to the offer:
+    voter: You applied to the offer
+    proposer: A voter applied to the offer:
   countView: Views
   countContact: Applications
 
-candidate:
+voter:
   delete:
     delete: Delete my account
     sure: Are you sure that you want to delete your account?
     deleted: Your profile has been deleted
   age: Age
   tag: Skills
-  about: About this candidate
+  about: About this voter
 
 
-employer:
+proposer:
   show:
     title: Presentation of the company
     lastOffers: Last offers
@@ -320,7 +320,7 @@ employer:
     tags: Main categories
     spontaenous:
       title: Spontaneous application
-      send: A candidate send you a spontaneous application
+      send: A voter send you a spontaneous application
       sent: You application has been sent.
   edit:
     complete: Complete your information
@@ -332,7 +332,7 @@ employer:
     forgotPassword: Forgot password
   credit:
     title: Credits
-    subTitle: Finding the perfect candidate can take some time but it is more important to have the right platform. Sometimes that is linked to how much you are willing to spend on you job posting. Our competitive packages offer you an affordable option for recruiting the perfect candidate at a lower cost!
+    subTitle: Finding the perfect voter can take some time but it is more important to have the right platform. Sometimes that is linked to how much you are willing to spend on you job posting. Our competitive packages offer you an affordable option for recruiting the perfect voter at a lower cost!
     have: You actually have %credit% credits!
     buy: Buy some credits
   addCollaborator:
@@ -363,7 +363,7 @@ featured:
   week: Week
   reserved: Booked
   empoyer:
-    title: Featured Employer
+    title: Featured Proposer
     modal: Etes vous sure de vouloir réserver cette semaine? Cela vous coutera %credit% crédits.
     reserve: Book
   offer:
@@ -375,9 +375,9 @@ email:
   sent: You message has been sent !
   send: Send
   application:
-    candidate:  You applied to this offer:
-    employer:
-      applied: A candidate applied to your offer:
+    voter:  You applied to this offer:
+    proposer:
+      applied: A voter applied to your offer:
       comment: Comment/ motivation letter:
       download: Download CV
       downloadCoverLetter: Download cover letter
@@ -413,7 +413,7 @@ contact:
     title: Contact us
     subTitle: The best way to reach us is to call us
     smallTitle: Contact
-    employer: Contact an advisor
+    proposer: Contact an advisor
   location: Our location
   openingHours: Opening hours:
   monday: Monday – Friday / 9am – 7pm (non-stop)
@@ -433,7 +433,7 @@ notification:
   mine: My notifications
   already: Notification already exist !
   tag: Tag
-  employer: Employer
+  proposer: Proposer
   if: If you  wish to stop receiving this notification click
   here: here
 
@@ -447,13 +447,13 @@ favorite:
 add: Add
 delete: Delete
 
-searchEmployer:
+searchProposer:
   title: Our very own directory of the best companies for hiring
   discover: Discover our very own directory of companies hiring in Luxembourg. You can explore here the companies registered with us, their size and their employee benefits. Start browsing now!
 
 about:
   let: Let us present ourselves
-  text1: Jobnow is a very young startup. Our founder, Jean-Charles Weiss has had some previous experience in the recruiting field and he has wanted to offer companies and candidates alike a better, cheaper and more modern approach to recruiting. So he created this platform, which designs and concept is unique in Luxembourg.
+  text1: Jobnow is a very young startup. Our founder, Jean-Charles Weiss has had some previous experience in the recruiting field and he has wanted to offer companies and voters alike a better, cheaper and more modern approach to recruiting. So he created this platform, which designs and concept is unique in Luxembourg.
   text2: The team is also composed of two very dedicated, even if a bit grouchy full-stack developers that are the fingers behind the website construction, design and execution.
   text3: Finally, our dedicated team of sales advisor are here to answer your questions and guide you through the process of acquiring credits for your job postings.
 
@@ -463,37 +463,37 @@ privacy:
 faq:
   kind: What kind of users are you?
   subTitle: An explanation is always better
-  employer:
-    intro: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect candidate at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the candidates come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of candidates and make sure to get candidates that match your job posting, making it easier to choose the right candidate.
+  proposer:
+    intro: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect voter at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the voters come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of voters and make sure to get voters that match your job posting, making it easier to choose the right voter.
     1:
       question: How & Why register?
       answer: Registering with us allows you to benefit from all the features that our platform offers. It is super easy to do and free! You simply need to click on register and fill out the information requested. You will then be able to edit your company’s profile and start adding any job opening you have.
     2:
       question: How does my dashboard work?
-      answer: You will find a dashboard thought and designed with your comfort in mind. You will have all the information you need regarding your favorite profiles, your job postings, your invoices and your remaining credits all at once. Simply click on one of the sections to discover what they hide and how they can help you get the perfect candidate.
+      answer: You will find a dashboard thought and designed with your comfort in mind. You will have all the information you need regarding your favorite profiles, your job postings, your invoices and your remaining credits all at once. Simply click on one of the sections to discover what they hide and how they can help you get the perfect voter.
     3:
       question: How to post an offer?
-      answer: Posting an offer is super easy! Simply click on “post an offer” under Employers in the menu bar and you will be guided to fill out the information regarding the open position. You will be able to preview your job posting before accepting its layout and content and publishing it.
+      answer: Posting an offer is super easy! Simply click on “post an offer” under Proposers in the menu bar and you will be guided to fill out the information regarding the open position. You will be able to preview your job posting before accepting its layout and content and publishing it.
     4:
       question: What are credits?
       answer: Each job posting is worth a credit so that you can keep track of your spendings easily. You can also use credits for many other features of our job platform such as featured jobs.
     5:
       question: How much are they worth?
-      answer: Once you have registered yourself as an employer, you’ll find a section detailing the pricing of credits. Our own experience has taught us that recruiting is expensive so we decided to make these credits affordable to you… and they come with bonuses!
+      answer: Once you have registered yourself as an proposer, you’ll find a section detailing the pricing of credits. Our own experience has taught us that recruiting is expensive so we decided to make these credits affordable to you… and they come with bonuses!
     6:
       question: What is a featured job?
-      answer: If you have a job posting you really want to highlight, you will be using the featured job option. This allows you to remain at the top of the search engine and thus be much more visible to potential candidates.
+      answer: If you have a job posting you really want to highlight, you will be using the featured job option. This allows you to remain at the top of the search engine and thus be much more visible to potential voters.
     7:
-      question: What is a featured employer?
-      answer: Want to promote your company and the many benefits you offer to your employees? That is why we created the featured employer. Your company will be prominently displayed on our home page to offer you the maximum visibility with our candidates. They will be able to browse your company history and description and see any openings you have.
+      question: What is a featured proposer?
+      answer: Want to promote your company and the many benefits you offer to your employees? That is why we created the featured proposer. Your company will be prominently displayed on our home page to offer you the maximum visibility with our voters. They will be able to browse your company history and description and see any openings you have.
     8:
       question: What are slots?
       answer: Slots are spaces you can “rent” for a whole year and where you can post any job opening you may have.
-  candidate:
-      intro: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect candidate at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the candidates come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of candidates and make sure to get candidates that match your job posting, making it easier to choose the right candidate.
+  voter:
+      intro: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect voter at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the voters come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of voters and make sure to get voters that match your job posting, making it easier to choose the right voter.
       1:
         question: How to create a profile?
-        answer: To create a candidate profile, you will need to register. It is super easy and will only take about a minute. You will be able to complete your profile with your past experiences and apply to jobs opening.
+        answer: To create a voter profile, you will need to register. It is super easy and will only take about a minute. You will be able to complete your profile with your past experiences and apply to jobs opening.
       2:
         question: How to apply to a job?
         answer: Now you are really here because you are looking for a new job, so here’s how to apply to one. Our “find a job” section will show you all the open positions we have. You can refine your search by using the search engine and its filters. Once you have found a job that fits you, you simply need to click on Apply, add your resume and a cover letter if you want. There you go! You have made the first step towards starting an exciting new journey!
@@ -502,13 +502,13 @@ faq:
         answer: Through mail via our platform or directly via your cv.
 
 redirect:
-  candidate: Please register as a candidate
-  employer: Please register as an employer
+  voter: Please register as a voter
+  proposer: Please register as an proposer
 
 price:
   credit: Credit
   credits: Credit(s)
-  find: Finding the perfect candidate can take some time but it is more important to have the right platform. Sometimes that is linked to how much you are willing to spend on your job posting. Our competitive packages offer you an affordable option for recruiting the perfect candidate at a lower cost!
+  find: Finding the perfect voter can take some time but it is more important to have the right platform. Sometimes that is linked to how much you are willing to spend on your job posting. Our competitive packages offer you an affordable option for recruiting the perfect voter at a lower cost!
   price: Price
   bills: Bills
   ourPackages: Our packages
@@ -546,15 +546,15 @@ bill:
 admin:
   title: Administrator
   dashboard:
-    employerList: Employers list
-    candidateList: Candidats list
+    proposerList: Proposers list
+    voterList: Candidats list
     adList: Ads list
     createAd: Post an ad
     stat: Statistics
     offerList: Offers list
     adminList: Admins list
     totalActiveOffers: Total active offers:
-    totalEmployers: Total Employers:
+    totalProposers: Total Proposers:
   adminList:
     addAdmin:  Add an admin
     enter: Type in existing email
@@ -573,8 +573,8 @@ admin:
   enterMail: Enter an email
   enterCompnay: Entrer a company name
   enterTitle: Entrer a title
-  sureCandidate: Are you sure that you want to delete that candidate ?
-  sureEmployer: Are you sure that you want to delete that employer ?
+  sureVoter: Are you sure that you want to delete that voter ?
+  sureProposer: Are you sure that you want to delete that proposer ?
   offerList:
     totalNonVerifiedOffer: Total activated unverified offers
     nonArchivedOffers: Offer not archived
@@ -589,8 +589,8 @@ admin:
     whyInvalid: Why does this offer is invalid ?
   log:
     nbrActive: Number active offer
-    nbrEmployer: Number employer
-    nbrCandidate: Number candidate
+    nbrProposer: Number proposer
+    nbrVoter: Number voter
     total: Total
     monthly: Monthly
     totalCredit: Number total credit

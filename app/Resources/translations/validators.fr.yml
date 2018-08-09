@@ -2,8 +2,8 @@ password:
   require: Le mot de passe doit contenir au moins 6 caractères, une majuscule, une minuscule et un nombre.
 
 
-candidate:
+voter:
   age: Age invalide !
 
 
-employer:
+proposer:

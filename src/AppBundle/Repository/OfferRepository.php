@@ -17,9 +17,9 @@ class OfferRepository extends \Doctrine\ORM\EntityRepository
         $query->andWhere('o.archived = 0 and (o.startDate > :date OR (o.creationDate > :date AND o.slot is not null))')
             ->setParameter('date', $notification->getDate());
 
-        if($notification->getTypeNotification() == 'employer'){
-            $query->andWhere('o.employer = :employer')
-            ->setParameter('employer', $notification->getElementId());
+        if($notification->getTypeNotification() == 'proposer'){
+            $query->andWhere('o.proposer = :proposer')
+            ->setParameter('proposer', $notification->getElementId());
         }elseif ($notification->getTypeNotification() == 'tag'){
             $query->andWhere(':tag MEMBER OF o.tag')
             ->setParameter('tag', $notification->getElementId());
@@ -33,8 +33,8 @@ class OfferRepository extends \Doctrine\ORM\EntityRepository
     public function getOfferTags($id)
     {
         $query = $this->createQueryBuilder('o')->select('t.name')->distinct();
-        $query->innerJoin('o.tag', 't')->andWhere('o.archived  = false and o.employer = :employer')
-            ->setParameter('employer', $id)
+        $query->innerJoin('o.tag', 't')->andWhere('o.archived  = false and o.proposer = :proposer')
+            ->setParameter('proposer', $id)
             ->orderBy('t.name', 'asc');
 
         $tags = $query->getQuery()->getResult();
@@ -52,22 +52,22 @@ class OfferRepository extends \Doctrine\ORM\EntityRepository
         return $offers;
     }
 
-    public function countOffersInSlot($employer)
+    public function countOffersInSlot($proposer)
     {
         $query = $this->createQueryBuilder('o');
-        $query->andWhere('o.employer = :employer and o.archived = 0 and o.slot is not null')
-            ->setParameter('employer', $employer);
+        $query->andWhere('o.proposer = :proposer and o.archived = 0 and o.slot is not null')
+            ->setParameter('proposer', $proposer);
 
         $offers = $query->getQuery()->getResult();
 
         return count($offers);
     }
 
-    public function countActiveOffer($employer)
+    public function countActiveOffer($proposer)
     {
         $query = $this->createQueryBuilder('o');
-        $query->andWhere('o.employer = :employer and o.archived = 0 and (o.slot is not null or (o.startDate <= CURRENT_TIMESTAMP() and o.endDate >= CURRENT_TIMESTAMP()))')
-            ->setParameter('employer', $employer);
+        $query->andWhere('o.proposer = :proposer and o.archived = 0 and (o.slot is not null or (o.startDate <= CURRENT_TIMESTAMP() and o.endDate >= CURRENT_TIMESTAMP()))')
+            ->setParameter('proposer', $proposer);
 
         $offers = $query->getQuery()->getResult();
 

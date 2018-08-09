@@ -6,37 +6,37 @@
 
 {% block body %}
     {%  if (app.user.roles is defined) and ('ROLE_ADMIN' in app.user.roles) %}
-        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.employer.return' | trans }}</a>
+        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
     {% endif %}
     <div class="container">
 
-        <h2>{{ 'admin.dashboard.candidateList' | trans }}</h2>
+        <h2>{{ 'admin.dashboard.voterList' | trans }}</h2>
 
-        <input type="text" id="myInput" onkeyup="showEmployer()" placeholder="{{ 'admin.enterMail'|trans }}" title="Type in a name" class="search-employer">
+        <input type="text" id="myInput" onkeyup="showProposer()" placeholder="{{ 'admin.enterMail'|trans }}" title="Type in a name" class="search-proposer">
 
         <table class="table table-bordered table-striped well">
             <thead>
                 <tr>
-                    <th>{{ 'dashboard.candidate.name' | trans }}</th>
+                    <th>{{ 'dashboard.voter.name' | trans }}</th>
                     <th>{{ 'form.registration.email' | trans }}</th>
                     <th>{{ 'dashboard.action' | trans }}</th>
                 </tr>
             </thead>
 
-            <tbody id="table-candidate">
-                {% for candidate in candidates %}
+            <tbody id="table-voter">
+                {% for voter in voters %}
                     <tr>
                         <td>
-                            <a href="{{ path('dashboard_candidate', { 'id': candidate.id }) }}">
-                                {{ candidate.user.firstName }} {{ candidate.user.lastName }}
+                            <a href="{{ path('dashboard_voter', { 'id': voter.id }) }}">
+                                {{ voter.user.firstName }} {{ voter.user.lastName }}
                             </a>
                         </td>
-                        <td class="candidate-mail">{{ candidate.user.email }}</td>
+                        <td class="voter-mail">{{ voter.user.email }}</td>
                         <td>
-                            <a href="{{ path('edit_candidate', { 'id': candidate.id }) }}">
-                                <button type="button" class="btn btn-primary">{{ 'dashboard.employer.editOffer' | trans }}</button>
+                            <a href="{{ path('edit_voter', { 'id': voter.id }) }}">
+                                <button type="button" class="btn btn-primary">{{ 'dashboard.proposer.editOffer' | trans }}</button>
                             </a>
-                            <button class="modal-open btn btn-danger" data-href="{{ path('delete_candidate', { 'id': candidate.id }) }}">
+                            <button class="modal-open btn btn-danger" data-href="{{ path('delete_voter', { 'id': voter.id }) }}">
                                 {{ 'delete' | trans }}
                             </button>
                         </td>
@@ -51,7 +51,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{ 'admin.sureCandidate'|trans }}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{ 'admin.sureVoter'|trans }}</h4>
                     </div>
                     <div class="modal-footer">
                         <a type="button" class="btn btn-default" id="modal-btn-yes">{{ 'yes'|trans }}</a>
@@ -61,17 +61,17 @@
             </div>
         </div>
         <script>
-            function showEmployer() {
+            function showProposer() {
                 let input, filter, ul, li, a, i;
                 input = document.getElementById("myInput");
                 filter = input.value.toUpperCase();
-                ul = document.getElementById("table-candidate");
+                ul = document.getElementById("table-voter");
                 a = ul.getElementsByTagName("tr");
                 for (i = 0; i < a.length; i++) {
                     a[i].style.display = "none";
                 }
                 for (i = 0; i < a.length; i++) {
-                    let h = a[i].getElementsByClassName("candidate-mail")[0];
+                    let h = a[i].getElementsByClassName("voter-mail")[0];
                     if (h.innerHTML.toUpperCase().indexOf(filter) > -1) {
                         a[i].style.display = "";
                     } else {

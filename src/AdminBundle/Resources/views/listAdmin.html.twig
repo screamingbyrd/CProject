@@ -6,7 +6,7 @@
 
 {% block body %}
     {%  if (app.user.roles is defined) and ('ROLE_ADMIN' in app.user.roles) %}
-        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.employer.return' | trans }}</a>
+        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
     {% endif %}
     <div class="container">
         <h2>{{ 'admin.adminList.addAdmin' | trans }}</h2>
@@ -23,28 +23,28 @@
 
         <h2>{{ 'admin.dashboard.adminList' | trans }}</h2>
 
-        <input type="text" id="myInput" onkeyup="showEmployer()" placeholder="Search for mail.." title="Type in a name" class="search-employer">
+        <input type="text" id="myInput" onkeyup="showProposer()" placeholder="Search for mail.." title="Type in a name" class="search-proposer">
 
         <table class="table table-bordered table-striped well">
             <thead>
             <tr>
-                <th>{{ 'dashboard.candidate.name' | trans }}</th>
+                <th>{{ 'dashboard.voter.name' | trans }}</th>
                 <th>{{ 'form.registration.email' | trans }}</th>
                 <th>{{ 'dashboard.action' | trans }}</th>
             </tr>
             </thead>
 
-            <tbody id="table-candidate">
+            <tbody id="table-voter">
             {% for admin in admins %}
                 <tr>
                     <td>
-                        <a href="{{ path('dashboard_employer', { 'id': admin.employer.id }) }}">
+                        <a href="{{ path('dashboard_proposer', { 'id': admin.proposer.id }) }}">
                             {{admin.firstName }} {{ admin.lastName }}
                         </a>
                     </td>
-                    <td class="candidate-mail">{{ admin.email }}</td>
+                    <td class="voter-mail">{{ admin.email }}</td>
                     <td>
-                        {#<a href="{{ path('edit_candidate', { 'id': candidate.id }) }}">#}
+                        {#<a href="{{ path('edit_voter', { 'id': voter.id }) }}">#}
                             {#<button type="button" class="btn btn-primary">Editer</button>#}
                         {#</a>#}
                         <button class="modal-open btn btn-danger" data-href="{{ path('remove_admin', { 'id': admin.id }) }}">
@@ -72,17 +72,17 @@
             </div>
         </div>
         <script>
-            function showEmployer() {
+            function showProposer() {
                 let input, filter, ul, li, a, i;
                 input = document.getElementById("myInput");
                 filter = input.value.toUpperCase();
-                ul = document.getElementById("table-candidate");
+                ul = document.getElementById("table-voter");
                 a = ul.getElementsByTagName("tr");
                 for (i = 0; i < a.length; i++) {
                     a[i].style.display = "none";
                 }
                 for (i = 0; i < a.length; i++) {
-                    let h = a[i].getElementsByClassName("candidate-mail")[0];
+                    let h = a[i].getElementsByClassName("voter-mail")[0];
                     if (h.innerHTML.toUpperCase().indexOf(filter) > -1) {
                         a[i].style.display = "";
                     } else {

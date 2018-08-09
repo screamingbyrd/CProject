@@ -45,27 +45,27 @@ class CreditController extends Controller
 
             }
             default: {
-                $creditEmployer = 0;
+                $creditProposer = 0;
                 $logsCredit = 0;
                 $user =$this->getUser();
                 if(isset($user)){
-                    $employer = $this->getUser()->getEmployer();
+                    $proposer = $this->getUser()->getProposer();
 
-                    if(isset($employer)){
-                        $creditEmployer = $employer->getCredit();
+                    if(isset($proposer)){
+                        $creditProposer = $proposer->getCredit();
 
                         $repository = $this
                             ->getDoctrine()
                             ->getManager()
                             ->getRepository('AppBundle:LogCredit')
                         ;
-                        $logsCredit = $repository->findBy(array('employer' => $employer));
+                        $logsCredit = $repository->findBy(array('proposer' => $proposer));
                     }
 
                 }
 
                 return $this->render('AppBundle:Credit:credit.html.twig', array(
-                    'credit' => $creditEmployer,
+                    'credit' => $creditProposer,
                     'logsCredit' => $logsCredit,
                     'creditService' => $creditInfo
                 ));
@@ -86,22 +86,22 @@ class CreditController extends Controller
         $session = $request->getSession();
 
         if(!((isset($user) and in_array('ROLE_EMPLOYER', $user->getRoles())) ||  (isset($user) and in_array('ROLE_ADMIN', $user->getRoles())))){
-            $translated = $this->get('translator')->trans('redirect.employer');
+            $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('create_employer');
+            return $this->redirectToRoute('create_proposer');
         }
 
-        $employer = $this->getUser()->getEmployer();
+        $proposer = $this->getUser()->getProposer();
 
-        $idEmployer = $request->get('id');
+        $idProposer = $request->get('id');
 
-        if(isset($idEmployer) && in_array('ROLE_ADMIN', $user->getRoles())){
+        if(isset($idProposer) && in_array('ROLE_ADMIN', $user->getRoles())){
             $repository = $this
                 ->getDoctrine()
                 ->getManager()
-                ->getRepository('AppBundle:Employer')
+                ->getRepository('AppBundle:Proposer')
             ;
-            $employer = $repository->findOneBy(array('id' => $idEmployer));
+            $proposer = $repository->findOneBy(array('id' => $idProposer));
         }
 
         $repository = $this
@@ -109,7 +109,7 @@ class CreditController extends Controller
             ->getManager()
             ->getRepository('AppBundle:LogCredit')
         ;
-        $logsCredit = $repository->findBy(array('employer' => $employer),array('date' => $sort));
+        $logsCredit = $repository->findBy(array('proposer' => $proposer),array('date' => $sort));
 
         $countResult = count($logsCredit);
 
@@ -122,7 +122,7 @@ class CreditController extends Controller
             'page' => $currentPage,
             'total' => $totalPage,
             'sort' => $sort,
-            'id' => $idEmployer
+            'id' => $idProposer
         ]);
 
     }
@@ -134,9 +134,9 @@ class CreditController extends Controller
         $session = $request->getSession();
 
         if(!(isset($user) and  in_array('ROLE_EMPLOYER', $user->getRoles()))){
-            $translated = $this->get('translator')->trans('redirect.employer');
+            $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('create_employer');
+            return $this->redirectToRoute('create_proposer');
         }
 
         $form = $this->get('form.factory')
@@ -146,7 +146,7 @@ class CreditController extends Controller
             ])
             ->add('name',      TextType::class, array(
                 'required' => true,
-                'label' => 'dashboard.candidate.name'
+                'label' => 'dashboard.voter.name'
             ))
             ->add('phone',      TextType::class, array(
                 'required' => true,
@@ -169,7 +169,7 @@ class CreditController extends Controller
 
                     $data = $form->getData();
 
-                    $this->get('app.client.stripe')->createPremiumCharge($this->getUser(), $data['token'] ,$price,$this->getUser()->getEmployer(),$nbrCredit);
+                    $this->get('app.client.stripe')->createPremiumCharge($this->getUser(), $data['token'] ,$price,$this->getUser()->getProposer(),$nbrCredit);
 
                     //Logging credit purchase in db
                     $logCredit = new LogCredit();
@@ -177,7 +177,7 @@ class CreditController extends Controller
 
                     $logCredit->setDate(new \DateTime());
                     $logCredit->setCredit($nbrCredit);
-                    $logCredit->setEmployer($this->getUser()->getEmployer());
+                    $logCredit->setProposer($this->getUser()->getProposer());
                     $logCredit->setPrice($price);
                     $logCredit->setName($data['name']);
                     $logCredit->setPhone($data['phone']);
@@ -221,10 +221,10 @@ class CreditController extends Controller
         ;
         $logsCredit = $repository->findOneBy(array('id' => $id));
 
-        if(!(isset($user) and  (in_array('ROLE_EMPLOYER', $user->getRoles()) and $logsCredit->getEmployer() == $user->getEmployer()) or in_array('ROLE_ADMIN', $user->getRoles()))){
-            $translated = $this->get('translator')->trans('redirect.employer');
+        if(!(isset($user) and  (in_array('ROLE_EMPLOYER', $user->getRoles()) and $logsCredit->getProposer() == $user->getProposer()) or in_array('ROLE_ADMIN', $user->getRoles()))){
+            $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('create_employer');
+            return $this->redirectToRoute('create_proposer');
         }
 
         $html2pdf = new Html2Pdf();

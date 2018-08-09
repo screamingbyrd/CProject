@@ -59,19 +59,19 @@ class SitemapController extends Controller
             $this->get('router')->generate('howitwork_page',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
 
-        //CandidateBundle routing
+        //VoterBundle routing
 
         $urls[] = ['loc' =>
-            $this->get('router')->generate('create_candidate',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
+            $this->get('router')->generate('create_voter',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
 
-        //EmployerBundle routing
+        //ProposerBundle routing
         $urls[] = ['loc' =>
-            $this->get('router')->generate('create_employer',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
+            $this->get('router')->generate('create_proposer',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
 
         $urls[] = ['loc' =>
-            $this->get('router')->generate('list_employer',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
+            $this->get('router')->generate('list_proposer',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
 
         $urls[] = ['loc' =>

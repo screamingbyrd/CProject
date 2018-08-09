@@ -22,15 +22,15 @@ class FavoriteController extends Controller
 
         $user = $this->getUser();
         if(!isset($user) || !in_array('ROLE_CANDIDATE', $user->getRoles())){
-            return $this->redirectToRoute('create_candidate');
+            return $this->redirectToRoute('create_voter');
         }
 
-        $candidateRepository = $this
+        $voterRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Candidate')
+            ->getRepository('AppBundle:Voter')
         ;
-        $candidate = $candidateRepository->findOneBy(array('user' => $user->getId()));
+        $voter = $voterRepository->findOneBy(array('user' => $user->getId()));
 
         $offerRepository = $this
             ->getDoctrine()
@@ -45,7 +45,7 @@ class FavoriteController extends Controller
             ->getRepository('AppBundle:Favorite')
         ;
         $favorite = $favoriteRepository->findOneBy(array(
-            'candidate' => $candidate,
+            'voter' => $voter,
             'offer' => $offer
         ));
 
@@ -61,7 +61,7 @@ class FavoriteController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $favorite->setCandidate($candidate);
+        $favorite->setVoter($voter);
         $favorite->setOffer($offer);
 
         $em->persist($favorite);
@@ -81,15 +81,15 @@ class FavoriteController extends Controller
         $user = $this->getUser();
 
         if(!isset($user) || !in_array('ROLE_CANDIDATE', $user->getRoles())){
-            return $this->redirectToRoute('create_candidate');
+            return $this->redirectToRoute('create_voter');
         }
 
-        $candidateRepository = $this
+        $voterRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Candidate')
+            ->getRepository('AppBundle:Voter')
         ;
-        $candidate = $candidateRepository->findOneBy(array('user' => $user->getId()));
+        $voter = $voterRepository->findOneBy(array('user' => $user->getId()));
 
         $favoriteRepository = $this
             ->getDoctrine()
@@ -98,8 +98,8 @@ class FavoriteController extends Controller
         ;
         $favorite = $favoriteRepository->findOneBy(array('id' => $favoriteId));
 
-        if(!isset($favorite) || $candidate != $favorite->getCandidate()){
-            return $this->redirectToRoute('create_candidate');
+        if(!isset($favorite) || $voter != $favorite->getVoter()){
+            return $this->redirectToRoute('create_voter');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -110,6 +110,6 @@ class FavoriteController extends Controller
 
         $session->getFlashBag()->add('info', $translated);
 
-        return $this->redirectToRoute('dashboard_candidate');
+        return $this->redirectToRoute('dashboard_voter');
     }
 }

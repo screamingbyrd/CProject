@@ -15,8 +15,8 @@ searchPage:
 
 how:
   title: An explanation is always better
-  employers: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect candidate at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the candidates come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of candidates and make sure to get candidates that match your job posting, making it easier to choose the right candidate.
-  candidates: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect candidate at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the candidates come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of candidates and make sure to get candidates that match your job posting, making it easier to choose the right candidate.
+  proposers: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect voter at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the voters come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of voters and make sure to get voters that match your job posting, making it easier to choose the right voter.
+  voters: Because we believe recruiting should be an easy task, we have made things as simple as possible for you! The website is designed to help you find the perfect voter at the ideal time. How does it work? Once you’ve created your account and you’ve posted your first ad about an open position for your company, you simply have to sit back, relax and let the voters come to you! So how do you find your perfect match? The job posting allows you to choose tags to refine your pool of voters and make sure to get voters that match your job posting, making it easier to choose the right voter.
 
 header:
   register: S'inscrire
@@ -24,7 +24,7 @@ header:
   findjob: Trouver un travail
   profile: Mon compte
   logout: Déconnexion
-  candidates:
+  voters:
     title: Candidats
     findJob: Trouver un travail
     companies: Entreprise
@@ -35,10 +35,10 @@ header:
       applied: Mes candidatures
       favorites: Mes favoris
     register: Candidat
-  employers:
+  proposers:
     title: Employeurs
     post: Poster une offre
-    findCandidate: Trouver un candidat
+    findVoter: Trouver un candidat
     pricing: Prix
     dashboard: Tableau de bord
     register: Employeur
@@ -58,13 +58,13 @@ form:
   registration:
     title:
       title: Titre
-      candidate: S'incrire en tant que candidat
-      employer: S'inscrire en tant qu'employeur
+      voter: S'incrire en tant que candidat
+      proposer: S'inscrire en tant qu'employeur
       create: Créer votre compte
       edit: Modifier vos informations
     subTitle:
-      candidate: Your hunt for the perfect job position starts here!
-      employer: Your lookout for the perfect candidate starts now!
+      voter: Your hunt for the perfect job position starts here!
+      proposer: Your lookout for the perfect voter starts now!
     complete: Completer votre profile
     completed: Profile complété
     already: Vous avez déjà un profil ?
@@ -84,10 +84,10 @@ form:
     license: Permis de conduire
     success: Vous êtes à présent inscrit en temps que recruteur !
     edited: L'employeur a bien été modifé !
-    editedCandidate: Votre compté à bien été modifié !
+    editedVoter: Votre compté à bien été modifié !
     error: Adresse e-mail déjà utilisé, veuillez réessayer !
-    successEmployer: Vous êtes à présent inscrit en temps que recruteur !
-    successCandidate: Vous êtes à présent inscrit en temps que candidat !
+    successProposer: Vous êtes à présent inscrit en temps que recruteur !
+    successVoter: Vous êtes à présent inscrit en temps que candidat !
     error: Adresse e-mail déjà utilisé, veuillez réessayer !
     language: Langues
     exp0: -- Indiquez votre expérience --
@@ -171,14 +171,14 @@ form:
       keyword: Mots clefs
       location: Lieu de travail
       search: Recherche
-      employerPH:  Société
+      proposerPH:  Société
       categoryPH: Catégorie
       empty: vide
 
 
 dashboard:
   title: Tableau de bord
-  employer:
+  proposer:
     slot:
       title: Slot
       use: Les slots vous permettent de mettre en ligne une offre de votre choix, modifiable a volonté, en ligne pendant un an.
@@ -202,7 +202,7 @@ dashboard:
     editProfile: Editer mon profile
     watchProfile: Voir mon profile
     return: Retour au table de bord
-  candidate:
+  voter:
     list: Un résumé rapide des postes auxquels vous avez postulé
     appliedThe: Postulé le
     appliedOffers: Mes offres
@@ -214,7 +214,7 @@ dashboard:
   action: Action
   view: Vue
   applied: Candidature
-  viewCandidate: Voir la liste des candidats
+  viewVoter: Voir la liste des candidats
   not: Non activée
 
 slot:
@@ -268,7 +268,7 @@ offer:
   watchSimilar: Voir toutes les offres similaires
   experience: Expérience
   startDate: Date de début
-  candidatesList: Candidats qui ont postulé à cette offre :
+  votersList: Candidats qui ont postulé à cette offre :
   link: Lien de redirection
   inSlot: Dans un slot
 
@@ -298,10 +298,10 @@ offer:
 
   applied:
     success: Vous avez bien postulé à l'offre %title% !
-    candidate: Vous avez postulez à l'offre
-    employer: Un candidat à postulé à cette offre :
+    voter: Vous avez postulez à l'offre
+    proposer: Un candidat à postulé à cette offre :
 
-candidate:
+voter:
   delete:
     delete: Supprimer mon compte
     sure: Etes vous sûre de vouloir supprimer votre compte ?
@@ -310,7 +310,7 @@ candidate:
   tag: Domaines de compétence
   about: A propos de ce candidat
 
-employer:
+proposer:
   show:
     title: Présentation de l'entreprise
     lastOffers: Dernières offres
@@ -332,7 +332,7 @@ employer:
     forgotPassword: Mot de passe oublié
   credit:
     title: Crédits
-    subTitle: Finding the perfect candidate can take some time but it is more important to have the right platform. Sometimes that is linked to how much you are willing to spend on you job posting. Our competitive packages offer you an affordable option for recruiting the perfect candidate at a lower cost!
+    subTitle: Finding the perfect voter can take some time but it is more important to have the right platform. Sometimes that is linked to how much you are willing to spend on you job posting. Our competitive packages offer you an affordable option for recruiting the perfect voter at a lower cost!
     have: Vous avez actuellement %credit% credits !
     buy: Acheter des crédits
   addCollaborator:
@@ -359,7 +359,7 @@ temporary: CDD
 featured:
   week: Semaine
   reserved: Réservé
-  employer:
+  proposer:
     title: Employeurs en avant
     modal: Etes vous sure de vouloir réserver cette semaine? Cela vous coutera %credit% crédits.
     reserve: Réserver
@@ -372,9 +372,9 @@ email:
   sent: Votre message à bien été envoyé !
   send: Envoyer
   application:
-    candidate:  Vous avez postulé à cette offre :
-    employer:
-      applied: A candidate applied to your offer:
+    voter:  Vous avez postulé à cette offre :
+    proposer:
+      applied: A voter applied to your offer:
       comment: Comment/ motivation letter:
       download: Télécharger le cv
       downloadCoverLetter: Télécharger la lettre de motivation
@@ -410,7 +410,7 @@ contact:
     title: Contactez nous
     subTitle: The best way to reach us is to call us
     smallTitle: Contact
-    employer: Contacter un conseiller
+    proposer: Contacter un conseiller
   location: Notre localisation
   openingHours: Heures d'ouverture:
   monday: Lundi – Vendredi / 9h – 19h (non-stop)
@@ -430,7 +430,7 @@ notification:
   mine: Mes notifications
   already: La notification existe déjà !
   tag: Categorie
-  employer: Employeur
+  proposer: Employeur
   search: Recherche
   if: Si vous ne souhaitez plus reçevoir cette alert email clickez
   here: ici
@@ -445,7 +445,7 @@ favorite:
 add: Ajouter
 delete: Supprimer
 
-searchEmployer:
+searchProposer:
   title: Notre propre annuaire des meilleures entreprises
   discover: Découvrez notre répertoire d'entreprises qui recrutent au Luxembourg. Vous pourrez explorer ici les entreprises qui offrent des postes chez nous mais aussi leur taille et les avantages qu’elles offrent à leur employés. Commencez à naviguer maintenant!
 
@@ -461,7 +461,7 @@ privacy:
 faq:
   kind: Quelle type d'utilisateur êtes vous ?
   subTitle: Une explication est toujours mieux
-  employer:
+  proposer:
     intro: Parce que nous croyons que le recrutement devrait être une tâche facile, nous avons rendu les choses aussi simples que possible pour vous! Le site est conçu pour vous aider à trouver le candidat idéal au moment idéal. Comment ça marche? Une fois que vous avez créé votre compte et que vous avez publié votre première annonce pour une position ouverte pour votre entreprise, vous devez simplement vous asseoir, vous détendre et laisser les candidats venir à vous! Alors, comment trouvez-vous votre match parfait? Lors de la création de l’annonce vous pourrez choisir des étiquettes (tags) pour affiner votre recherche et vous assurer d'obtenir des candidats correspondant à votre offre d'emploi, ce qui facilite le choix du bon candidat.
     1:
       question: Pourquoi et comment s'inscrire ?
@@ -487,7 +487,7 @@ faq:
     8:
       question: Que sont les slots?
       answer: Les slots sont des espaces que vous pouvez «louer» pour une année entière et où vous pouvez afficher toute offre d'emploi que vous pourriez avoir.
-  candidate:
+  voter:
       intro: Parce que nous croyons fermement que le recrutement devrait être une tâche facile, c’est pourquoi nous avons rendu les choses aussi simples que possible pour vous! Le site est conçu pour vous aider à trouver le candidat idéal au moment idéal. Comment ça marche? Une fois que vous avez créé votre compte et que vous avez publié votre première annonce sur une position ouverte pour votre entreprise, vous devez simplement vous asseoir, vous détendre et laisser les candidats venir à vous! Alors, comment trouvez-vous votre match parfait? L'offre d'emploi vous permet de choisir des étiquettes pour affiner votre bassin de candidats et vous assurer d'obtenir des candidats correspondant à votre offre d'emploi, ce qui facilite le choix du bon candidat.
       1:
         question: Comment créer un profil ?
@@ -500,8 +500,8 @@ faq:
         answer: Par mail en passant par notre plateforme ou directement par votre cv.
 
 redirect:
-  candidate: Veuillez vous inscrire en tant que candidat
-  employer: Veuillez vous inscrire en tant qu'employer
+  voter: Veuillez vous inscrire en tant que candidat
+  proposer: Veuillez vous inscrire en tant qu'proposer
 
 price:
   credit: Crédit
@@ -543,15 +543,15 @@ bill:
 admin:
   title: Administrateur
   dashboard:
-    employerList: Liste des employeurs
-    candidateList: Liste des candidats
+    proposerList: Liste des employeurs
+    voterList: Liste des candidats
     adList: Liste des pubs
     createAd: Créer une pub
     stat: Statistique
     offerList: Liste des offres
     adminList: Liste des admins
     totalActiveOffers: Total offre active:
-    totalEmployers: Total employeurs:
+    totalProposers: Total employeurs:
   adminList:
     addAdmin:  Ajouter un admin
     enter: Entrer l'email d'un user existant
@@ -570,8 +570,8 @@ admin:
   enterMail: Entrer un email
   enterCompnay: Entrer un nom de société
   enterTitle: Entrer un titre
-  sureCandidate: Etes vous sûre de vouloir effacer ce candidat ?
-  sureEmployer: Etes vous sûre de vouloir effacer cette employeur ?
+  sureVoter: Etes vous sûre de vouloir effacer ce candidat ?
+  sureProposer: Etes vous sûre de vouloir effacer cette employeur ?
   offerList:
     totalNonVerifiedOffer: Total offre active non vérifié
     nonArchivedOffers: Offres non archivées
@@ -586,8 +586,8 @@ admin:
     whyInvalid: Pourquoi cette offre n'est elle pas valide ?
   log:
     nbrActive: Nombre d'offre active
-    nbrEmployer: Nombre d'employeur
-    nbrCandidate: Nombre de candidat
+    nbrProposer: Nombre d'employeur
+    nbrVoter: Nombre de candidat
     total: Total
     monthly: Mensuel
     totalCredit: Nombre total de credit

@@ -51,7 +51,7 @@
                 overflow: hidden;
                 transition: max-height 0.2s ease-out;
             }
-            #tab-employer, #tab-candidate{
+            #tab-proposer, #tab-voter{
                 display: none;
             }
             .faq-choice{
@@ -71,29 +71,29 @@
         <div class="shadow-box faq-choice">
             {#<div class="choose-faq">{{('faq.kind')|trans}}</div>#}
             <div>
-                <button onclick="showTab('tab-candidate')" class="jobnow-button faq-button"><i class="fas fa-search"></i>{{ 'header.candidates.register'|trans }}</button>
-                <button onclick="showTab('tab-employer')" class="jobnow-button faq-button"><i class="fas fa-clipboard"></i>{{ 'header.employers.register'|trans }}</button>
+                <button onclick="showTab('tab-voter')" class="jobnow-button faq-button"><i class="fas fa-search"></i>{{ 'header.voters.register'|trans }}</button>
+                <button onclick="showTab('tab-proposer')" class="jobnow-button faq-button"><i class="fas fa-clipboard"></i>{{ 'header.proposers.register'|trans }}</button>
             </div>
 
         </div>
 
-        <div id="tab-employer">
-            <div class="shadow-box">{{('faq.employer.intro')|trans}}</div>
+        <div id="tab-proposer">
+            <div class="shadow-box">{{('faq.proposer.intro')|trans}}</div>
             {% for i in range(1,8) %}
                 <p></p>
-                <button class="accordion">{{('faq.employer.'~i~'.question')|trans}}</button>
+                <button class="accordion">{{('faq.proposer.'~i~'.question')|trans}}</button>
                 <div class="panel">
-                    <p>{{('faq.employer.'~i~'.answer')|trans}}</p>
+                    <p>{{('faq.proposer.'~i~'.answer')|trans}}</p>
                 </div>
             {% endfor %}
         </div>
-        <div id="tab-candidate">
-            <div class="shadow-box">{{('faq.candidate.intro')|trans}}</div>
+        <div id="tab-voter">
+            <div class="shadow-box">{{('faq.voter.intro')|trans}}</div>
             {% for i in range(1,3) %}
                 <p></p>
-                <button class="accordion">{{('faq.candidate.'~i~'.question')|trans}}</button>
+                <button class="accordion">{{('faq.voter.'~i~'.question')|trans}}</button>
                 <div class="panel">
-                    <p>{{('faq.candidate.'~i~'.answer')|trans}}</p>
+                    <p>{{('faq.voter.'~i~'.answer')|trans}}</p>
                 </div>
             {% endfor %}
         </div>
@@ -102,7 +102,7 @@
         <script>
             function showTab(id) {
                 let tab = $('#'+id),
-                    otherId = (id == 'tab-employer'?'tab-candidate':'tab-employer'),
+                    otherId = (id == 'tab-proposer'?'tab-voter':'tab-proposer'),
                     otherTab = $('#'+otherId);
                 if(tab.is(":visible")){
                     tab.hide();

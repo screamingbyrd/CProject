@@ -57,8 +57,8 @@
         </div>
 
         <div class="content-mail">
-            <h3>{{ 'email.application.candidate'|trans }}</h3>
-            <div><a href="{{ path('show_offer', {'id':offer.id,'url':offer.offerUrl}) }}">{{ offer.title }}</a> - <a href="{{ path('show_employer', {'id':offer.employer.id}) }}">{{ offer.employer.name }}</a></div>
+            <h3>{{ 'email.application.voter'|trans }}</h3>
+            <div><a href="{{ path('show_offer', {'id':offer.id,'url':offer.offerUrl}) }}">{{ offer.title }}</a> - <a href="{{ path('show_proposer', {'id':offer.proposer.id}) }}">{{ offer.proposer.name }}</a></div>
         </div>
         <div class="footer-mail">
             <div class="social-netwok-container">

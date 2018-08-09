@@ -1,0 +1,4 @@
+services:
+#    voter.example:
+#        class: VoterBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

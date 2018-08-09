@@ -7,7 +7,7 @@
 {% block body %}
 
     {%  if (app.user.roles is defined) and ('ROLE_ADMIN' in app.user.roles) %}
-        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.employer.return' | trans }}</a>
+        <a href="{{ path('dashboard_admin') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
     {% endif %}
     <div class="col-md-1 select-year">
         <select id="log-year" class="col-md-1 col-md-offset-3 form-control">
@@ -18,20 +18,20 @@
     <div class="container jobnow-container" style="text-align: center">
 
         <div class="navbar-dashboard">
-            <ul class="nav nav-tabs nav-candidate navbar-dashboard">
+            <ul class="nav nav-tabs nav-voter navbar-dashboard">
                 <li class="active">
-                    <a class="tab-log" data-target="#applied" data-toggle="tab" data-id="offer">{{ 'dashboard.employer.slot.offer'|trans }}</a>
+                    <a class="tab-log" data-target="#applied" data-toggle="tab" data-id="offer">{{ 'dashboard.proposer.slot.offer'|trans }}</a>
                 </li>
-                <li><a class="tab-log" data-target="#alerts" data-toggle="tab" data-id="employer">{{ 'notification.employer'|trans }}</a>
+                <li><a class="tab-log" data-target="#alerts" data-toggle="tab" data-id="proposer">{{ 'notification.proposer'|trans }}</a>
                 </li>
-                <li><a class="tab-log" data-target="#favorites" data-toggle="tab" data-id="candidate">{{ 'header.candidates.register'|trans }}</a>
+                <li><a class="tab-log" data-target="#favorites" data-toggle="tab" data-id="voter">{{ 'header.voters.register'|trans }}</a>
                 </li>
                 <li><a class="tab-log" data-target="#credit" data-toggle="tab" data-id="credit">{{ 'price.credit'|trans }}</a>
                 </li>
             </ul>
         </div>
         <div class="container jobnow-container">
-            <div class="tab-content candidate-content">
+            <div class="tab-content voter-content">
                 <div class="tab-pane active fade in" id="applied">
                     <div class="shadow-box">
                         <h2>{{ 'admin.log.nbrActive'|trans }}</h2>
@@ -42,23 +42,23 @@
                 </div>
                 <div class="tab-pane active fade" id="alerts">
                     <div class="shadow-box">
-                        <h2>{{ 'admin.log.nbrEmployer'|trans }}</h2>
-                        <div class="ct-chart ct-employer ct-perfect-fourth" style="height: 500px;"></div>
+                        <h2>{{ 'admin.log.nbrProposer'|trans }}</h2>
+                        <div class="ct-chart ct-proposer ct-perfect-fourth" style="height: 500px;"></div>
                         <div class="point-value"></div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="favorites">
                     <div class="shadow-box">
-                        <h2>{{ 'admin.log.nbrCandidate'|trans }}</h2>
-                        <div class="ct-chart ct-candidate ct-perfect-fourth" style="height: 500px;"></div>
+                        <h2>{{ 'admin.log.nbrVoter'|trans }}</h2>
+                        <div class="ct-chart ct-voter ct-perfect-fourth" style="height: 500px;"></div>
                         <div class="point-value"></div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="credit">
                     <div class="shadow-box">
-                        <div class="tab-content candidate-content">
+                        <div class="tab-content voter-content">
                             <div class="navbar-dashboard">
-                                <ul class="nav nav-tabs nav-candidate navbar-dashboard">
+                                <ul class="nav nav-tabs nav-voter navbar-dashboard">
                                     <li class="active">
                                         <a class="tab-log" data-target="#total" data-toggle="tab" data-id="total">{{ 'admin.log.total'|trans }}</a>
                                     </li>
@@ -140,14 +140,14 @@
                             }
                         });}, 500);
                     break;
-                case 'employer':
+                case 'proposer':
                     setTimeout(function(){  var data = {
                         labels: ['1', '2', '3', '4', '5','6', '7', '8', '9', '10', '11', '12'],
                         series: [
-                            {{ activeEmployerLog |json_encode|raw}}
+                            {{ activeProposerLog |json_encode|raw}}
                         ]
                     };
-                        let chart = new Chartist.Line('.ct-employer', data, options);
+                        let chart = new Chartist.Line('.ct-proposer', data, options);
                         let addedEvents = false;
                         chart.on('draw', function() {
                             if (!addedEvents) {
@@ -158,14 +158,14 @@
                         });
                         }, 500);
                     break;
-                case 'candidate':
+                case 'voter':
                     setTimeout(function(){  var data = {
                         labels: ['1', '2', '3', '4', '5','6', '7', '8', '9', '10', '11', '12'],
                         series: [
-                            {{ activeCandidateLog |json_encode|raw}}
+                            {{ activeVoterLog |json_encode|raw}}
                         ]
                     };
-                        let chart = new Chartist.Line('.ct-candidate', data, options);
+                        let chart = new Chartist.Line('.ct-voter', data, options);
                         let addedEvents = false;
                         chart.on('draw', function() {
                             if (!addedEvents) {

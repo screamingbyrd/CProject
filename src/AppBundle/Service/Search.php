@@ -34,7 +34,7 @@ class Search
             $fieldQuery->setFieldQuery('location', $searchParam['keywords']);
             $keywordBool->addShould($fieldQuery);
             $fieldQuery = new \Elastica\Query\Match();
-            $fieldQuery->setFieldQuery('employer.name', $searchParam['keywords']);
+            $fieldQuery->setFieldQuery('proposer.name', $searchParam['keywords']);
             $keywordBool->addShould($fieldQuery);
             $boolQuery->addMust($keywordBool);
         }
@@ -45,9 +45,9 @@ class Search
             $boolQuery->addMust($fieldQuery);
         }
 
-        if($searchParam['employer'] != '' and $searchParam['employer'] != (string)0){
+        if($searchParam['proposer'] != '' and $searchParam['proposer'] != (string)0){
             $fieldQuery = new \Elastica\Query\Match();
-            $fieldQuery->setFieldQuery('employer.name', $searchParam['employer']);
+            $fieldQuery->setFieldQuery('proposer.name', $searchParam['proposer']);
             $boolQuery->addMust($fieldQuery);
         }
 

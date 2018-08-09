@@ -54,14 +54,14 @@
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle c" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"><i class="fas fa-search"></i>{{ 'header.candidates.title'|trans }}<span class="caret"></span></a>
+                       aria-expanded="false"><i class="fas fa-search"></i>{{ 'header.voters.title'|trans }}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ path('search_page_offer') }}"><i class="fas fa-search-plus"></i>{{ 'header.candidates.findJob'|trans }}</a></li>
-                        <li><a href="{{ path('list_employer') }}"><i class="fas fa-building"></i>{{ 'header.candidates.companies'|trans }}</a></li>
+                        <li><a href="{{ path('search_page_offer') }}"><i class="fas fa-search-plus"></i>{{ 'header.voters.findJob'|trans }}</a></li>
+                        <li><a href="{{ path('list_proposer') }}"><i class="fas fa-building"></i>{{ 'header.voters.companies'|trans }}</a></li>
                         {%  if (app.user.roles is defined) and ('ROLE_CANDIDATE' in app.user.roles) %}
-                            <li><a href="{{ path('dashboard_candidate') }}#applied"><i class="fas fa-clipboard-list"></i>{{ 'header.candidates.dashboard.applied'|trans }}</a></li>
-                            <li><a href="{{ path('dashboard_candidate') }}#alerts"><i class="fas fa-flag"></i>{{ 'header.candidates.dashboard.alert'|trans }}</a></li>
-                            <li><a href="{{ path('dashboard_candidate') }}#favorites"><i class="fas fa-star"></i>{{ 'header.candidates.dashboard.favorites'|trans }}</a></li>
+                            <li><a href="{{ path('dashboard_voter') }}#applied"><i class="fas fa-clipboard-list"></i>{{ 'header.voters.dashboard.applied'|trans }}</a></li>
+                            <li><a href="{{ path('dashboard_voter') }}#alerts"><i class="fas fa-flag"></i>{{ 'header.voters.dashboard.alert'|trans }}</a></li>
+                            <li><a href="{{ path('dashboard_voter') }}#favorites"><i class="fas fa-star"></i>{{ 'header.voters.dashboard.favorites'|trans }}</a></li>
                         {% endif %}
                     </ul>
                 </li>
@@ -69,15 +69,15 @@
                 {%  if (app.user.roles is not defined) or (app.user.roles is defined and 'ROLE_CANDIDATE' not in app.user.roles) %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false"><i class="fas fa-clipboard"></i>{{ 'header.employers.title'|trans }}<span class="caret"></span></a>
+                           aria-expanded="false"><i class="fas fa-clipboard"></i>{{ 'header.proposers.title'|trans }}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('post_offer') }}"><i class="fas fa-edit"></i>{{ 'header.employers.post'|trans }}</a></li>
-                            {#<li><a href="{{ path('search_candidate') }}">{{ 'header.employers.findCandidate'|trans }}</a></li>#}
-                            <li><a href="{{ path('jobnow_credit') }}"><img class="logo-credit" src="{{asset('images/credit.svg')}}"> {{ 'header.employers.pricing'|trans }}</a></li>
+                            <li><a href="{{ path('post_offer') }}"><i class="fas fa-edit"></i>{{ 'header.proposers.post'|trans }}</a></li>
+                            {#<li><a href="{{ path('search_voter') }}">{{ 'header.proposers.findVoter'|trans }}</a></li>#}
+                            <li><a href="{{ path('jobnow_credit') }}"><img class="logo-credit" src="{{asset('images/credit.svg')}}"> {{ 'header.proposers.pricing'|trans }}</a></li>
                             {%  if (app.user.roles is defined) and ('ROLE_EMPLOYER' in app.user.roles) %}
-                            <li><a href="{{ path('dashboard_employer') }}"><i class="fas fa-th-large"></i>{{ 'header.employers.dashboard'|trans }}</a></li>
+                            <li><a href="{{ path('dashboard_proposer') }}"><i class="fas fa-th-large"></i>{{ 'header.proposers.dashboard'|trans }}</a></li>
                             {% endif %}
-                            <li><a href="{{ path('contact_us_page') }}"><i class="fas fa-headphones"></i>{{ 'contact.us.employer'|trans }}</a></li>
+                            <li><a href="{{ path('contact_us_page') }}"><i class="fas fa-headphones"></i>{{ 'contact.us.proposer'|trans }}</a></li>
                         </ul>
                     </li>
                 {% endif %}
@@ -87,10 +87,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false"><i class="fas fa-cogs"></i>{{ 'admin.title'|trans }}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('dashboard_admin') }}">{{ 'header.employers.dashboard'|trans }}</a></li>
-                            <li><a href="{{ path('list_offer_admin') }}">{{ 'dashboard.employer.slot.offer'|trans }}</a></li>
-                            <li><a href="{{ path('list_employer_admin') }}">{{ 'header.employers.title'|trans }}</a></li>
-                            <li><a href="{{ path('list_candidate_admin') }}">{{ 'header.candidates.title'|trans }}</a></li>
+                            <li><a href="{{ path('dashboard_admin') }}">{{ 'header.proposers.dashboard'|trans }}</a></li>
+                            <li><a href="{{ path('list_offer_admin') }}">{{ 'dashboard.proposer.slot.offer'|trans }}</a></li>
+                            <li><a href="{{ path('list_proposer_admin') }}">{{ 'header.proposers.title'|trans }}</a></li>
+                            <li><a href="{{ path('list_voter_admin') }}">{{ 'header.voters.title'|trans }}</a></li>
                             <li><a href="{{ path('list_ad_admin',{'archived':0}) }}">{{ 'admin.dashboard.adList'|trans }}</a></li>
                         </ul>
                     </li>
@@ -103,7 +103,7 @@
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
                     {%  if (app.user.roles is defined) and ('ROLE_EMPLOYER' in app.user.roles) %}
-                        <li class="navbar-brand-header header-text"><div class="credit-total"><a href="{{ path('jobnow_credit') }}"><img class="logo-credit" src="{{asset('images/credit.svg')}}"> {{ app.user.employer.credit  }} </a></div></li>
+                        <li class="navbar-brand-header header-text"><div class="credit-total"><a href="{{ path('jobnow_credit') }}"><img class="logo-credit" src="{{asset('images/credit.svg')}}"> {{ app.user.proposer.credit  }} </a></div></li>
                     {% endif %}
 
                     <li class="dropdown">
@@ -111,9 +111,9 @@
                            aria-expanded="false">{{ app.user.username }}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{%  if (app.user.roles is defined) and ('ROLE_CANDIDATE' in app.user.roles) %}
-                                            {{ path('edit_candidate') }}
+                                            {{ path('edit_voter') }}
                                         {% elseif 'ROLE_EMPLOYER' in app.user.roles %}
-                                            {{ path('edit_employer') }}
+                                            {{ path('edit_proposer') }}
                                         {% else %}
                                             {{ path('fos_user_profile_edit') }}
                                         {% endif %}">
@@ -128,8 +128,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false"><i class="fas fa-user-plus"></i>{{ 'header.register'|trans }}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('create_candidate') }}"><i class="fas fa-search"></i>{{ 'header.candidates.register'|trans }}</a></li>
-                            <li><a href="{{ path('create_employer') }}"><i class="fas fa-clipboard"></i>{{ 'header.employers.register'|trans }}</a></li>
+                            <li><a href="{{ path('create_voter') }}"><i class="fas fa-search"></i>{{ 'header.voters.register'|trans }}</a></li>
+                            <li><a href="{{ path('create_proposer') }}"><i class="fas fa-clipboard"></i>{{ 'header.proposers.register'|trans }}</a></li>
                         </ul>
                     </li>
 

@@ -22,24 +22,22 @@ class Offer
     private $id;
 
     /**
-     * @var \DateTime
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Proposer", cascade={"persist"})
      *
-     * @ORM\Column(name="startDate", type="datetime")
      */
-    private $startDate;
+    private $proposer;
 
     /**
-     * @var \DateTime
      *
-     * @ORM\Column(name="endDate", type="datetime")
+     * @ORM\Column(name="fromPrice", type="text", nullable=true)
      */
-    private $endDate;
+    private $fromPrice;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employer", cascade={"persist"})
      *
+     * @ORM\Column(name="toPrice", type="text", nullable=true)
      */
-    private $employer;
+    private $toPrice;
 
     /**
      * @var string
@@ -55,68 +53,12 @@ class Offer
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
-     */
-    private $image;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="countView", type="integer")
-     */
-    private $countView;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="countContact", type="integer")
-     */
-    private $countContact;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="wage", type="string", nullable=true)
-     */
-    private $wage;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="experience", type="string", length=255, nullable=true)
-     */
-    private $experience;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="benefits", type="array", nullable=true)
-     */
-    private $benefits;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="diploma", type="string", length=255, nullable=true)
-     */
-    private $diploma;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ContractType")
-     */
-    private $contractType;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", cascade={"persist"})
-     */
-    private $tag;
 
     /**
      * @var \datetime
@@ -126,13 +68,6 @@ class Offer
     private $creationDate;
 
     /**
-     * @var \datetime
-     *
-     * @ORM\Column(name="updateDate", type="datetime", nullable=true)
-     */
-    private $updateDate;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="archived", type="boolean")
@@ -140,35 +75,7 @@ class Offer
      */
     protected $archived = 0;
 
-    /**
-     * @var \datetime
-     *
-     * @ORM\Column(name="availableDate", type="datetime", nullable=true)
-     */
-    private $availableDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Slot")
-     * @ORM\JoinColumn(name="slot_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     *
-     */
-    private $slot;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="language", type="array", nullable=true)
-     */
-    private $language;
-
     private $offerUrl;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="link", type="string", nullable=true)
-     */
-    private $link;
 
     /**
      * @var boolean
@@ -193,303 +100,13 @@ class Offer
         return $this->id;
     }
 
-    /**
-     * Set startDate
-     *
-     * @param \DateTime $startDate
-     *
-     * @return Offer
-     */
-    public function setStartDate($startDate)
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
-    /**
-     * Get startDate
-     *
-     * @return \DateTime
-     */
-    public function getStartDate()
-    {
-        return $this->startDate;
-    }
-
-    /**
-     * Set endDate
-     *
-     * @param \DateTime $endDate
-     *
-     * @return Offer
-     */
-    public function setEndDate($endDate)
-    {
-        $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    /**
-     * Get endDate
-     *
-     * @return \DateTime
-     */
-    public function getEndDate()
-    {
-        return $this->endDate;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Offer
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set image
-     *
-     * @param integer $image
-     *
-     * @return Offer
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return int
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Offer
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set countView
-     *
-     * @param integer $countView
-     *
-     * @return Offer
-     */
-    public function setCountView($countView)
-    {
-        $this->countView = $countView;
-
-        return $this;
-    }
-
-    /**
-     * Get countView
-     *
-     * @return int
-     */
-    public function getCountView()
-    {
-        return $this->countView;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCountContact()
-    {
-        return $this->countContact;
-    }
-
-    /**
-     * @param int $countContact
-     * @return Offer
-     */
-    public function setCountContact($countContact)
-    {
-        $this->countContact = $countContact;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getWage()
-    {
-        return $this->wage;
-    }
-
-    /**
-     * @param int $wage
-     * @return Offer
-     */
-    public function setWage($wage)
-    {
-        $this->wage = $wage;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExperience()
-    {
-        return $this->experience;
-    }
-
-    /**
-     * @param string $experience
-     * @return Offer
-     */
-    public function setExperience($experience)
-    {
-        $this->experience = $experience;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBenefits()
-    {
-        return $this->benefits;
-    }
-
-    /**
-     * @param string $benefits
-     * @return Offer
-     */
-    public function setBenefits($benefits)
-    {
-        $this->benefits = $benefits;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDiploma()
-    {
-        return $this->diploma;
-    }
-
-    /**
-     * @param string $diploma
-     * @return Offer
-     */
-    public function setDiploma($diploma)
-    {
-        $this->diploma = $diploma;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getContractType()
-    {
-        return $this->contractType;
-    }
-
-    /**
-     * @param int $contractType
-     * @return Offer
-     */
-    public function setContractType($contractType)
-    {
-        $this->contractType = $contractType;
-        return $this;
-    }
-
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
         $this->creationDate =  new \Datetime();
-        $this->updateDate = new \DateTime();
-
-
-    }
-
-    /**
-     * Add tag
-     *
-     * @param \AppBundle\Entity\Tag $tag
-     *
-     * @return Offer
-     */
-    public function addTag(\AppBundle\Entity\Tag $tag)
-    {
-        $this->tag[] = $tag;
-
-        return $this;
-    }
-
-    /**
-     * Remove tag
-     *
-     * @param \AppBundle\Entity\Tag $tag
-     */
-    public function removeTag(\AppBundle\Entity\Tag $tag)
-    {
-        $this->tag->removeElement($tag);
-    }
-
-    /**
-     * Get tag
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTag()
-    {
-        return $this->tag;
     }
 
     /**
@@ -547,15 +164,15 @@ class Offer
     }
 
     /**
-     * Set employer
+     * Set proposer
      *
-     * @param \AppBundle\Entity\Employer $employer
+     * @param \AppBundle\Entity\Proposer $proposer
      *
      * @return Offer
      */
-    public function setEmployer(\AppBundle\Entity\Employer $employer = null)
+    public function setProposer(\AppBundle\Entity\Proposer $proposer = null)
     {
-        $this->employer = $employer;
+        $this->proposer = $proposer;
 
         return $this;
     }
@@ -563,86 +180,13 @@ class Offer
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\Employer
+     * @return \AppBundle\Entity\Proposer
      */
-    public function getEmployer()
+    public function getProposer()
     {
-        return $this->employer;
+        return $this->proposer;
     }
 
-    /**
-     * @return \datetime
-     */
-    public function getUpdateDate()
-    {
-        return $this->updateDate;
-    }
-
-    /**
-     * @param \datetime $updateDate
-     * @return Offer
-     */
-    public function setUpdateDate($updateDate)
-    {
-        $this->updateDate = $updateDate;
-        return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isActive()
-    {
-        $now = new \datetime();
-        return (($now >= $this->startDate) && ($now <= $this->endDate) || (isset($this->slot) && $now >= $this->creationDate));
-    }
-
-
-    /**
-     * Get archived
-     *
-     * @return boolean
-     */
-    public function getArchived()
-    {
-        return $this->archived;
-    }
-
-    /**
-     * @return \datetime
-     */
-    public function getAvailableDate()
-    {
-        return $this->availableDate;
-    }
-
-    /**
-     * @param \datetime $availableDate
-     * @return Offer
-     */
-    public function setAvailableDate($availableDate)
-    {
-        $this->availableDate = $availableDate;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSlot()
-    {
-        return $this->slot;
-    }
-
-    /**
-     * @param mixed $slot
-     * @return Offer
-     */
-    public function setSlot($slot)
-    {
-        $this->slot = $slot;
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -662,41 +206,6 @@ class Offer
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
-    /**
-     * @param array $language
-     * @return Offer
-     */
-    public function setLanguage($language)
-    {
-        $this->language = $language;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLink()
-    {
-        return $this->link;
-    }
-
-    /**
-     * @param string $link
-     * @return Offer
-     */
-    public function setLink($link)
-    {
-        $this->link = $link;
-        return $this;
-    }
 
     /**
      * @return bool
@@ -713,6 +222,78 @@ class Offer
     public function setValidated($validated)
     {
         $this->validated = $validated;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     * @return Offer
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     * @return Offer
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFromPrice()
+    {
+        return $this->fromPrice;
+    }
+
+    /**
+     * @param mixed $fromPrice
+     * @return Offer
+     */
+    public function setFromPrice($fromPrice)
+    {
+        $this->fromPrice = $fromPrice;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getToPrice()
+    {
+        return $this->toPrice;
+    }
+
+    /**
+     * @param mixed $toPrice
+     * @return Offer
+     */
+    public function setToPrice($toPrice)
+    {
+        $this->toPrice = $toPrice;
         return $this;
     }
 

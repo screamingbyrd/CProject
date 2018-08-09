@@ -19,12 +19,12 @@ class AdminController extends Controller
             return $this->redirectToRoute('jobnow_home');
         }
 
-        $employerRepository = $this
+        $proposerRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Employer')
+            ->getRepository('AppBundle:Proposer')
         ;
-        $employerCount = $employerRepository->countTotalDifferentEmployer();
+        $proposerCount = $proposerRepository->countTotalDifferentProposer();
 
         $offerRepository = $this
             ->getDoctrine()
@@ -35,11 +35,11 @@ class AdminController extends Controller
         $totalActiveOffer = $offerRepository->countTotalActiveOffer();
         return $this->render('AdminBundle::index.html.twig',array(
             'totalActiveOffer' => $totalActiveOffer,
-            'countEmployer' => $employerCount
+            'countProposer' => $proposerCount
         ));
     }
 
-    public function listEmployerAction(){
+    public function listProposerAction(){
 
         $user = $this->getUser();
 
@@ -54,21 +54,21 @@ class AdminController extends Controller
         ;
         $users = $repository->findAll();
 
-        $employers = [];
+        $proposers = [];
         foreach($users as $user)
         {
-            if($user->getEmployer() != NULL)
+            if($user->getProposer() != NULL)
             {
-                $employers[] = $user;
+                $proposers[] = $user;
             }
         }
 
-        return $this->render('AdminBundle::listEmployer.html.twig', array(
-            'employers' => $employers,
+        return $this->render('AdminBundle::listProposer.html.twig', array(
+            'proposers' => $proposers,
         ));
     }
 
-    public function listCandidateAction(){
+    public function listVoterAction(){
 
         $user = $this->getUser();
 
@@ -76,15 +76,15 @@ class AdminController extends Controller
             return $this->redirectToRoute('jobnow_home');
         }
 
-        $candidateRepository = $this
+        $voterRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Candidate')
+            ->getRepository('AppBundle:Voter')
         ;
-        $candidates = $candidateRepository->findAll();
+        $voters = $voterRepository->findAll();
 
-        return $this->render('AdminBundle::listCandidate.html.twig', array(
-            'candidates' => $candidates
+        return $this->render('AdminBundle::listVoter.html.twig', array(
+            'voters' => $voters
         ));
     }
 
@@ -231,11 +231,11 @@ class AdminController extends Controller
             ->getManager()
             ->getRepository('AppBundle:User')
         ;
-        $users = $userRepository->findBy(array('employer' => $offer->getEmployer()));
+        $users = $userRepository->findBy(array('proposer' => $offer->getProposer()));
         $arrayEmail = array();
 
-        foreach ($users as $employerUser){
-            $arrayEmail[] = $employerUser->getEmail();
+        foreach ($users as $proposerUser){
+            $arrayEmail[] = $proposerUser->getEmail();
         }
 
         if(is_array($arrayEmail) && !$status){
@@ -283,15 +283,15 @@ class AdminController extends Controller
             ->getManager()
             ->getRepository('AppBundle:ActiveLog');
 
-        $employerRepository = $this
+        $proposerRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Employer');
+            ->getRepository('AppBundle:Proposer');
 
-        $candidateRepository = $this
+        $voterRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Candidate');
+            ->getRepository('AppBundle:Voter');
 
         $logCreditRepository = $this
             ->getDoctrine()
@@ -299,8 +299,8 @@ class AdminController extends Controller
             ->getRepository('AppBundle:LogCredit');
 
         $finalActiveLog = array();
-        $finalCandidateLog = array();
-        $finalEmployerLog = array();
+        $finalVoterLog = array();
+        $finalProposerLog = array();
         $finalCreditLog = array();
         $monthlyCreditLog = array();
 
@@ -312,16 +312,16 @@ class AdminController extends Controller
             $endDate= new \DateTime();
             $endDate->setDate($year, $i, $lastDay);
             $finalActiveLog[] = (int)$logRepository->countActiveBetween($startDate,$endDate)[0]['total'];
-            $finalCandidateLog[] = (int)$candidateRepository->countActiveBetween($endDate)[0]['total'];
-            $finalEmployerLog[] =(int)$employerRepository->countActiveBetween($endDate)[0]['total'];
+            $finalVoterLog[] = (int)$voterRepository->countActiveBetween($endDate)[0]['total'];
+            $finalProposerLog[] =(int)$proposerRepository->countActiveBetween($endDate)[0]['total'];
             $finalCreditLog[] =(int)$logCreditRepository->countTotalBefore($endDate)[0]['total'];
             $monthlyCreditLog[] = (int)$logCreditRepository->countTotalMonthly($i, $year)[0]['total'];
         }
 
         return $this->render('AdminBundle::logPage.html.twig',array(
             'activeOfferLog' => $finalActiveLog,
-            'activeEmployerLog' => $finalEmployerLog,
-            'activeCandidateLog' => $finalCandidateLog,
+            'activeProposerLog' => $finalProposerLog,
+            'activeVoterLog' => $finalVoterLog,
             'creditLog' => $finalCreditLog,
             'monthlyCreditLog' => $monthlyCreditLog,
             'year' => $year

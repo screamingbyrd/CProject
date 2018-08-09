@@ -1,0 +1,169 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'dashboard.title' | trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron homepage-jumbotron">
+        <span style="font-size: 42px">{{ 'dashboard.title' | trans }}</span>
+    </div>
+
+    <div class="navbar-dashboard">
+        <ul class="nav nav-tabs nav-voter navbar-dashboard">
+            <li class="active">
+                <a  data-target="#applied" data-toggle="tab">{{ 'dashboard.voter.appliedOffers'|trans }}</a>
+            </li>
+            <li><a data-target="#alerts" data-toggle="tab">{{ 'dashboard.voter.notifications'|trans }}</a>
+            </li>
+            <li><a data-target="#favorites" data-toggle="tab">{{ 'dashboard.voter.favorites'|trans }}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container jobnow-container">
+        <div class="tab-content voter-content">
+            <div class="tab-pane active fade in" id="applied">
+                <div class="text-center">{{ 'dashboard.voter.list' | trans }}</div>
+                <h3>{{ 'header.voters.dashboard.applied' | trans }}</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ 'dashboard.voter.name' | trans }}</th>
+                        <th scope="col" style="    min-width: 200px;">{{ 'dashboard.voter.date' | trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for offer in appliedOffer %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('show_offer', {'id': offer.offer.id, 'url':offer.offer.offerUrl}) }}">
+                                    {% if offer.offer.proposer.logo.imageName is not null %}
+                                        {% set image =  'uploads' ~ vich_uploader_asset(offer.offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image') %}
+                                    {% else %}
+                                        {% set image = 'images/logo-default.png' %}
+                                    {% endif %}
+                                        <img class="logo-proposer-in-applied-offer" src="{{ asset(image) }}"/>
+
+                                    {{ offer.offer.title |trans }}
+                                </a>
+                            </td>
+                            <td>{{ offer.date|date('d/m/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="alerts">
+                <div class="text-center">{{ 'notification.title'|trans }}</div>
+                <div class="add-notification">
+                    <h3>{{ 'notification.create' |trans}}</h3>
+                    <form method="post" action="{{ path('create_notification') }}" id="search-offer-homepage">
+                        <input name="type" type="hidden" id="type-input" value="notification.tag">
+                        <select title="Category" id="id-input" name="id"  class="jobnow-dropdown alerts">
+                            {% for tag in tags %}
+                                <option value="{{ tag.id }}">{{ tag.name|trans }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" class="jobnow-button " value="{{ 'add' | trans }}">
+                    </form>
+                </div>
+
+
+                {% if notifications is defined and notifications|length > 0 %}
+
+                    <h3>{{ 'notification.mine' | trans }}</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">{{ 'dashboard.voter.type' | trans }}</th>
+                            <th scope="col">{{ 'dashboard.voter.name' | trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in 1..notifications|length %}
+                            <tr>
+                                <td>{{ notifications[i-1].type |trans }}</td>
+                                <td><a  href="{% if notifications[i-1].type == 'notification.tag' %}{{ path('search_page_offer', {'tags':[notifications[i-1].name]}) }}{% elseif notifications[i-1].type == 'notification.proposer' %}{{ path('show_proposer', {'id':notifications[i-1].elementId}) }}{% endif %}">{{ notifications[i-1].name|trans }}</a></td>
+                                <td><a href="{{ path('delete_notification', {'id':notifications[i-1].uid}) }}" class="btn btn-primary element-offer-list">{{ 'delete' | trans }}</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+            <div class="tab-pane fade" id="favorites">
+                <div class="text-center">{{ 'favorite.title'|trans }}</div>
+                {% if favorites is defined and favorites|length > 0 %}
+                    <h3>{{ 'header.voters.dashboard.favorites' | trans }}</h3>
+
+                        <div class="tab-pane active fade in" id="applied">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">{{ 'dashboard.voter.name' | trans }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for favorite in favorites %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('show_offer', {'id': favorite.offer.id, 'url':favorite.offer.offerUrl}) }}">
+                                                {% if favorite.offer.proposer.logo.imageName is not null %}
+                                                    {% set image =  'uploads' ~ vich_uploader_asset(favorite.offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image') %}
+                                                {% else %}
+                                                    {% set image = 'images/logo-default.png' %}
+                                                {% endif %}
+                                                <img class="logo-proposer-in-applied-offer" src="{{ asset(image) }}"/>
+                                                {{ favorite.offer.title |trans }}
+                                            </a>
+                                        </td><td><a href="{{ path('delete_favorite', {'id':favorite.id}) }}" class="btn btn-primary element-offer-list">{{ 'delete' | trans }}</a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var url = document.location.toString();
+        $(window).on('hashchange', function(e){
+            if (document.location.toString().match('#')) {
+                $('.nav-tabs a[data-target="#' + document.location.toString().split('#')[1] + '"]').tab('show');
+            }
+        });
+        if (url.match('#')) {
+            $('.nav-tabs a[data-target="#' + url.split('#')[1] + '"]').tab('show');
+        }
+        $('.nav-tabs a').on('shown.bs.tab', function (e) {
+            window.location.hash = e.target.hash;
+        })
+    </script>
+    <style>
+        .homepage-jumbotron::after{
+            content: '';
+            background-image:url({{asset('images/jobnow-home.jpg')}});
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position:absolute;
+            z-index: -1;
+        }
+        .logo-proposer-in-applied-offer{
+            width: 73px;
+            max-width: 73px;
+            z-index: 1;
+            padding: 10px;
+            border: 1px #ddd solid;
+            border-radius: 3px;
+            background-color: white;
+            margin-right: 5px;
+        }
+    </style>
+
+{% endblock %}

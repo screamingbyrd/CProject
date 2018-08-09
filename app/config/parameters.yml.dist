@@ -4,7 +4,7 @@
 parameters:
     database_host: localhost
     database_port: null
-    database_name: jobnow
+    database_name: cproject
     database_user: root
     database_password: null
 

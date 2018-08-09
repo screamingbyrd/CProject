@@ -46,19 +46,10 @@ class User extends BaseUser
     private $lastName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employer", cascade={"persist"}, inversedBy="user")
-     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Proposer", cascade={"persist"}, inversedBy="user")
+     * @ORM\JoinColumn(name="proposer_id", referencedColumnName="id")
      */
-    private $employer;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="main", type="boolean")
-
-     */
-    protected $main = 0;
-
+    private $proposer;
 
     /**
      * @ORM\Column(name="charge_id", type="string", length=255, nullable=true)
@@ -124,27 +115,27 @@ class User extends BaseUser
 
 
     /**
-     * Set employer
+     * Set proposer
      *
-     * @param \AppBundle\Entity\Employer $employer
+     * @param \AppBundle\Entity\Proposer $proposer
      *
      * @return User
      */
-    public function setEmployer(\AppBundle\Entity\Employer $employer = null)
+    public function setProposer(\AppBundle\Entity\Proposer $proposer = null)
     {
-        $this->employer = $employer;
+        $this->proposer = $proposer;
 
         return $this;
     }
 
     /**
-     * Get employer
+     * Get proposer
      *
-     * @return \AppBundle\Entity\Employer
+     * @return \AppBundle\Entity\Proposer
      */
-    public function getEmployer()
+    public function getProposer()
     {
-        return $this->employer;
+        return $this->proposer;
     }
 
     /**
@@ -169,24 +160,6 @@ class User extends BaseUser
     public function getChargeId()
     {
         return $this->chargeId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isMain()
-    {
-        return $this->main;
-    }
-
-    /**
-     * @param bool $main
-     * @return User
-     */
-    public function setMain($main)
-    {
-        $this->main = $main;
-        return $this;
     }
 
 

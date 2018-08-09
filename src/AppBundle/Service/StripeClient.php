@@ -1,6 +1,6 @@
 <?php
 namespace AppBundle\Service;
-use AppBundle\Entity\Employer;
+use AppBundle\Entity\Proposer;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -19,7 +19,7 @@ class StripeClient
         $this->em = $em;
         $this->logger = $logger;
     }
-    public function createPremiumCharge(User $user, $token, $amount, Employer $employer, $nbrCredit)
+    public function createPremiumCharge(User $user, $token, $amount, Proposer $proposer, $nbrCredit)
     {
         try {
             $customer = \Stripe\Customer::create(array(
@@ -41,11 +41,11 @@ class StripeClient
         }
         $user->setChargeId($charge->id);
 
-        $credit = $employer->getCredit();
+        $credit = $proposer->getCredit();
 
         $credit += $nbrCredit;
 
-        $employer->setCredit($credit);
+        $proposer->setCredit($credit);
 
         $this->em->flush();
     }

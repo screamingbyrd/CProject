@@ -27,15 +27,15 @@ class NotificationController extends Controller
 
         $user = $this->getUser();
         if(!isset($user) || !in_array('ROLE_CANDIDATE', $user->getRoles())){
-            return $this->redirectToRoute('create_candidate');
+            return $this->redirectToRoute('create_voter');
         }
 
-        $candidateRepository = $this
+        $voterRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Candidate')
+            ->getRepository('AppBundle:Voter')
         ;
-        $candidate = $candidateRepository->findOneBy(array('user' => $user->getId()));
+        $voter = $voterRepository->findOneBy(array('user' => $user->getId()));
 
         $notificationRepository = $this
             ->getDoctrine()
@@ -43,7 +43,7 @@ class NotificationController extends Controller
             ->getRepository('AppBundle:Notification')
         ;
         $notification = $notificationRepository->findOneBy(array(
-            'candidate' => $candidate,
+            'voter' => $voter,
             'typeNotification' => $type,
             'elementId' => $elementId
         ));
@@ -51,7 +51,7 @@ class NotificationController extends Controller
         if(isset($notification) && !empty($notification)){
             $translated = $this->get('translator')->trans('notification.already');
             $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('dashboard_candidate');
+            return $this->redirectToRoute('dashboard_voter');
         }
 
         $session = $request->getSession();
@@ -60,7 +60,7 @@ class NotificationController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $notification->setCandidate($candidate);
+        $notification->setVoter($voter);
 
         $now =  new \DateTime();
         $notification->setDate($now);
@@ -74,7 +74,7 @@ class NotificationController extends Controller
         $translated = $this->get('translator')->trans('notification.created');
         $session->getFlashBag()->add('info', $translated);
 
-        $url = $this->generateUrl('dashboard_candidate');
+        $url = $this->generateUrl('dashboard_voter');
 
         return $this->redirect($url.'#alerts');
 
@@ -93,7 +93,7 @@ class NotificationController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $notification->setCandidate(null);
+        $notification->setVoter(null);
 
         $now =  new \DateTime();
         $notification->setDate($now);
@@ -154,7 +154,7 @@ class NotificationController extends Controller
         if(isset($user)){
             $translated = $this->get('translator')->trans('notification.deleted');
             $session->getFlashBag()->add('info', $translated);
-            return $this->redirectToRoute('dashboard_candidate');
+            return $this->redirectToRoute('dashboard_voter');
         }else{
             $translated = $this->get('translator')->trans('notification.deleted');
             $session->getFlashBag()->add('info', $translated);
@@ -179,15 +179,15 @@ class NotificationController extends Controller
             ->getManager()
             ->getRepository('AppBundle:Offer')
         ;
-        $candidateRepository = $this
+        $voterRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Candidate')
+            ->getRepository('AppBundle:Voter')
         ;
-        $employerRepository = $this
+        $proposerRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Employer')
+            ->getRepository('AppBundle:Proposer')
         ;
         $tagRepository = $this
             ->getDoctrine()
@@ -202,16 +202,16 @@ class NotificationController extends Controller
                 $offers = $offerRepository->getNotificationOffers($notification);
 
                 if(!empty($offers)){
-                    $candidate = $candidateRepository->findOneBy(array('id' => $notification->getCandidate()));
+                    $voter = $voterRepository->findOneBy(array('id' => $notification->getVoter()));
 
-                    if($notification->getTypeNotification() == 'notification.employer'){
-                        $employer = $employerRepository->findOneBy(array('id' => $notification->getElementId()));
-                        $subject = $employer->getName();
+                    if($notification->getTypeNotification() == 'notification.proposer'){
+                        $proposer = $proposerRepository->findOneBy(array('id' => $notification->getElementId()));
+                        $subject = $proposer->getName();
                     }elseif ($notification->getTypeNotification() == 'notification.tag'){
                         $tag = $tagRepository->findOneBy(array('id' => $notification->getElementId()));
                         $subject = $tag->getName();
                     }
-                    $mail = $candidate->getUser()->getEmail();
+                    $mail = $voter->getUser()->getEmail();
                     $mailer = $this->container->get('swiftmailer.mailer');
 
                     $message = (new \Swift_Message($this->get('translator')->trans('email.notification.send.title.search')))
