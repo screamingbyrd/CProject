@@ -12,7 +12,7 @@
         <h3>{{ 'faq.subTitle'|trans }}</h3>
     </div>
 
-    <div class="container jobnow-container">
+    <div class="container cproject-container">
         <style>
             .accordion {
                 font-size: 20px;
@@ -71,8 +71,8 @@
         <div class="shadow-box faq-choice">
             {#<div class="choose-faq">{{('faq.kind')|trans}}</div>#}
             <div>
-                <button onclick="showTab('tab-voter')" class="jobnow-button faq-button"><i class="fas fa-search"></i>{{ 'header.voters.register'|trans }}</button>
-                <button onclick="showTab('tab-proposer')" class="jobnow-button faq-button"><i class="fas fa-clipboard"></i>{{ 'header.proposers.register'|trans }}</button>
+                <button onclick="showTab('tab-voter')" class="cproject-button faq-button"><i class="fas fa-search"></i>{{ 'header.voters.register'|trans }}</button>
+                <button onclick="showTab('tab-proposer')" class="cproject-button faq-button"><i class="fas fa-clipboard"></i>{{ 'header.proposers.register'|trans }}</button>
             </div>
 
         </div>
@@ -133,7 +133,7 @@
     <style>
         .homepage-jumbotron::after{
             content: '';
-            background-image:url({{asset('images/jobnow-home.jpg')}});
+            background-image:url({{asset('images/cproject-home.jpg')}});
             background-size: cover;
             background-repeat: no-repeat;
             width: 100%;

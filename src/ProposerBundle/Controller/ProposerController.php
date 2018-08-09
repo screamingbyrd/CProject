@@ -223,7 +223,7 @@ class ProposerController extends Controller
 
             $translated = $this->get('translator')->trans('voter.delete.deleted');
             $message = (new \Swift_Message($translated))
-                ->setFrom('jobnowlu@noreply.lu')
+                ->setFrom('cprojectlu@noreply.lu')
                 ->setTo($mail)
                 ->setBody(
                     $this->renderView(
@@ -242,8 +242,8 @@ class ProposerController extends Controller
         }
 
         $message = (new \Swift_Message($proposer->getName().' has archived his account'))
-            ->setFrom('jobnowlu@noreply.lu')
-            ->setTo('commercial@jobnow.lu')
+            ->setFrom('cprojectlu@noreply.lu')
+            ->setTo('commercial@cproject.lu')
             ->setBody(
                 $this->renderView(
                     'AppBundle:Emails:userDeleted.html.twig',
@@ -263,7 +263,7 @@ class ProposerController extends Controller
         $translated = $this->get('translator')->trans('voter.delete.deleted');
         $session->getFlashBag()->add('info', $translated);
 
-        return $this->redirectToRoute('jobnow_home');
+        return $this->redirectToRoute('cproject_home');
 
     }
 
@@ -278,7 +278,7 @@ class ProposerController extends Controller
 
         $phone = $proposer->getPhone();
         if(!isset($phone)){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $offerRepository = $this
@@ -532,7 +532,7 @@ class ProposerController extends Controller
         if($creditProposer < $creditFeaturedProposer){
             $translated = $this->get('translator')->trans('form.offer.activate.error');
             $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('jobnow_credit');
+            return $this->redirectToRoute('cproject_credit');
         }
 
         $proposer->setCredit($creditProposer - $creditFeaturedProposer);
@@ -654,7 +654,7 @@ class ProposerController extends Controller
         if($creditProposer < $creditFeaturedOffer){
             $translated = $this->get('translator')->trans('form.offer.activate.error');
             $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('jobnow_credit');
+            return $this->redirectToRoute('cproject_credit');
         }
 
         $proposer->setCredit($creditProposer - $creditFeaturedOffer);
@@ -721,7 +721,7 @@ class ProposerController extends Controller
         if($creditProposer < $buySlot){
             $translated = $this->get('translator')->trans('form.offer.activate.error');
             $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('jobnow_credit');
+            return $this->redirectToRoute('cproject_credit');
         }
 
         $proposer->setCredit($creditProposer - $buySlot);
@@ -978,7 +978,7 @@ class ProposerController extends Controller
         $mailer = $this->container->get('swiftmailer.mailer');
 
         $message = (new \Swift_Message($this->get('translator')->trans('proposer.show.spontaenous.send')))
-            ->setFrom('jobnowlu@noreply.lu')
+            ->setFrom('cprojectlu@noreply.lu')
             ->setTo($firstUser)
             ->setCc(array_shift($arrayEmail))
             ->setBody(
@@ -1052,7 +1052,7 @@ class ProposerController extends Controller
                 $translated = $this->get('translator')->trans('proposer.addCollaborator.youHave');
 
                 $message = (new \Swift_Message($translated . ' ' . $proposer->getName()))
-                    ->setFrom('jobnowlu@noreply.lu')
+                    ->setFrom('cprojectlu@noreply.lu')
                     ->setTo($email)
                     ->setBody(
                         $this->renderView(

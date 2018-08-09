@@ -9,7 +9,7 @@
     {%  if (app.user.roles is defined) and ('ROLE_PROPOSER' in app.user.roles) %}
         <a href="{{ path('dashboard_proposer') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
     {% endif %}
-    <div class="container jobnow-container">
+    <div class="container cproject-container">
         <h1>{{ 'dashboard.proposer.myBills' | trans }}</h1>
 
         {%  if (app.user.roles is defined) and ('ROLE_PROPOSER' in app.user.roles) %}
@@ -19,7 +19,7 @@
                     <h3>{{ 'price.history'|trans }}</h3>
                     <table class="table" style="width:100%">
                         <tr>
-                            <th><a href="{{ path('jobnow_bills', {'sort':(sort=='ASC'?'DESC':'ASC'), 'row':page, 'id': id}) }}">{{ 'bill.date'|trans }}  <i class="fas fa-caret-{% if sort == 'ASC' %}up{% else %}down{% endif %}"></i></a></th>
+                            <th><a href="{{ path('cproject_bills', {'sort':(sort=='ASC'?'DESC':'ASC'), 'row':page, 'id': id}) }}">{{ 'bill.date'|trans }}  <i class="fas fa-caret-{% if sort == 'ASC' %}up{% else %}down{% endif %}"></i></a></th>
                             <th>{{ 'price.credits'|trans }}</th>
                             <th>{{ 'price.price'|trans }}</th>
                             <th>{{ 'price.bills'|trans }}</th>
@@ -30,7 +30,7 @@
                                 <td>{{ logCredit.credit }}</td>
                                 <td>{{ logCredit.price|localizedcurrency('EUR') }}</td>
                                 <td>
-                                    <a href="{{ path('jobnow_bills_generate', {'id':logCredit.id}) }}" download>
+                                    <a href="{{ path('cproject_bills_generate', {'id':logCredit.id}) }}" download>
                                         <i class="fas fa-file"></i>
                                     </a>
                                 </td>
@@ -38,11 +38,11 @@
                         {% endfor %}
                     </table>
                     <div id="paginator-offer">
-                        <a href="{{ path('jobnow_bills', {'row':(page == 1?page:page-1), 'id': id}) }}">&laquo;</a>
+                        <a href="{{ path('cproject_bills', {'row':(page == 1?page:page-1), 'id': id}) }}">&laquo;</a>
                         {% for i in 1..total %}
-                            <a class="offer-page-link {% if i == page %}selected-page{% endif %}" href="{{ path('jobnow_bills', {'row':i, 'id': id}) }}">{{ i }}</a>
+                            <a class="offer-page-link {% if i == page %}selected-page{% endif %}" href="{{ path('cproject_bills', {'row':i, 'id': id}) }}">{{ i }}</a>
                         {% endfor %}
-                        <a href="{{ path('jobnow_bills', {'row':(page == total?page:page+1), 'id': id}) }}">&raquo;</a>
+                        <a href="{{ path('cproject_bills', {'row':(page == total?page:page+1), 'id': id}) }}">&raquo;</a>
                     </div>
                 {% else %}
                     {{ 'price.allow' | trans }}

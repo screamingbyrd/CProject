@@ -51,13 +51,6 @@ class VoterController extends Controller
 
                 if($user != false){
                 $voter->setUser($user);
-                $voter->setDescription($data->getDescription());
-                $voter->setAge($data->getAge());
-                $voter->setExperience($data->getExperience());
-                $voter->setLicense($data->getLicense());
-                $voter->setDiploma($data->getDiploma());
-                $voter->setSocialMedia($data->getSocialMedia());
-                $voter->setPhone($data->getPhone());
 
                 // On enregistre notre objet $advert dans la base de données, par exemple
                 $em = $this->getDoctrine()->getManager();
@@ -90,7 +83,7 @@ class VoterController extends Controller
                     $translated = $this->get('translator')->trans('form.registration.error');
                     $session->getFlashBag()->add('danger', $translated);
 
-                    return $this->redirectToRoute('jobnow_home');
+                    return $this->redirectToRoute('cproject_home');
                 }
             }
         }
@@ -121,19 +114,6 @@ class VoterController extends Controller
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_voter');
         }
-
-        $originalCvPath = $voter->getCv();
-        $titleCV = null;
-        if (isset($originalCvPath)){
-            $titleCV = substr($originalCvPath, strrpos($originalCvPath, '%') + 1);
-        }
-
-        $originalCoverLetterPath = $voter->getCoverLetter();
-        $titleCoverLetter = null;
-        if(isset($originalCoverLetterPath)){
-            $titleCoverLetter = substr($originalCoverLetterPath, strrpos($originalCoverLetterPath, '%') + 1);
-        }
-
 
         $userRepository = $this
             ->getDoctrine()
@@ -169,38 +149,7 @@ class VoterController extends Controller
                 $user->SetLastName($data->getLastName());
                 $userManager->updateUser($user);
 
-                $voter->setDescription($data->getDescription());
-                $voter->setAge($data->getAge());
-                $voter->setExperience($data->getExperience());
-                $voter->setLicense($data->getLicense());
-                $voter->setDiploma($data->getDiploma());
-                $voter->setSocialMedia($data->getSocialMedia());
                 $voter->setPhone($data->getPhone());
-                $voter->setModifiedDate( new \datetime());
-
-                $target_dir = "uploads/images/voter/";
-                $newCv = $data->getCv();
-                if(isset($newCv) && is_object($newCv)){
-
-                    $target_file = $target_dir . md5(uniqid()) . '%' . basename($newCv->getClientOriginalName());
-                    move_uploaded_file($newCv->getPathname(), $target_file);
-
-                    if(isset($originalCvPath) && $originalCvPath != ''){
-                        unlink($originalCvPath);
-                    }
-                    $voter->setCv($target_file);
-                }
-
-                $newCoverLetter = $data->getCoverLetter();
-                if(isset($newCoverLetter) && is_object($newCoverLetter)){
-                    $target_file_cover = $target_dir . md5(uniqid()) . '%' . basename($newCoverLetter->getClientOriginalName());
-                    move_uploaded_file($newCoverLetter->getPathname(), $target_file_cover);
-
-                    if(isset($originalCoverLetterPath) && $originalCoverLetterPath != ''){
-                        unlink($originalCoverLetterPath);
-                    }
-                    $voter->setCoverLetter($target_file_cover);
-                }
 
                 $em = $this->getDoctrine()->getManager();
                 $em->merge($voter);
@@ -209,61 +158,13 @@ class VoterController extends Controller
                 $translated = $this->get('translator')->trans('form.registration.editedVoter');
                 $session->getFlashBag()->add('info', $translated);
 
-                return $this->redirectToRoute('show_voter', array('id' => $voter->getId()) );
+                return $this->redirectToRoute('dashboard_voter', array('id' => $voter->getId()) );
             }
         }
 
-        $completion = 3;
-
-        $title = $voter->getTitle();
-        if(isset($title)){
-            $completion += 1;
-        }
-        $description = $voter->getDescription();
-        if(isset($description)){
-            $completion += 1;
-        }
-        $age = $voter->getAge();
-        if(isset($age)){
-            $completion += 1;
-        }
-        $experience = $voter->getExperience();
-        if(isset($experience)){
-            $completion += 1;
-        }
-        $diploma = $voter->getDiploma();
-        if(isset($diploma)){
-            $completion += 1;
-        }
-        $socialMedia = $voter->getSocialMedia();
-        if(isset($socialMedia)){
-            $completion += 1;
-        }
-        $phone = $voter->getPhone();
-        if(isset($phone)){
-            $completion += 1;
-        }
-        if(isset($voter->getLicense()[0])){
-            $completion += 1;
-        }
-        if(isset($voter->getLanguage()[0])){
-            $completion += 1;
-        }
-        if(isset($voter->getTag()[0])){
-            $completion += 1;
-        }
-        if(isset($voter->getSearchedTag()[0])){
-            $completion += 1;
-        }
-
-        $completion = $completion/14 * 100;
-
         return $this->render('VoterBundle:Voter:edit.html.twig', array(
             'form' => $form->createView(),
-            'completion' => $completion,
-            'user' => $user,
-            'cvTitle' => $titleCV,
-            'coverLetterTitle' => $titleCoverLetter
+            'user' => $user
         ));
     }
 
@@ -288,51 +189,7 @@ class VoterController extends Controller
             return $this->redirectToRoute('create_voter');
         }
 
-        $proposerRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Proposer')
-        ;
-        $favoriteRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Favorite')
-        ;
-        $tagRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Tag')
-        ;
 
-        $notificationRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Notification')
-        ;
-        $notifications = $notificationRepository->findBy(array('voter' => $voter));
-        $favorites = $favoriteRepository->findBy(array('voter' => $voter));
-
-        foreach ($favorites as &$favorite){
-            $favorite->getOffer()->setOfferUrl($generateUrlService->generateOfferUrl($favorite->getOffer()));
-        }
-
-        $notificationsArray = array();
-
-        foreach ($notifications as $notification){
-            $newNotification = array();
-            $newNotification['uid'] = $notification->getUid();
-            $newNotification['elementId'] = $notification->getElementId();
-            $type = $notification->getTypeNotification();
-            $newNotification['type'] = $type;
-            if($type == 'notification.proposer'){
-                $proposer = $proposerRepository->findOneBy(array('id' => $notification->getElementId()));
-                $newNotification['name'] = $proposer->getName();
-            }elseif ($type == 'notification.tag'){
-                $tag = $tagRepository->findOneBy(array('id' => $notification->getElementId()));
-                $newNotification['name'] = $tag->getName();
-            }
-            $notificationsArray[] = $newNotification;
-        }
 
         $voteRepository = $this
             ->getDoctrine()
@@ -355,12 +212,6 @@ class VoterController extends Controller
         ;
         $offers = $offerRepository->findById($offerIdArray);
 
-        $tagRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Tag')
-        ;
-        $tags = $tagRepository->findAll();
 
         foreach ($offers as &$offer){
             $offer->setOfferUrl($generateUrlService->generateOfferUrl($offer));
@@ -369,10 +220,7 @@ class VoterController extends Controller
 
         return $this->render('VoterBundle:Voter:dashboard.html.twig',
             array(
-                'appliedOffer' => $finalArray,
-                'notifications' => $notificationsArray,
-                'favorites' => $favorites,
-                'tags' => $tags
+                'appliedOffer' => $finalArray
             ));
     }
 
@@ -434,7 +282,7 @@ class VoterController extends Controller
         $mailer = $this->container->get('swiftmailer.mailer');
 
         $message = (new \Swift_Message($translated = $this->get('translator')->trans('email.deleted')))
-            ->setFrom('jobnowlu@noreply.lu')
+            ->setFrom('cprojectlu@noreply.lu')
             ->setTo($mail)
             ->setBody(
                 $this->renderView(
@@ -453,7 +301,7 @@ class VoterController extends Controller
         $translated = $this->get('translator')->trans('voter.delete.deleted');
         $session->getFlashBag()->add('info', $translated);
 
-        return $this->redirectToRoute('jobnow_home');
+        return $this->redirectToRoute('cproject_home');
     }
 
     public function showAction(Request $request, $id){

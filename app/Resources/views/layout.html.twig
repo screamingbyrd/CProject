@@ -46,40 +46,11 @@
     </button>
     <div class="container">
 
-
-            <a class="navbar-brand  header-text" href="{{ path('jobnow_home') }}"><img class="logo-jobnow" src="{{asset('images/logo-project.svg')}}">Projet C</a>
-
+            <a class="navbar-brand  header-text" href="{{ path('cproject_home') }}"><img class="logo-cproject" src="{{asset('images/real-estate.svg')}}">Projet C</a>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle c" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"><i class="fas fa-search"></i>{{ 'header.voters.title'|trans }}<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ path('search_page_offer') }}"><i class="fas fa-search-plus"></i>{{ 'header.voters.findJob'|trans }}</a></li>
-                        <li><a href="{{ path('list_proposer') }}"><i class="fas fa-building"></i>{{ 'header.voters.companies'|trans }}</a></li>
-                        {%  if (app.user.roles is defined) and ('ROLE_VOTER' in app.user.roles) %}
-                            <li><a href="{{ path('dashboard_voter') }}#applied"><i class="fas fa-clipboard-list"></i>{{ 'header.voters.dashboard.applied'|trans }}</a></li>
-                            <li><a href="{{ path('dashboard_voter') }}#alerts"><i class="fas fa-flag"></i>{{ 'header.voters.dashboard.alert'|trans }}</a></li>
-                            <li><a href="{{ path('dashboard_voter') }}#favorites"><i class="fas fa-star"></i>{{ 'header.voters.dashboard.favorites'|trans }}</a></li>
-                        {% endif %}
-                    </ul>
-                </li>
-
-                {%  if (app.user.roles is not defined) or (app.user.roles is defined and 'ROLE_VOTER' not in app.user.roles) %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false"><i class="fas fa-clipboard"></i>{{ 'header.proposers.title'|trans }}<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('post_offer') }}"><i class="fas fa-edit"></i>{{ 'header.proposers.post'|trans }}</a></li>
-                            {#<li><a href="{{ path('search_voter') }}">{{ 'header.proposers.findVoter'|trans }}</a></li>#}
-                           {%  if (app.user.roles is defined) and ('ROLE_PROPOSER' in app.user.roles) %}
-                            <li><a href="{{ path('dashboard_proposer') }}"><i class="fas fa-th-large"></i>{{ 'header.proposers.dashboard'|trans }}</a></li>
-                            {% endif %}
-                            <li><a href="{{ path('contact_us_page') }}"><i class="fas fa-headphones"></i>{{ 'contact.us.proposer'|trans }}</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
+                <li><a id="login" href="{{ path('search_page_offer') }}"></i>evaluate</a></li>
+                <li><a id="login" href="{{ path('post_offer') }}"></i>Post offer</a></li>
 
                 {%  if (app.user.roles is defined and 'ROLE_ADMIN' in app.user.roles) %}
                     <li class="dropdown">
@@ -136,7 +107,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false"><i class="fas fa-globe"></i>{{ app.request.locale }}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        {% if 'jobnow_home' in app.request.attributes.get('_route') or 'fos_user_security_login' in app.request.attributes.get('_route') or 'faq_page' in app.request.attributes.get('_route')  %}
+                        {% if 'cproject_home' in app.request.attributes.get('_route') or 'fos_user_security_login' in app.request.attributes.get('_route') or 'faq_page' in app.request.attributes.get('_route')  %}
                             <li><a href="{{ path(app.request.get('_route'), { '_locale': 'fr'}) }}">Français</a></li>
                             <li><a href="{{ path(app.request.get('_route'), { '_locale': 'en'}) }}">English</a></li>
                         {% else %}

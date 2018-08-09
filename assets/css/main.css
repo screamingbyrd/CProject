@@ -187,7 +187,7 @@ h3.title{
 }
 
 
-.jobnow-button.login {
+.cproject-button.login {
     width: 100%;
     margin-top: 15px;
 
@@ -199,14 +199,14 @@ h3.title{
     margin-top: 0;
 }
 
-.register-voter{
-    margin-top: 17px;
-}
-
 .register-voter, .register-proposer{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 97px;
+}
+.cproject-container{
+    margin-top: 124px;
 }
 
 .edit-text{
@@ -223,7 +223,7 @@ legend{
 
 /*Button*/
 
-.logo-jobnow{
+.logo-cproject{
     /* position: relative; */
     /* left: 8%; */
     /* top: 12px; */
@@ -233,7 +233,7 @@ legend{
     margin-top: -19px;
 }
 
-.jobnow-button{
+.cproject-button{
     color: #fbfef5;
     border: solid 1px #3b3ce0;
     border-radius: 3px;
@@ -251,7 +251,7 @@ legend{
     min-width: 100px;
     margin-top: 0;
 }
-.jobnow-button:hover{
+.cproject-button:hover{
     box-shadow: inset 1000px 0 0 0 #3950ff;
     color: white;
 }
@@ -332,7 +332,7 @@ legend{
     .send-contact{
         width: 100% !important;
     }
-    .jobnow-button{
+    .cproject-button{
         border-radius: 8px;
         padding: 10px 19px;
     }
@@ -356,11 +356,11 @@ legend{
     .navbar-dashboard{
         margin-top: 0 !important;
     }
-    .add-notification .jobnow-dropdown{
+    .add-notification .cproject-dropdown{
         width: 100%;
         margin-left: 0 !important;
     }
-    .add-notification .jobnow-button{
+    .add-notification .cproject-button{
         width: 100%;
     }
     .nav-voter{
@@ -384,7 +384,7 @@ legend{
         margin-top: 0 !important;
         margin-bottom: 20px;
     }
-    .logo-jobnow{
+    .logo-cproject{
         position: inherit !important;
     }
     #navbar{
@@ -422,7 +422,7 @@ legend{
         padding-left: 7px !important;
         padding-right: 7px !important;
     }
-    .jobnow-container{
+    .cproject-container{
         min-height: 270px;
         margin-bottom: 20px;
     }
@@ -625,7 +625,7 @@ legend{
 .add-notification h4{
     margin-bottom: 20px;
 }
-.jobnow-dropdown{
+.cproject-dropdown{
     line-height: inherit;
     background-position: 10px 12px;
     background-repeat: no-repeat;
@@ -638,7 +638,7 @@ legend{
     min-width: 130px;
 }
 
-.jobnow-dropdown.alerts{
+.cproject-dropdown.alerts{
 
     margin-left: 0;
 
@@ -681,7 +681,7 @@ legend{
     -moz-transition: -moz-transform 0.5s cubic-bezier(0.9, 0.26, 0.58, 1) false false;
     -o-transition: -o-transform 0.5s cubic-bezier(0.9, 0.26, 0.58, 1) false false;
 }
-.shadow-box .jobnow-button{
+.shadow-box .cproject-button{
     width: 100%;
 }
 .shadow-box h3{
@@ -966,7 +966,7 @@ legend{
     body{
         padding-bottom: 0!important;
     }
-    .jobnow-container{
+    .cproject-container{
         min-height: 378px;
         margin-bottom: 20px;
     }

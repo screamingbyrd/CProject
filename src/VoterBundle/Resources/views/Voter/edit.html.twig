@@ -6,155 +6,48 @@
 
 
 {% block body %}
-    <div class="jumbotron proposer-jumbotron">
-        <div>
-            <div class="title-proposer">{{ user.firstName }} {{ user.lastName }}</div>
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+    <div class="row edit-container register-proposer">
+        <div class="col-md-5">
 
             <h3 class="login-login-title">{{ 'form.registration.title.edit'|trans }}</h3>
-
-            {% if completion < 100 %}
-                <div class="completion-container">
-                    {{ 'form.registration.complete'|trans }}
-                    <div class="meter red">
-                        <span class="completion-bar" style="width: {{ completion }}%"></span>
-                    </div>
-                </div>
-            {% endif %}
-
-            <div class="completion-success animated fadeIn">
-                {{ 'form.registration.completed'|trans }}
-            </div>
 
             {{ form_start(form, {'attr': {'class': 'form-vertical'}}) }}
 
             {# Les erreurs générales du formulaire. #}
             {{ form_errors(form) }}
 
-            <div class="row">
+            <div class="row form-group">
+                <div class="col-md-6 form-group">
+                    {{ form_label (form.firstName) }}
+                    {{ form_widget(form.firstName) }}
+                    {{ form_errors(form.firstName) }}
+                </div>
+                <div class="col-md-6 form-group">
+                    {{ form_label (form.lastName) }}
+                    {{ form_widget(form.lastName) }}
+                    {{ form_errors(form.lastName) }}
+                </div>
 
-
-                <fieldset>
-                    <legend>{{ 'proposer.edit.personalData'|trans }}</legend>
-
-                    <div class="col-md-3 form-group">
-                        {{ form_label (form.email,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.email , { 'attr': {'readonly':'readonly'} }) }}
-                        {{ form_errors(form.email) }}
-                    </div>
-                    <div class="col-md-3 form-group">
-                        {{ form_label (form.firstName,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.firstName) }}
-                        {{ form_errors(form.firstName) }}
-                    </div>
-                    <div class="col-md-3 form-group">
-                        {{ form_label (form.lastName,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.lastName) }}
-                        {{ form_errors(form.lastName) }}
-                    </div>
-                    <div class="col-md-3 form-group">
-                        {{ form_label (form.phone,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.phone) }}
-                        {{ form_errors(form.phone) }}
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>{{ 'proposer.edit.professionalData'|trans }}</legend>
-
-                    <div class="col-md-6 form-group">
-                        {{ form_label (form.tag,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.tag) }}
-                        {{ form_errors(form.tag) }}
-                    </div>
-
-                    <div class="col-md-6 form-group">
-                        {{ form_label (form.title,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.title) }}
-                        {{ form_errors(form.title) }}
-                    </div>
-
-                    <div class="col-md-2 form-group">
-                        {{ form_label (form.age,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.age) }}
-                        {{ form_errors(form.age) }}
-                    </div>
-                    <div class="col-md-2 form-group">
-                        {{ form_label (form.experience,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.experience) }}
-                        {{ form_errors(form.experience) }}
-                    </div>
-                    <div class="col-md-2 form-group">
-                        {{ form_label (form.diploma,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.diploma) }}
-                        {{ form_errors(form.diploma) }}
-                    </div>
-
-                    <div class="col-md-3 form-group">
-                        {{ form_label (form.language,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.language) }}
-                        {{ form_errors(form.language) }}
-                    </div>
-
-
-
-                    <div class="col-md-3 form-group">
-                        {{ form_label (form.license,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.license) }}
-                        {{ form_errors(form.license) }}
-                    </div>
-
-
-                    <div class="col-md-6 form-group">
-                        {{ form_label (form.socialMedia,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.socialMedia) }}
-                        {{ form_errors(form.socialMedia) }}
-                        <div class="error-wrong-url">{{ 'form.registration.invalid'|trans }}</div>
-                    </div>
-
-                    <div class="col-md-6 form-group">
-                        {{ form_label (form.searchedtag,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.searchedtag) }}
-                        {{ form_errors(form.searchedtag) }}
-                    </div>
-
-
-                    <div class="col-md-12 form-group">
-                        {{ form_label (form.description,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {{ form_widget(form.description, { 'attr': {'class':'edit-text'} }) }}
-                        {{ form_errors(form.description) }}
-                    </div>
-
-                    <div class="col-md-6 form-group">
-
-                        {{ form_label (form.cv,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {% if cvTitle is not null %}<div class="upload-title">{{ cvTitle }}</div>{% endif %}
-                        {{ form_widget(form.cv) }}
-                        {{ form_errors(form.cv) }}
-                    </div>
-                    <div class="col-md-6 form-group">
-                        {{ form_label (form.coverLetter,null, { 'label_attr': {'class': 'label-form'} }) }}
-                        {% if coverLetterTitle is not null %}<div class="upload-title">{{ coverLetterTitle }}</div>{% endif %}
-                        {{ form_widget(form.coverLetter) }}
-                        {{ form_errors(form.coverLetter) }}
-                    </div>
-
-
-                <div class="col-md-4 col-md-offset-4">
+                <div class="col-md-6 form-group">
+                    {{ form_label (form.email) }}
+                    {{ form_widget(form.email , { 'attr': {'readonly':'readonly'} }) }}
+                    {{ form_errors(form.email) }}
+                </div>
+                <div class="col-md-6 form-group">
+                    {{ form_label (form.phone) }}
+                    {{ form_widget(form.phone) }}
+                    {{ form_errors(form.phone) }}
+                </div>
+                <div class="col-md-6 col-md-offset-3">
                     {{ form_widget(form.submit, { 'label': 'offer.submit' }) }}
                 </div>
                 {# Génération automatique des champs pas encore écrits.
-                   Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-                   et tous les champs cachés (type « hidden »). #}
+                                   Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+                                   et tous les champs cachés (type « hidden »). #}
                 {{ form_rest(form) }}
 
                 {# Fermeture de la balise <form> du formulaire HTML #}
                 {{ form_end(form) }}
-                </fieldset>
             </div>
             <button class="btn btn-default" id="btn-confirm">{{ 'voter.delete.delete'|trans }}</button>
 

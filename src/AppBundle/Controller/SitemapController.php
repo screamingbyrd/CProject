@@ -28,14 +28,14 @@ class SitemapController extends Controller
         //AppBundle routing
 
         $urls[] = ['loc' =>
-            $this->get('router')->generate('jobnow_home',array('_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
+            $this->get('router')->generate('cproject_home',array('_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
 
         $urls[] = ['loc' =>
             $this->get('router')->generate('fos_user_security_login',array('_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
         $urls[] = ['loc' =>
-            $this->get('router')->generate('jobnow_credit',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
+            $this->get('router')->generate('cproject_credit',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
         $urls[] = ['loc' =>
             $this->get('router')->generate('contact_us_page',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'

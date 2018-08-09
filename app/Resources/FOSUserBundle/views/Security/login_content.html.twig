@@ -1,7 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 
-        <div class="container login jobnow-container">
+        <div class="container login cproject-container">
             <div class="col-md-4">
                 {% if error %}
                     <div style="color: red">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -43,7 +43,7 @@
                                 {#</label>#}
                             {#</div>#}
                             <a href="{{ path('fos_user_resetting_request') }}">{{ 'login.forgotPassword.title'|trans }}</a>
-                            <input class="jobnow-button login login-button" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                            <input class="cproject-button login login-button" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
                         </fieldset>
                     </form>
                 </div>

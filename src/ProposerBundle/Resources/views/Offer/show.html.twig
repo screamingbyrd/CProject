@@ -26,7 +26,7 @@
                 <div class="offer-about">
                     <span>{{ 'offer.about' | trans }}</span>
                     {%  if (app.user.roles is not defined) or (app.user.roles is defined and 'ROLE_PROPOSER' not in app.user.roles) %}
-                        <button class="jobnow-button second-apply-button">{{ 'offer.apply.title' | trans }}</button>
+                        <button class="cproject-button second-apply-button">{{ 'offer.apply.title' | trans }}</button>
                     {% endif %}
                 </div>
                 {% if offer.experience is not null and offer.experience != '' %}
@@ -116,7 +116,7 @@
                     <hr class="hr-floating-proposer">
                 </div>
 
-                <a href="{{ path('show_proposer', {'id': offer.proposer.id}) }}" class="jobnow-button">{{ 'offer.companyPage'|trans }}</a>
+                <a href="{{ path('show_proposer', {'id': offer.proposer.id}) }}" class="cproject-button">{{ 'offer.companyPage'|trans }}</a>
             </div>
 
             {% if offer.tag is defined and offer.tag|length >0 %}
@@ -158,7 +158,7 @@
                         {% endif %}
                     </ul>
                     <hr class="hr-last-offer">
-                    <a href="{{ path('search_page_offer', {'tags':tags}) }}" class="jobnow-button">{{ 'offer.watchSimilar'|trans }}</a>
+                    <a href="{{ path('search_page_offer', {'tags':tags}) }}" class="cproject-button">{{ 'offer.watchSimilar'|trans }}</a>
                 </div>
             {% endif %}
         </div>

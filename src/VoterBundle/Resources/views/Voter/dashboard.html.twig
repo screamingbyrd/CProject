@@ -1,0 +1,41 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'dashboard.title' | trans }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container cproject-container">
+        <div class="text-center">{{ 'dashboard.voter.list' | trans }}</div>
+        <h3>{{ 'header.voters.dashboard.applied' | trans }}</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">{{ 'dashboard.voter.name' | trans }}</th>
+                <th scope="col" style="    min-width: 200px;">{{ 'dashboard.voter.date' | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for offer in appliedOffer %}
+                <tr>
+                    <td>
+                        <a href="{{ path('show_offer', {'id': offer.offer.id, 'url':offer.offer.offerUrl}) }}">
+                            {% if offer.offer.proposer.logo.imageName is not null %}
+                                {% set image =  'uploads' ~ vich_uploader_asset(offer.offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image') %}
+                            {% else %}
+                                {% set image = 'images/logo-default.png' %}
+                            {% endif %}
+                                <img class="logo-proposer-in-applied-offer" src="{{ asset(image) }}"/>
+
+                            {{ offer.offer.title |trans }}
+                        </a>
+                    </td>
+                    <td>{{ offer.date|date('d/m/Y') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

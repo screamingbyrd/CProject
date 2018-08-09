@@ -103,7 +103,7 @@ class AdController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $session = $request->getSession();
@@ -131,7 +131,7 @@ class AdController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $repository = $this

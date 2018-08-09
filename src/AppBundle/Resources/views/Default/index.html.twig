@@ -9,17 +9,17 @@
     <div class="jumbotron homepage-jumbotron">
         <h2>Estimer votre bien</h2>
         <div class="col-md-6">
-            <div class="jobnow-container">
-                <div class="jobnow-description">
-                    <a href="#" class="jobnow-button homepage-button">Post offer</a>
+            <div class="cproject-container">
+                <div class="cproject-description">
+                    <a href="{{ path('post_offer') }}" class="cproject-button homepage-button">Post offer</a>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="jobnow-container">
-                <div class="jobnow-description">
-                    <div class="jobnow-description homepage-button">
-                        <a href="#" class="jobnow-button homepage-button">Estimate</a>
+            <div class="cproject-container">
+                <div class="cproject-description">
+                    <div class="cproject-description homepage-button">
+                        <a href="{{ path('search_page_offer') }}" class="cproject-button homepage-button">Estimate</a>
                     </div>
                 </div>
             </div>
@@ -28,8 +28,8 @@
 
     <div class="row">
         <div class="col-md-6 post-homepage ">
-            <div class="jobnow-container">
-                <div class="jobnow-description">
+            <div class="cproject-container">
+                <div class="cproject-description">
                     <div style="display: -webkit-inline-box;">
                         <img class="about-us-icon" src="{{asset('images/house.svg')}}"><h3>Submit your offer</h3>
                     </div>
@@ -48,8 +48,8 @@
             </div>
         </div>
         <div class="estimate-homepage col-md-6">
-            <div class="jobnow-container">
-                <div class="jobnow-description">
+            <div class="cproject-container">
+                <div class="cproject-description">
                     <div style="display: -webkit-inline-box;">
                         <img class="about-us-icon" src="{{asset('images/tag.svg')}}"><h3>Gagner une commission en estimant le prix</h3>
                     </div>
@@ -78,7 +78,7 @@
         <p>{{ 'homepage.ourMission' |trans}}</p>
     </div>
     {% if ads is not empty %}
-        <div class="container jobnow-container container">
+        <div class="container cproject-container container">
             <h1 class="featured-offer text-center">{{ 'homepage.ourPartners'|trans }}</h1>
             <ul class="ads-list-hompeage" id="myUL">
                 {% for ad in ads %}
@@ -123,7 +123,7 @@
             margin-right: 20px;
             margin-bottom: 20px;
         }
-        .jobnow-description{
+        .cproject-description{
             color: white;
             margin-top: 60px;
             margin-bottom: 60px;
@@ -137,7 +137,7 @@
         .estimate-homepage{
             background-color: white;
         }
-        .estimate-homepage .jobnow-description{
+        .estimate-homepage .cproject-description{
             color: #0d67bf;
         }
 
@@ -151,7 +151,7 @@
         }
         .homepage-jumbotron::after{
             content: '';
-            background-image:url({{asset('images/jobnow-home.jpg')}});
+            background-image:url({{asset('images/cproject-home.jpg')}});
             background-size: cover;
             background-repeat: no-repeat;
             width: 100%;
@@ -199,7 +199,7 @@
         }
          .jumbotron::after{
              content: '';
-             background-image:url({{asset('images/jobnow-home.jpg')}});
+             background-image:url({{asset('images/cproject-home.jpg')}});
              background-size: cover;
              background-repeat: no-repeat;
              width: 100%;

@@ -135,8 +135,8 @@ class OfferController extends Controller
             if(!$offer->isValidated()){
                 $mailer = $this->container->get('swiftmailer.mailer');
                 $message = (new \Swift_Message('Invalid offer modified: ' . $offer->getTitle(). ' id:'. $offer->getId()))
-                    ->setFrom('jobnowlu@noreply.lu')
-                    ->setTo('moderator@jobnow.lu')
+                    ->setFrom('cprojectlu@noreply.lu')
+                    ->setTo('moderator@cproject.lu')
                     ->setBody(
                         $this->renderView(
                             'AppBundle:Emails:invalidOfferModified.html.twig',
@@ -269,7 +269,7 @@ class OfferController extends Controller
             $mailer = $this->container->get('swiftmailer.mailer');
             $translated = $this->get('translator')->trans('form.offer.deleted.subject');
             $message = (new \Swift_Message($translated . ' ' . $title))
-                ->setFrom('jobnowlu@noreply.lu')
+                ->setFrom('cprojectlu@noreply.lu')
                 ->setTo($firstUser)
                 ->setCc(array_shift($arrayEmail))
                 ->setBody(
@@ -441,7 +441,7 @@ class OfferController extends Controller
             if(isset($ajax) && $ajax){
                 return new JsonResponse($this->generateUrl('proposer_offers', array('archived' => $_SESSION['archived'])));
             }
-            return $this->redirectToRoute('jobnow_credit');
+            return $this->redirectToRoute('cproject_credit');
         }
 
         $proposer->setCredit($creditProposer - $creditOffer);
@@ -769,7 +769,7 @@ class OfferController extends Controller
         if($creditProposer < $creditBoost){
             $translated = $this->get('translator')->trans('form.offer.boost.error');
             $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('jobnow_credit');
+            return $this->redirectToRoute('cproject_credit');
         }
 
         $proposer->setCredit($creditProposer - $creditBoost);
@@ -885,7 +885,7 @@ class OfferController extends Controller
         $translatedProposer = $this->get('translator')->trans('offer.applied.proposer');
 
         $messageEmmployer = (new \Swift_Message($translatedProposer . ' ' . $offer->getTitle()))
-            ->setFrom('jobnowlu@noreply.lu')
+            ->setFrom('cprojectlu@noreply.lu')
             ->setTo($firstUser)
             ->setCc(array_shift($arrayEmail))
             ->setBody(
@@ -900,7 +900,7 @@ class OfferController extends Controller
 
         $translatedVoter = $this->get('translator')->trans('offer.applied.voter');
         $messageVoter = (new \Swift_Message($translatedVoter . ' ' . $offer->getTitle()))
-            ->setFrom('jobnowlu@noreply.lu')
+            ->setFrom('cprojectlu@noreply.lu')
             ->setTo($voterMail)
             ->setBody(
                 $this->renderView(
@@ -989,7 +989,7 @@ class OfferController extends Controller
 
                 foreach ($userArray as $user){
                     $message = (new \Swift_Message($subject))
-                        ->setFrom('jobnowlu@noreply.lu')
+                        ->setFrom('cprojectlu@noreply.lu')
                         ->setTo($user->getEmail())
                         ->setBody(
                             $this->renderView(

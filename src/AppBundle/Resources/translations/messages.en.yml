@@ -401,7 +401,7 @@ email:
         search: New jobs are available for you
       new: New offers could interest you
   footer:
-    contact: Si vous souhaitez nous contacter, vous pouvez nous envoyer un e-mail à %link_start%support@jobnow.lu%link_end%
+    contact: Si vous souhaitez nous contacter, vous pouvez nous envoyer un e-mail à %link_start%support@cproject.lu%link_end%
     consult: Consultez notre %link_start%politique de confidentialité%link_end% pour connaître vos droits.
 
 contact:

@@ -10,15 +10,15 @@
         <h2>{{ 'dashboard.title' | trans }}</h2>
     </div>
 
-    <div class="container jobnow-container" style="text-align: center">
+    <div class="container cproject-container" style="text-align: center">
 
         <div class="dashboard-container">
             <div class="container-square">
                 <a class="zoom block-dashboard square-profile" href="{{ path('show_proposer', {'id':proposer.id}) }}"><div class="content-square"><i class="fas fa-user"></i><div class="text-square">{{ 'dashboard.proposer.watchProfile' | trans }}</div></div></a>
                 <a class="zoom block-dashboard square-offers" href="{{ path('proposer_offers') }}"><div class="content-square"><i class="fas fa-list-ul"></i><div class="text-square">{{ 'dashboard.proposer.myOffers' | trans }}</div></div></a>
-                <a class="zoom block-dashboard square-credit" href="{{ path('jobnow_credit') }}"><div class="content-square"><i class="fas fa-shopping-cart"></i><div class="text-square">{{ 'proposer.credit.buy' | trans }}</div></div></a>
+                <a class="zoom block-dashboard square-credit" href="{{ path('cproject_credit') }}"><div class="content-square"><i class="fas fa-shopping-cart"></i><div class="text-square">{{ 'proposer.credit.buy' | trans }}</div></div></a>
                 <a class="zoom block-dashboard square-featured-offers" href="{{ path('featured_offer_page') }}"><div class="content-square"><i class="far fa-calendar-alt"></i><div class="text-square">{{ 'featured.offer.title' | trans }}</div></div></a>
-                <a class="zoom block-dashboard square-bills" href="{{ path('jobnow_bills') }}"><div class="content-square"><i class="fas fa-file"></i><div class="text-square">{{ 'dashboard.proposer.myBills' | trans }}</div></div></a>
+                <a class="zoom block-dashboard square-bills" href="{{ path('cproject_bills') }}"><div class="content-square"><i class="fas fa-file"></i><div class="text-square">{{ 'dashboard.proposer.myBills' | trans }}</div></div></a>
                 <a class="zoom block-dashboard square-post" href="{{ path('post_offer') }}" ><div class="content-square"><i class="fas fa-clipboard"></i><div class="text-square">{{ 'header.proposers.post' | trans }}</div></div></a>
                 <a class="zoom block-dashboard square-contact" href="{{ path('contact_us_page') }}"><div class="content-square"><i class="fas fa-headphones"></i><div class="text-square">{{ 'contact.us.proposer'|trans }}</div></div></a>
                 <a class="zoom block-dashboard square-featured-proposers" href="{{ path('featured_proposer_page') }}"><div class="content-square"><i class="far fa-calendar-alt"></i><div class="text-square">{{ 'featured.proposer.title' | trans }}</div></div></a>

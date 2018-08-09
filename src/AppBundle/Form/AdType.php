@@ -64,7 +64,7 @@ class AdType extends AbstractType
 
             ->add('submit',      SubmitType::class, array(
                 'attr' => array(
-                    'class' => 'jobnow-button login',
+                    'class' => 'cproject-button login',
                 )
             ))
         ;

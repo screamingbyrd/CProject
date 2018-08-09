@@ -28,19 +28,6 @@ class Voter
     private $user;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="age", type="integer", nullable=true)
-     * @Assert\Range(
-     *      min = 16,
-     *      max = 99,
-     *      minMessage = "voter.age",
-     *      maxMessage = "voter.age"
-     * )
-     */
-    private $age;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=255, nullable=true)
@@ -184,24 +171,6 @@ class Voter
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAge()
-    {
-        return $this->age;
-    }
-
-    /**
-     * @param int $age
-     * @return Voter
-     */
-    public function setAge($age)
-    {
-        $this->age = $age;
         return $this;
     }
 

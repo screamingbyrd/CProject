@@ -1,6 +1,6 @@
-Sitemap: /jobnowlu/web/app_dev.php/fr/sitemap.xml
+Sitemap: /cprojectlu/web/app_dev.php/fr/sitemap.xml
 
-Sitemap: /jobnowlu/web/app_dev.php/en/sitemap.xml
+Sitemap: /cprojectlu/web/app_dev.php/en/sitemap.xml
 
 User-agent: *
 Disallow: /

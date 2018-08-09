@@ -1,27 +1,27 @@
-jobnow_home:
+cproject_home:
     path: "/"
     defaults: { _controller: AppBundle:App:index }
-jobnow_contact:
+cproject_contact:
     locales:
         en: "/contact"
         fr: "/contacter"
     defaults: { _controller: AppBundle:Contact:contact }
-jobnow_credit:
+cproject_credit:
     locales:
         en: "/proposer/credit"
         fr: "/employeur/credit"
     defaults: { _controller: AppBundle:Credit:credit }
-jobnow_bills:
+cproject_bills:
     locales:
         en: "/proposer/bills"
         fr: "/employeur/facture"
     defaults: { _controller: AppBundle:Credit:bills }
-jobnow_bills_generate:
+cproject_bills_generate:
     locales:
         en: "/proposer/bills/pdf"
         fr: "/employeur/facture/pdf"
     defaults: { _controller: AppBundle:Credit:generateBill }
-jobnow_payment:
+cproject_payment:
     locales:
         en: "/proposer/payment/{id}"
         fr: "/employeur/paiement/{id}"
@@ -94,7 +94,7 @@ delete_favorite:
         en: "/delete-favorite"
         fr: "/supprimer-favori"
     defaults: { _controller: AppBundle:Favorite:delete }
-jobnow_sitemap:
+cproject_sitemap:
     path: "/sitemap.xml"
     defaults: { _controller: AppBundle:Sitemap:sitemap }
     requirements: {_format: "xml"}

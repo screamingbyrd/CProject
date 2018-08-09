@@ -42,7 +42,7 @@ class AfterLoginRedirect implements AuthenticationSuccessHandlerInterface
         } elseif(in_array('ROLE_VOTER', $rolesTab, true)) {
             $redirection = new RedirectResponse($this->router->generate('dashboard_voter'));
         }else {
-            $redirection = new RedirectResponse($this->router->generate('jobnow_home'));
+            $redirection = new RedirectResponse($this->router->generate('cproject_home'));
         }
 
         return $redirection;

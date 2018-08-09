@@ -16,7 +16,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $proposerRepository = $this
@@ -44,7 +44,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $repository = $this
@@ -73,7 +73,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $voterRepository = $this
@@ -93,7 +93,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $userRepository = $this
@@ -115,7 +115,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $userRepository = $this
@@ -142,7 +142,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $userRepository = $this
@@ -173,7 +173,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $offerRepository = $this
@@ -210,7 +210,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $offerRepository = $this
@@ -244,7 +244,7 @@ class AdminController extends Controller
             $mailer = $this->container->get('swiftmailer.mailer');
             $translated = $this->get('translator')->trans('form.offer.invalid.subject');
             $message = (new \Swift_Message($translated . ' ' . $offer->getTitle() . " Id: " .$offer->getId()))
-                ->setFrom('jobnowlu@noreply.lu')
+                ->setFrom('cprojectlu@noreply.lu')
                 ->setTo($firstUser)
                 ->setCc(array_shift($arrayEmail))
                 ->setBody(
@@ -275,7 +275,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
 
         $logRepository = $this

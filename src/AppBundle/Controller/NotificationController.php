@@ -109,7 +109,7 @@ class NotificationController extends Controller
 
         $translated = $this->get('translator')->trans('email.notification.new');
         $message = (new \Swift_Message($translated))
-            ->setFrom('jobnowlu@noreply.lu')
+            ->setFrom('cprojectlu@noreply.lu')
             ->setTo($mail)
             ->setBody(
                 $this->renderView(
@@ -158,7 +158,7 @@ class NotificationController extends Controller
         }else{
             $translated = $this->get('translator')->trans('notification.deleted');
             $session->getFlashBag()->add('info', $translated);
-            return $this->redirectToRoute('jobnow_home');
+            return $this->redirectToRoute('cproject_home');
         }
     }
 
@@ -215,7 +215,7 @@ class NotificationController extends Controller
                     $mailer = $this->container->get('swiftmailer.mailer');
 
                     $message = (new \Swift_Message($this->get('translator')->trans('email.notification.send.title.search')))
-                        ->setFrom('jobnowlu@noreply.lu')
+                        ->setFrom('cprojectlu@noreply.lu')
                         ->setTo($mail)
                         ->setBody(
                             $this->renderView(
@@ -280,7 +280,7 @@ class NotificationController extends Controller
 
                 $translated = $this->get('translator')->trans('email.notification.new');
                 $message = (new \Swift_Message($translated))
-                    ->setFrom('jobnowlu@noreply.lu')
+                    ->setFrom('cprojectlu@noreply.lu')
                     ->setTo($mail)
                     ->setBody(
                         $this->renderView(
