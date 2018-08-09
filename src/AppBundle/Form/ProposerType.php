@@ -66,43 +66,11 @@ class ProposerType extends AbstractType
                 'label' => 'form.registration.lastname'
             ))
 
-            ->add('name', TextType::class, array(
-                'required' => true,
-                'label' => 'form.registration.companyName'
-            ))
-
-            ->add('description', TextareaType::class, array(
-                'required' => false,
-                'label' => 'form.registration.description',
-            ))
-
-            ->add('tag', EntityType::class, array(
-                'choice_translation_domain' => true,
-                'required' => false,
-                'class' => Tag::class,
-                'choice_label' =>  'name',
-                'placeholder' => 'Category',
-                'multiple' => true,
-                'attr' => array('class' => 'select2'),
-
-            ))
-
-            ->add('location', PlaceAutocompleteType::class,array(
-                'attr' => array('class' => 'form-control'),
-                'required' => false,
-
-
-
-                ))
 
             ->add('phone', TelType::class, array(
                 'required' => true,
                 'label' => 'form.registration.phone'
             ))
-
-            ->add('logo', ImageType::class)
-
-            ->add('coverImage', ImageType::class)
 
             ->add('submit',      SubmitType::class, array(
                 'attr' => array(

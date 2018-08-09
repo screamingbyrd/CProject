@@ -7,7 +7,7 @@
 
 {% block body %}
 
-    {%  if (app.user.roles is defined) and ('ROLE_EMPLOYER' in app.user.roles) %}
+    {%  if (app.user.roles is defined) and ('ROLE_PROPOSER' in app.user.roles) %}
         <a href="{{ path('dashboard_proposer') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
     {% endif %}
     <div class="jumbotron homepage-jumbotron">
@@ -15,7 +15,7 @@
     </div>
     <div class="container jobnow-container buy-container">
 
-        {#{%  if (app.user.roles is defined) and ('ROLE_EMPLOYER' in app.user.roles) %}#}
+        {#{%  if (app.user.roles is defined) and ('ROLE_PROPOSER' in app.user.roles) %}#}
             {#<h3>{{ 'proposer.credit.have'|trans({'%credit%': credit}) }}</h3>#}
         {#{% endif %}#}
 
@@ -71,7 +71,7 @@
             {{ 'price.find' | trans }}
         </div>
 
-        {%  if (app.user.roles is defined) and ('ROLE_EMPLOYER' in app.user.roles) %}
+        {%  if (app.user.roles is defined) and ('ROLE_PROPOSER' in app.user.roles) %}
             {% if credit >0 %}
                 <div class="shadow-box">
                     {{ 'price.go'|trans }}

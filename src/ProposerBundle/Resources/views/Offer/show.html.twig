@@ -14,7 +14,7 @@
             <div class="job-title">{{ offer.contractType.name |trans }}</div>
             <div class="job-title">{{ offer.location }}</div>
             <div class="updated-date">{{ 'offer.posted' | trans }} {{ offer.creationDate |date('d/m/Y')}}</div>
-            {%  if (app.user.roles is defined) and ('ROLE_CANDIDATE' in app.user.roles) %}
+            {%  if (app.user.roles is defined) and ('ROLE_VOTER' in app.user.roles) %}
                 <a data-toggle="tooltip" data-placement="top" title="{{ 'favorite.add' | trans }}" href="{{ path('create_favorite', {'id':offer.id}) }}"><i class="fa fa-star"></i></a>
             {% endif %}
         </h3>
@@ -25,7 +25,7 @@
             <div class="row about-the-offer fade-in-left animated shadow-box">
                 <div class="offer-about">
                     <span>{{ 'offer.about' | trans }}</span>
-                    {%  if (app.user.roles is not defined) or (app.user.roles is defined and 'ROLE_EMPLOYER' not in app.user.roles) %}
+                    {%  if (app.user.roles is not defined) or (app.user.roles is defined and 'ROLE_PROPOSER' not in app.user.roles) %}
                         <button class="jobnow-button second-apply-button">{{ 'offer.apply.title' | trans }}</button>
                     {% endif %}
                 </div>
@@ -164,7 +164,7 @@
         </div>
 
     </div>
-    {%  if (app.user.roles is not defined) or (app.user.roles is defined and 'ROLE_EMPLOYER' not in app.user.roles) %}
+    {%  if (app.user.roles is not defined) or (app.user.roles is defined and 'ROLE_PROPOSER' not in app.user.roles) %}
         <div class="apply-div-form">
             <button class="btn btn-primary apply-button">{{ 'offer.apply.title' | trans }}</button>
             <div class="container">
@@ -211,7 +211,7 @@
     <script>
 
         $(".apply-button, .second-apply-button").click(function() {
-            {%  if (app.user.roles is defined) and ('ROLE_CANDIDATE' in app.user.roles) %}
+            {%  if (app.user.roles is defined) and ('ROLE_VOTER' in app.user.roles) %}
                 {% if offer.link |length %}
                 url = "{{ path('increment_offer') }}";
                 $.ajax({

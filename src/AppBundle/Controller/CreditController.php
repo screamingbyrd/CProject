@@ -85,7 +85,7 @@ class CreditController extends Controller
 
         $session = $request->getSession();
 
-        if(!((isset($user) and in_array('ROLE_EMPLOYER', $user->getRoles())) ||  (isset($user) and in_array('ROLE_ADMIN', $user->getRoles())))){
+        if(!((isset($user) and in_array('ROLE_PROPOSER', $user->getRoles())) ||  (isset($user) and in_array('ROLE_ADMIN', $user->getRoles())))){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -133,7 +133,7 @@ class CreditController extends Controller
 
         $session = $request->getSession();
 
-        if(!(isset($user) and  in_array('ROLE_EMPLOYER', $user->getRoles()))){
+        if(!(isset($user) and  in_array('ROLE_PROPOSER', $user->getRoles()))){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -221,7 +221,7 @@ class CreditController extends Controller
         ;
         $logsCredit = $repository->findOneBy(array('id' => $id));
 
-        if(!(isset($user) and  (in_array('ROLE_EMPLOYER', $user->getRoles()) and $logsCredit->getProposer() == $user->getProposer()) or in_array('ROLE_ADMIN', $user->getRoles()))){
+        if(!(isset($user) and  (in_array('ROLE_PROPOSER', $user->getRoles()) and $logsCredit->getProposer() == $user->getProposer()) or in_array('ROLE_ADMIN', $user->getRoles()))){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');

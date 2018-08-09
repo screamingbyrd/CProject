@@ -46,7 +46,7 @@ class VoterController extends Controller
                 $userRegister = $this->get('app.user_register');
 
 
-                $user = $userRegister->register($data->getEmail(),$data->getEmail(),$data->getPassword(),$data->getFirstName(),$data->getLastName(), 'ROLE_CANDIDATE');
+                $user = $userRegister->register($data->getEmail(),$data->getEmail(),$data->getPassword(),$data->getFirstName(),$data->getLastName(), 'ROLE_VOTER');
 
 
                 if($user != false){
@@ -116,7 +116,7 @@ class VoterController extends Controller
         ;
         $voter = $voterRepository->findOneBy(isset($idVoter)?array('id' => $idVoter):array('user' => $user->getId()));
 
-        if(!((isset($user) and in_array('ROLE_CANDIDATE', $user->getRoles())) ||  in_array('ROLE_ADMIN', $user->getRoles()))){
+        if(!((isset($user) and in_array('ROLE_VOTER', $user->getRoles())) ||  in_array('ROLE_ADMIN', $user->getRoles()))){
             $translated = $this->get('translator')->trans('redirect.voter');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_voter');
@@ -282,7 +282,7 @@ class VoterController extends Controller
         ;
         $voter = $voterRepository->findOneBy(isset($idVoter)?array('id' => $idVoter):array('user' => $user->getId()));
 
-        if(!((isset($user) and in_array('ROLE_CANDIDATE', $user->getRoles())) ||  in_array('ROLE_ADMIN', $user->getRoles()))){
+        if(!((isset($user) and in_array('ROLE_VOTER', $user->getRoles())) ||  in_array('ROLE_ADMIN', $user->getRoles()))){
             $translated = $this->get('translator')->trans('redirect.voter');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_voter');
@@ -388,7 +388,7 @@ class VoterController extends Controller
         ;
         $voter = $voterRepository->findOneBy(isset($idVoter)?array('id' => $idVoter):array('user' => $user->getId()));
 
-        if(!((isset($user) and in_array('ROLE_CANDIDATE', $user->getRoles())) ||  in_array('ROLE_ADMIN', $user->getRoles()))){
+        if(!((isset($user) and in_array('ROLE_VOTER', $user->getRoles())) ||  in_array('ROLE_ADMIN', $user->getRoles()))){
             $translated = $this->get('translator')->trans('redirect.voter');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_voter');
@@ -461,7 +461,7 @@ class VoterController extends Controller
 
         $session = $request->getSession();
 
-        if(!(isset($user) and in_array('ROLE_EMPLOYER', $user->getRoles()) || in_array('ROLE_ADMIN', $user->getRoles()) || $user->getId() != $id)){
+        if(!(isset($user) and in_array('ROLE_PROPOSER', $user->getRoles()) || in_array('ROLE_ADMIN', $user->getRoles()) || $user->getId() != $id)){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');

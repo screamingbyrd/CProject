@@ -44,7 +44,7 @@
         }
     </script>
 
-    {%  if (app.user.roles is defined) and ('ROLE_EMPLOYER' in app.user.roles) %}
+    {%  if (app.user.roles is defined) and ('ROLE_PROPOSER' in app.user.roles) %}
         <a href="{{ path('dashboard_proposer') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
     {% endif %}
     <div class="container">

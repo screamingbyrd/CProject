@@ -7,19 +7,75 @@
 {% block body %}
 
     <div class="jumbotron homepage-jumbotron">
-        <h2>{{ 'homepage.title'|trans }}</h2>
-        <h3 class="homepage-subtitle">{{ 'homepage.title'|trans }}</h3>
-    </div>
-
-    <div class="about-us-container">
-        <div class="container jobnow-container">
-            <div class="jobnow-description fadeIn animated">
-                <div style="display: -webkit-inline-box;">
-                    <img class="about-us-icon" src="{{asset('images/search.svg')}}"><h3>{{ 'header.about.title'|trans }}</h3>
+        <h2>Estimer votre bien</h2>
+        <div class="col-md-6">
+            <div class="jobnow-container">
+                <div class="jobnow-description">
+                    <a href="#" class="jobnow-button homepage-button">Post offer</a>
                 </div>
-                <p>{{ 'homepage.ourMission' |trans}}</p>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="jobnow-container">
+                <div class="jobnow-description">
+                    <div class="jobnow-description homepage-button">
+                        <a href="#" class="jobnow-button homepage-button">Estimate</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 post-homepage ">
+            <div class="jobnow-container">
+                <div class="jobnow-description">
+                    <div style="display: -webkit-inline-box;">
+                        <img class="about-us-icon" src="{{asset('images/house.svg')}}"><h3>Submit your offer</h3>
+                    </div>
+                    <p>{{ 'homepage.ourMission' |trans}}</p>
+                    <div class="process-block">
+                        <div class="number-process">1</div>
+                        <div>Post an offer</div>
+                    </div>
+                    <div class="process-block"><i class="fas fa-list-ul"></i></div>
+                    <div class="process-block">
+                        <div class="number-process">3</div>
+                        Accept to sell it
+                    </div>
+                    <div class="process-block"><i class="fas fa-trophy"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="estimate-homepage col-md-6">
+            <div class="jobnow-container">
+                <div class="jobnow-description">
+                    <div style="display: -webkit-inline-box;">
+                        <img class="about-us-icon" src="{{asset('images/tag.svg')}}"><h3>Gagner une commission en estimant le prix</h3>
+                    </div>
+                    <p>{{ 'homepage.ourMission' |trans}}</p>
+                    <div class="process-block"><i class="fas fa-file"></i></div>
+                    <div class="process-block">
+                        <div class="number-process">2</div>
+                        Evaluate the price of the offer
+                    </div>
+                    <div class="process-block"><i class="fas fa-check"></i></div>
+                    <div class="process-block">
+                        <div class="number-process">4</div>
+                        The closest win something
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="jumbotron">
+        <div style="display: -webkit-inline-box;">
+            <img class="about-us-icon" src="{{asset('images/search.svg')}}"><h3>{{ 'header.about.title'|trans }}</h3>
+        </div>
+        <p>{{ 'homepage.ourMission' |trans}}</p>
     </div>
     {% if ads is not empty %}
         <div class="container jobnow-container container">
@@ -54,6 +110,10 @@
 
 
     <style>
+        .row{
+            margin-right: 0 !important;
+            margin-left: 0 !important;
+        }
         .ads-list-hompeage{
             list-style-type: none;
             margin-top: 20px;
@@ -68,12 +128,19 @@
             margin-top: 60px;
             margin-bottom: 60px;
             text-align: center;
+            margin-right: 50px;
+            margin-left: 50px;
         }
-        .about-us-container{
-            background-color: #272f3b;
-            margin-top: 40px;
-            margin-bottom: 40px;
+        .post-homepage{
+            background-color: #0d67bf;
         }
+        .estimate-homepage{
+            background-color: white;
+        }
+        .estimate-homepage .jobnow-description{
+            color: #0d67bf;
+        }
+
         .homepage-href-row{
             padding: 10px;
             padding-right: 25px;
@@ -94,6 +161,54 @@
             position:absolute;
             z-index: -1;
         }
+        .homepage-jumbotron{
+            margin-bottom: 0 !important;
+            padding: 141px 0 !important;
+        }
+        .homepage-button{
+            min-width: 150px;
+            font-size: 20px;
+        }
+        .process-block{
+            display: flex;
+            height: 115px;
+            align-items: center;
+            justify-content: center;
+        }
+        .process-block .fas{
+            font-size: 25px;
+        }
+        .number-process{
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            padding: 8px;
+            border: 2px solid;
+            text-align: center;
+            font: 21px Arial, sans-serif;
+            margin-right: 20px;
+        }
+        .about-us-container{
+            background-color: black;
+            color: white;
+            padding-top: 60px;
+            padding-bottom: 60px;
+            text-align: center;
+            padding-right: 50px;
+            padding-left: 50px;
+        }
+         .jumbotron::after{
+             content: '';
+             background-image:url({{asset('images/jobnow-home.jpg')}});
+             background-size: cover;
+             background-repeat: no-repeat;
+             width: 100%;
+             height: 100%;
+             top: 0;
+             left: 0;
+             position:absolute;
+             z-index: -1;
+         }
     </style>
 
 {% endblock %}

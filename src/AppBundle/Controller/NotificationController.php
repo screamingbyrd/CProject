@@ -26,7 +26,7 @@ class NotificationController extends Controller
         $elementId = $request->get('id');
 
         $user = $this->getUser();
-        if(!isset($user) || !in_array('ROLE_CANDIDATE', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_VOTER', $user->getRoles())){
             return $this->redirectToRoute('create_voter');
         }
 

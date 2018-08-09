@@ -12,7 +12,8 @@ a{
 
 .header-text{
     color: #fff !important;
-
+    display: inline-flex;
+    font-size: 26px;
 }
 
 /*!*Used for the sign in form overide from FOSUSER*!*/
@@ -25,7 +26,6 @@ a{
 
 
 body {
-    padding-top: 102px;
     padding-bottom: 65px;
     font-family: myFirstFont;
     font-size: 18px !important;
@@ -40,7 +40,7 @@ body {
 .featured-offer.text-center{
     margin-bottom: 15px;
     margin-top: 5px;
-    color: #f0b245;
+    color: #455af0;
 }
 
 
@@ -93,7 +93,7 @@ body {
     }
 
     .header-navbar {
-        background-color: #272f3b;
+        background-color: #0d67bf;
         border-color: #080808;
         height: 75px;
         font-size: 20px;
@@ -124,18 +124,17 @@ body {
 
 
 .header-navbar {
-    background-color: #272f3b;
+    background: linear-gradient(135deg,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.7) 100%);
     border-color: #080808;
     height: 88px;
     font-size: 18px;
 }
 .navbar-collapse{
-    background-color: #272f3b;
     border-color: #080808;
 }
 
 .navbar-fixed-bottom{
-    background-color: #272f3b;
+    background: linear-gradient(135deg,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.7) 100%);
 }
 
 .navbar-default .navbar-nav>li>a{
@@ -143,7 +142,7 @@ body {
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
-    background-color: #272f3b;
+    background-color: #c02945;
 }
 
 
@@ -166,7 +165,7 @@ body {
 
 h3.title{
 
-    color: #f0ab1e;
+    color: #232323;
     margin-bottom: 20px;
 }
 
@@ -225,25 +224,26 @@ legend{
 /*Button*/
 
 .logo-jobnow{
-    position: absolute;
-    left: 2%;
-    top: 12px;
-    width: 200px;
+    /* position: relative; */
+    /* left: 8%; */
+    /* top: 12px; */
+    width: 85px;
     height: 61px;
-    z-index: 200;
+    /* z-index: 200; */
+    margin-top: -19px;
 }
 
 .jobnow-button{
     color: #fbfef5;
-    border: solid 1px #e03c14;
+    border: solid 1px #3b3ce0;
     border-radius: 3px;
     padding: 10px 19px;
     display: inline-block;
     font-size: 16px;
     letter-spacing: 1px;
     cursor: pointer;
-    background: #e03c14;
-    box-shadow: inset 0 0 0 0 #d84a24;
+    background: #4647e0;
+    box-shadow: inset 0 0 0 0 #5949d8;
     -webkit-transition: ease-out 0.4s;
     -moz-transition: ease-out 0.4s;
     transition: ease-out 0.4s;
@@ -252,7 +252,7 @@ legend{
     margin-top: 0;
 }
 .jobnow-button:hover{
-    box-shadow: inset 1000px 0 0 0 #ff6940;
+    box-shadow: inset 1000px 0 0 0 #3950ff;
     color: white;
 }
 
@@ -303,7 +303,7 @@ legend{
     font-weight: 600;
     font-size: 42px;
 }
-.homepage-jumbotron, .offer-jumbotron, .searchpage-jumbotron, .proposer-jumbotron{
+.homepage-jumbotron, .offer-jumbotron, .searchpage-jumbotron, .proposer-jumbotron, .jumbotron{
     text-align: center;
     overflow: hidden;
     padding: 95px  0;
@@ -312,7 +312,7 @@ legend{
     margin-bottom: 10px;
     display: block;
     position:relative;
-    color: orange;
+    color: #f7f8f9;
     margin-top: -14px;
     padding-left: 4%;
     padding-right: 4%;

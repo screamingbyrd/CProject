@@ -49,21 +49,15 @@ class ProposerController extends Controller
 
 
             $userRegister = $this->get('app.user_register');
-            $user = $userRegister->register($data->getEmail(),$data->getEmail(),$data->getPassword(),$data->getFirstName(),$data->getLastName(), 'ROLE_EMPLOYER');
+            $user = $userRegister->register($data->getEmail(),$data->getEmail(),$data->getPassword(),$data->getFirstName(),$data->getLastName(), 'ROLE_PROPOSER');
 
             if($user != false){
                 // the user is now registered !
 
                 $em = $this->getDoctrine()->getManager();
 
-                $proposer->setName($data->getName());
-                $proposer->setDescription($data->getDescription());
-                $proposer->setCredit(0);
-                $proposer->setLocation($data->getLocation());
                 $proposer->setPhone($data->getPhone());
                 $proposer->addUser($user);
-                $proposer->setLogo($data->getLogo());
-                $proposer->setCoverImage($data->getCoverImage());
 
                 $em->persist($user);
                 $em->flush();
@@ -76,15 +70,12 @@ class ProposerController extends Controller
                 }else{
                     return $this->redirectToRoute('edit_proposer');
                 }
-
-
-
             }else{
 
                 $translated = $this->get('translator')->trans('form.registration.error');
                 $session->getFlashBag()->add('danger', $translated);
 
-                return $this->redirectToRoute('jobnow_home');
+                return $this->redirectToRoute('cproject_home');
             }
         }
         return $this->render('ProposerBundle:form:createProposer.html.twig', array(
@@ -150,13 +141,8 @@ class ProposerController extends Controller
                 $user->SetLastName($data->getLastName());
                 $userManager->updateUser($user);
 
-                $proposer->setName($data->getName());
-                $proposer->setDescription($data->getDescription());
-                $proposer->setLocation($data->getLocation());
                 $proposer->setPhone($data->getPhone());
                 $proposer->addUser($user);
-                $proposer->setLogo($data->getLogo());
-                $proposer->setCoverImage($data->getCoverImage());
 
                 $em = $this->getDoctrine()->getManager();
                 $em->merge($proposer);
@@ -171,34 +157,9 @@ class ProposerController extends Controller
             }
         }
 
-        $completion = 5;
-
-        if(isset($proposer->getTag()[0])){
-            $completion += 1;
-        }
-        $location = $proposer->getLocation();
-        if(isset($location)){
-            $completion += 1;
-        }
-        $description = $proposer->getDescription();
-        if(isset($description)){
-            $completion += 1;
-        }
-        $logo = $proposer->getLogo()->getImageName();
-        if(isset($logo)){
-            $completion += 1;
-        }
-        $cover = $proposer->getCoverImage()->getImageName();
-        if(isset($cover)){
-            $completion += 1;
-        }
-
-        $completion = $completion/10 * 100;
-
         return $this->render('ProposerBundle:form:editProposer.html.twig', array(
             'form' => $form->createView(),
             'user' => $user,
-            'completion' => $completion
         ));
     }
 
@@ -420,7 +381,7 @@ class ProposerController extends Controller
         $user = $this->getUser();
         $session = $request->getSession();
 
-        if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -451,7 +412,7 @@ class ProposerController extends Controller
         $user = $this->getUser();
         $session = $request->getSession();
 
-        if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -557,7 +518,7 @@ class ProposerController extends Controller
         $session = $request->getSession();
 
         $user = $this->getUser();
-        if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())|| $user->getId() != (int)$userId){
+        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())|| $user->getId() != (int)$userId){
             return $this->redirectToRoute('create_proposer');
         }
 
@@ -671,7 +632,7 @@ class ProposerController extends Controller
         $session = $request->getSession();
 
         $user = $this->getUser();
-        if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())|| $user->getId() != (int)$userId){
+        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())|| $user->getId() != (int)$userId){
             return $this->redirectToRoute('create_proposer');
         }
 
@@ -746,7 +707,7 @@ class ProposerController extends Controller
         $session = $request->getSession();
         $user = $this->getUser();
 
-        if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())){
             return $this->redirectToRoute('create_proposer');
         }
 
@@ -793,7 +754,7 @@ class ProposerController extends Controller
         $ajax = $request->get('ajax');
         $user = $this->getUser();
 
-        if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())){
             return $this->redirectToRoute('create_proposer');
         }
 
@@ -849,7 +810,7 @@ class ProposerController extends Controller
         $id = $request->get('id');
         $user = $this->getUser();
 
-        if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -902,7 +863,7 @@ class ProposerController extends Controller
         $id = $request->get('id');
         $user = $this->getUser();
 
-        if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())){
             return $this->redirectToRoute('create_proposer');
         }
 
@@ -967,7 +928,7 @@ class ProposerController extends Controller
         $generateUrlService = $this->get('app.offer_generate_url');
         $offer->setOfferUrl($generateUrlService->generateOfferUrl($offer));
 
-        if(!((isset($user) and in_array('ROLE_EMPLOYER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
+        if(!((isset($user) and in_array('ROLE_PROPOSER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -1048,7 +1009,7 @@ class ProposerController extends Controller
 
         $session = $request->getSession();
 
-        if(!(isset($user) and  in_array('ROLE_EMPLOYER', $user->getRoles()))){
+        if(!(isset($user) and  in_array('ROLE_PROPOSER', $user->getRoles()))){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -1128,7 +1089,7 @@ class ProposerController extends Controller
 
         $currentUser = $this->getUser();
 
-        if(!(isset($currentUser) and  in_array('ROLE_EMPLOYER', $currentUser->getRoles()) and $currentUser->isMain())){
+        if(!(isset($currentUser) and  in_array('ROLE_PROPOSER', $currentUser->getRoles()) and $currentUser->isMain())){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -1165,7 +1126,7 @@ class ProposerController extends Controller
 
         $user = $this->getUser();
 
-        if(!(isset($user) and  in_array('ROLE_EMPLOYER', $user->getRoles()) and $user->isMain())){
+        if(!(isset($user) and  in_array('ROLE_PROPOSER', $user->getRoles()) and $user->isMain())){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -1196,7 +1157,7 @@ class ProposerController extends Controller
 
         $user = $this->getUser();
 
-        if(!(isset($user) and  in_array('ROLE_EMPLOYER', $user->getRoles()) and $user->isMain())){
+        if(!(isset($user) and  in_array('ROLE_PROPOSER', $user->getRoles()) and $user->isMain())){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');

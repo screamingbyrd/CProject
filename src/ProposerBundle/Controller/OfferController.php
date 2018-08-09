@@ -111,7 +111,7 @@ class OfferController extends Controller
         ;
         $offer = $offerRepository->findOneBy(array('id' => $id));
 
-        if(!((isset($user) and in_array('ROLE_EMPLOYER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
+        if(!((isset($user) and in_array('ROLE_PROPOSER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -191,7 +191,7 @@ class OfferController extends Controller
         foreach ($ids as $id){
             $offer = $offerRepository->findOneBy(array('id' => $id));
 
-            if(!((isset($user) and in_array('ROLE_EMPLOYER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
+            if(!((isset($user) and in_array('ROLE_PROPOSER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
                 $translated = $this->get('translator')->trans('form.offer.edition.error');
                 $session->getFlashBag()->add('danger', $translated);
                 return $this->redirectToRoute('dashboard_proposer', array('archived' => $_SESSION['archived']));
@@ -240,7 +240,7 @@ class OfferController extends Controller
 
         $title = $offer->getTitle();
 
-        if(!((isset($user) and in_array('ROLE_EMPLOYER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
+        if(!((isset($user) and in_array('ROLE_PROPOSER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
             $translated = $this->get('translator')->trans('form.offer.edition.error');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('dashboard_proposer', array('archived' => $_SESSION['archived']));
@@ -301,7 +301,7 @@ class OfferController extends Controller
 
         $user = $this->getUser();
 
-        if((!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())) && ($offer->getArchived() == 1 || $offer->isValidated() === false)){
+        if((!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())) && ($offer->getArchived() == 1 || $offer->isValidated() === false)){
             return $this->redirectToRoute('offer_archived', array('id' => $id));
         }
 
@@ -420,7 +420,7 @@ class OfferController extends Controller
 
         foreach ($ids as $id){
             $offer = $offerRepository->findOneBy(array('id' => $id));
-            if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles()) || $offer->getProposer()->getId() != $proposer->getId()){
+            if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles()) || $offer->getProposer()->getId() != $proposer->getId()){
                 $translated = $this->get('translator')->trans('redirect.proposer');
                 $session->getFlashBag()->add('danger', $translated);
                 return $this->redirectToRoute('create_proposer');
@@ -755,7 +755,7 @@ class OfferController extends Controller
             ->getRepository('AppBundle:Offer')
         ;
 
-        if(!isset($user) || !in_array('ROLE_EMPLOYER', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())){
             $translated = $this->get('translator')->trans('redirect.proposer');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('create_proposer');
@@ -801,7 +801,7 @@ class OfferController extends Controller
 
         $id = $request->get('id');
 
-        if(!isset($user) || in_array('ROLE_EMPLOYER', $user->getRoles())){
+        if(!isset($user) || in_array('ROLE_PROPOSER', $user->getRoles())){
             return $this->redirectToRoute('create_voter', array('offerId' => $id));
         }
 

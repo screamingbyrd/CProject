@@ -21,7 +21,7 @@ class FavoriteController extends Controller
         $offerId = $request->get('id');
 
         $user = $this->getUser();
-        if(!isset($user) || !in_array('ROLE_CANDIDATE', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_VOTER', $user->getRoles())){
             return $this->redirectToRoute('create_voter');
         }
 
@@ -80,7 +80,7 @@ class FavoriteController extends Controller
         $favoriteId = $request->get('id');
         $user = $this->getUser();
 
-        if(!isset($user) || !in_array('ROLE_CANDIDATE', $user->getRoles())){
+        if(!isset($user) || !in_array('ROLE_VOTER', $user->getRoles())){
             return $this->redirectToRoute('create_voter');
         }
 

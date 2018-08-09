@@ -47,46 +47,12 @@ class RegisterUser
         $user->setPlainPassword($password);
         $user->addRole($role);
 
-        if($role == 'ROLE_EMPLOYER'){
-            $user->setMain(1);
-        }
-
         $this->userManager->updateUser($user);
 
         $token = new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken($user, $password, "main", array($role));
         $this->tokenStorage->setToken($token);
 
         $this->session->set('_security_secured_area', serialize($token));
-
-        return $user;
-    }
-
-    /**
-     * This method adds a collaborator to an existing proposer.
-     *
-     * @return User
-     **/
-    public function addCollaborator($email, $proposer){
-
-        $email_exist = $this->userManager->findUserByEmail($email);
-
-        if($email_exist){
-            return false;
-        }
-
-        $user = $this->userManager->createUser();
-        $user->setEnabled(true);
-        $user->setUsername($email);
-        $user->setEmail($email);
-        $user->setEmailCanonical($email);
-        $user->setFirstName('');
-        $user->SetLastName('');
-        $user->setPlainPassword('0000');
-        $user->addRole('ROLE_EMPLOYER');
-        $user->setProposer($proposer);
-        $this->userManager->updateUser($user);
-
-
 
         return $user;
     }

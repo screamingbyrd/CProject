@@ -1,0 +1,121 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}
+    Register - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {%  if (app.user.roles is defined) and ('ROLE_PROPOSER' in app.user.roles) %}
+        <a href="{{ path('dashboard_proposer') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
+    {% endif %}
+
+    <div class="row edit-container register-proposer">
+        <div class="col-md-5">
+
+            <h3 class="login-login-title">{{ 'form.registration.title.edit'|trans }}</h3>
+
+
+
+
+                {{ form_start(form, {'attr': {'class': 'form-vertical'}}) }}
+
+                {# Les erreurs générales du formulaire. #}
+                {{ form_errors(form) }}
+
+                <div class="row form-group">
+
+                    <div class="col-md-6 form-group">
+                        {{ form_label (form.firstName) }}
+                        {{ form_widget(form.firstName) }}
+                        {{ form_errors(form.firstName) }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        {{ form_label (form.lastName) }}
+                        {{ form_widget(form.lastName) }}
+                        {{ form_errors(form.lastName) }}
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        {{ form_label (form.email,null, { 'label_attr': {'class': 'label-form'} }) }}
+                        {{ form_widget(form.email , { 'attr': {'readonly':'readonly'} }) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        {{ form_label (form.phone) }}
+                        {{ form_widget(form.phone) }}
+                        {{ form_errors(form.phone) }}
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-md-offset-3">
+                    {{ form_widget(form.submit, { 'label': 'offer.submit' }) }}
+                </div>
+
+
+
+                {# Génération automatique des champs pas encore écrits.
+                   Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+                   et tous les champs cachés (type « hidden »). #}
+                {{ form_rest(form) }}
+
+                {# Fermeture de la balise <form> du formulaire HTML #}
+                {{ form_end(form) }}
+
+
+            <div class="button-profile">
+                <button class="btn btn-primary " id="btn-confirm">{{ 'voter.delete.delete'|trans }}</button>
+                <a class="btn btn-primary" href="{{ path('fos_user_change_password') }}">{{ 'proposer.edit.changePassword'|trans }}</a>
+                <a class="btn btn-primary" href="{{ path('fos_user_resetting_request') }}">{{ 'proposer.edit.forgotPassword'|trans }}</a>
+            </div>
+            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{{ 'voter.delete.sure'|trans }}</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="modal-btn-yes">{{ 'yes'|trans }}</button>
+                            <button type="button" class="btn btn-primary" id="modal-btn-no">{{ 'no'|trans }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#btn-confirm").on("click", function(e){
+            e.preventDefault();
+            $("#mi-modal").modal('show');
+        });
+
+        $("#modal-btn-yes").on("click", function(){
+            window.location.replace("{{ path('delete_proposer', {'id':user.proposer.id}) }}");
+        });
+
+        $("#modal-btn-no").on("click", function(){
+            $("#mi-modal").modal('hide');
+        });
+    </script>
+
+    <style>
+
+        {% set image = 'images/default_cover_image6.jpg' %}
+
+        .proposer-jumbotron::after{
+            content: '';
+            background-image:url({{ asset(image) }});
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position:absolute;
+            z-index: -1;
+        }
+    </style>
+
+{% endblock %}
