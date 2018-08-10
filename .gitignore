@@ -17,7 +17,7 @@
 /web/build/
 /node_modules/
 .idea/
-/web/uploads/
+
 web/bundles/fosckeditor/adapters/jquery.js
 web/bundles/fosckeditor/bower.json
 web/bundles/fosckeditor/build-config.js
