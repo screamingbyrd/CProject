@@ -54,10 +54,10 @@ $(document).ready(function() {
     });
 
     $('.my-selector').collection({
-        add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+        add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a><img id="blah" src="#" alt="your image" />',
         remove: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>',
-        allow_up: false,
-        allow_down: false
+        allow_up: true,
+        allow_down: true
     });
 
     $(function() {
