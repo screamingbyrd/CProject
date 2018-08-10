@@ -99,8 +99,8 @@ vich_uploader:
     db_driver: orm
     mappings:
         proposer_image:
-            uri_prefix: /images/proposer
-            upload_destination: '%kernel.project_dir%/web/uploads/images/proposer'
+            uri_prefix: /images/offer
+            upload_destination: '%kernel.project_dir%/web/uploads/images/offer'
 
 
 ivory_google_map:

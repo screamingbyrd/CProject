@@ -3,6 +3,7 @@
 require('../css/main.css');
 require('../css/proposer.css');
 require('../css/offer.css');
+require('../js/jquery.collection.js');
 
 // require jQuery normally
 const $ = require('jquery');
@@ -42,6 +43,22 @@ function detectmob() {
 }
 
 $(document).ready(function() {
+    $('#appbundle_proposer_type').on('change', function(e) {
+        if($(this).val() == 'type.house'){
+            $('.house-field').show();
+            $('.flat-field').hide();
+        }else if($(this).val() == 'type.flat'){
+            $('.flat-field').show();
+            $('.house-field').hide();
+        }
+    });
+
+    $('.my-selector').collection({
+        add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+        remove: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>',
+        allow_up: false,
+        allow_down: false
+    });
 
     $(function() {
         $(".meter > span").each(function() {

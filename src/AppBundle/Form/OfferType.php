@@ -18,6 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 
 class OfferType extends AbstractType
@@ -33,14 +34,6 @@ class OfferType extends AbstractType
         $translator = $options['translator'];
 
         $builder
-            ->add('title',      TextType::class, array(
-                'required' => true,
-                'label' => 'offer.title',
-                'attr' => array(
-                    'placeholder' => 'offer.titlePH',
-                )
-            ))
-
             ->add('location', PlaceAutocompleteType::class,array(
                 'required' => true,
                 'attr' => array(
@@ -64,6 +57,7 @@ class OfferType extends AbstractType
                 )
             ))
             ->add('type', ChoiceType::class, array('choices' => array(
+                '' => '',
                 'type.house' => 'type.house',
                 'type.flat' => 'type.flat',
             ),
@@ -143,17 +137,18 @@ class OfferType extends AbstractType
                 'required' => false,
                 'label' => 'offer.balcony',
             ))
-            ->add('description', CKEditorType::class, array(
-                'required' => false,
-                'label' => 'offer.description',
+            ->add('images', CollectionType::class, array(
 
-                'config' => array(
-                    'toolbar' => 'basic',
-                    'height' => '30vh'
+                'entry_type' => ImageType::class,
+
+                'entry_options' => array('label' => false),
+                'attr' => array(
+                    'class' => 'my-selector'
                 ),
+                'required' => false,
+                'allow_add' => true,
+                'allow_delete'=>true,
             ))
-
-
             ->add('submit',      SubmitType::class, array(
                 'attr' => array(
                     'class' => 'cproject-button offer-submit login'

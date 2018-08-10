@@ -22,24 +22,122 @@ class Offer
     private $id;
 
     /**
-     * @var \DateTime
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Proposer", cascade={"persist"})
      *
-     * @ORM\Column(name="startDate", type="datetime")
      */
-    private $startDate;
+    private $proposer;
 
     /**
-     * @var \DateTime
      *
-     * @ORM\Column(name="endDate", type="datetime")
+     * @ORM\Column(name="fromPrice", type="text", nullable=true)
      */
-    private $endDate;
+    private $fromPrice;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employer", cascade={"persist","remove"})
      *
+     * @ORM\Column(name="toPrice", type="text", nullable=true)
      */
-    private $employer;
+    private $toPrice;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="zipcode", type="string", length=255)
+     */
+    private $zipcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="town", type="string", length=255)
+     */
+    private $town;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="surface", type="integer")
+     */
+    private $surface;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="groundSurface", type="integer", nullable=true)
+     */
+    private $groundSurface;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="roomNumber", type="integer")
+     */
+    private $roomNumber;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="bathroomNumber", type="integer")
+     */
+    private $bathroomNumber;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="totalFloor", type="integer", nullable=true)
+     */
+    private $totalFloor;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="floor", type="integer")
+     */
+    private $floor;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="basementSurface", type="integer", nullable=true)
+     */
+    private $basementSurface;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="parkingNumber", type="integer", nullable=true)
+     */
+    private $parkingNumber;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="buildingYear", type="integer", nullable=true)
+     */
+    private $buildingYear;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="lift", type="boolean")
+
+     */
+    protected $lift;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="balcony", type="boolean")
+
+     */
+    protected $balcony;
 
     /**
      * @var string
@@ -48,76 +146,6 @@ class Offer
      */
     private $location;
 
-    /**
-     *
-     *
-     * @ORM\Column(name="description", type="text")
-     */
-    private $description;
-
-    /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
-     */
-    private $image;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="countView", type="integer")
-     */
-    private $countView;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="countContact", type="integer")
-     */
-    private $countContact;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="wage", type="string")
-     */
-    private $wage;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="experience", type="string", length=255)
-     */
-    private $experience;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="benefits", type="string", length=255)
-     */
-    private $benefits;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="diploma", type="string", length=255)
-     */
-    private $diploma;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ContractType")
-     */
-    private $contractType;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", cascade={"persist"})
-     */
-    private $tag;
 
     /**
      * @var \datetime
@@ -129,9 +157,9 @@ class Offer
     /**
      * @var \datetime
      *
-     * @ORM\Column(name="updateDate", type="datetime", nullable=true)
+     * @ORM\Column(name="activationDate", type="datetime")
      */
-    private $updateDate;
+    private $activationDate;
 
     /**
      * @var boolean
@@ -141,12 +169,27 @@ class Offer
      */
     protected $archived = 0;
 
+    private $offerUrl;
+
     /**
-     * @var array
+     * @var boolean
      *
-     * @ORM\Column(name="license", type="array", nullable=true)
+     * @ORM\Column(name="validated", type="boolean", nullable=true)
+
      */
-    private $license;
+    protected $validated;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="offer", cascade={"persist"})
+     *
+     */
+    private $images;
+
+    public function __toString()
+    {
+        return (string)$this->getTag();
+    }
 
     /**
      * Get id
@@ -158,300 +201,13 @@ class Offer
         return $this->id;
     }
 
-    /**
-     * Set startDate
-     *
-     * @param \DateTime $startDate
-     *
-     * @return Offer
-     */
-    public function setStartDate($startDate)
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
-    /**
-     * Get startDate
-     *
-     * @return \DateTime
-     */
-    public function getStartDate()
-    {
-        return $this->startDate;
-    }
-
-    /**
-     * Set endDate
-     *
-     * @param \DateTime $endDate
-     *
-     * @return Offer
-     */
-    public function setEndDate($endDate)
-    {
-        $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    /**
-     * Get endDate
-     *
-     * @return \DateTime
-     */
-    public function getEndDate()
-    {
-        return $this->endDate;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Offer
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set image
-     *
-     * @param integer $image
-     *
-     * @return Offer
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return int
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Offer
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set countView
-     *
-     * @param integer $countView
-     *
-     * @return Offer
-     */
-    public function setCountView($countView)
-    {
-        $this->countView = $countView;
-
-        return $this;
-    }
-
-    /**
-     * Get countView
-     *
-     * @return int
-     */
-    public function getCountView()
-    {
-        return $this->countView;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCountContact()
-    {
-        return $this->countContact;
-    }
-
-    /**
-     * @param int $countContact
-     * @return Offer
-     */
-    public function setCountContact($countContact)
-    {
-        $this->countContact = $countContact;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getWage()
-    {
-        return $this->wage;
-    }
-
-    /**
-     * @param int $wage
-     * @return Offer
-     */
-    public function setWage($wage)
-    {
-        $this->wage = $wage;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExperience()
-    {
-        return $this->experience;
-    }
-
-    /**
-     * @param string $experience
-     * @return Offer
-     */
-    public function setExperience($experience)
-    {
-        $this->experience = $experience;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBenefits()
-    {
-        return $this->benefits;
-    }
-
-    /**
-     * @param string $benefits
-     * @return Offer
-     */
-    public function setBenefits($benefits)
-    {
-        $this->benefits = $benefits;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDiploma()
-    {
-        return $this->diploma;
-    }
-
-    /**
-     * @param string $diploma
-     * @return Offer
-     */
-    public function setDiploma($diploma)
-    {
-        $this->diploma = $diploma;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getContractType()
-    {
-        return $this->contractType;
-    }
-
-    /**
-     * @param int $contractType
-     * @return Offer
-     */
-    public function setContractType($contractType)
-    {
-        $this->contractType = $contractType;
-        return $this;
-    }
-
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->creationDate =  new \datetime();
-    }
-
-    /**
-     * Add tag
-     *
-     * @param \AppBundle\Entity\Tag $tag
-     *
-     * @return Offer
-     */
-    public function addTag(\AppBundle\Entity\Tag $tag)
-    {
-        $this->tag[] = $tag;
-
-        return $this;
-    }
-
-    /**
-     * Remove tag
-     *
-     * @param \AppBundle\Entity\Tag $tag
-     */
-    public function removeTag(\AppBundle\Entity\Tag $tag)
-    {
-        $this->tag->removeElement($tag);
-    }
-
-    /**
-     * Get tag
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTag()
-    {
-        return $this->tag;
+        $this->creationDate =  new \Datetime();
     }
 
     /**
@@ -509,15 +265,15 @@ class Offer
     }
 
     /**
-     * Set employer
+     * Set proposer
      *
-     * @param \AppBundle\Entity\Employer $employer
+     * @param \AppBundle\Entity\Proposer $proposer
      *
      * @return Offer
      */
-    public function setEmployer(\AppBundle\Entity\Employer $employer = null)
+    public function setProposer(\AppBundle\Entity\Proposer $proposer = null)
     {
-        $this->employer = $employer;
+        $this->proposer = $proposer;
 
         return $this;
     }
@@ -525,72 +281,358 @@ class Offer
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\Employer
+     * @return \AppBundle\Entity\Proposer
      */
-    public function getEmployer()
+    public function getProposer()
     {
-        return $this->employer;
+        return $this->proposer;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getOfferUrl()
+    {
+        return $this->offerUrl;
+    }
+
+    /**
+     * @param mixed $slot
+     * @return string
+     */
+    public function setOfferUrl($offerUrl)
+    {
+        $this->offerUrl = $offerUrl;
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isValidated()
+    {
+        return $this->validated;
+    }
+
+    /**
+     * @param bool $validated
+     * @return Offer
+     */
+    public function setValidated($validated)
+    {
+        $this->validated = $validated;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFromPrice()
+    {
+        return $this->fromPrice;
+    }
+
+    /**
+     * @param mixed $fromPrice
+     * @return Offer
+     */
+    public function setFromPrice($fromPrice)
+    {
+        $this->fromPrice = $fromPrice;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getToPrice()
+    {
+        return $this->toPrice;
+    }
+
+    /**
+     * @param mixed $toPrice
+     * @return Offer
+     */
+    public function setToPrice($toPrice)
+    {
+        $this->toPrice = $toPrice;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+
+    /**
+     * @param string $zipcode
+     * @return Offer
+     */
+    public function setZipcode($zipcode)
+    {
+        $this->zipcode = $zipcode;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTown()
+    {
+        return $this->town;
+    }
+
+    /**
+     * @param string $town
+     * @return Offer
+     */
+    public function setTown($town)
+    {
+        $this->town = $town;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return Offer
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSurface()
+    {
+        return $this->surface;
+    }
+
+    /**
+     * @param int $surface
+     * @return Offer
+     */
+    public function setSurface($surface)
+    {
+        $this->surface = $surface;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGroundSurface()
+    {
+        return $this->groundSurface;
+    }
+
+    /**
+     * @param int $groundSurface
+     * @return Offer
+     */
+    public function setGroundSurface($groundSurface)
+    {
+        $this->groundSurface = $groundSurface;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRoomNumber()
+    {
+        return $this->roomNumber;
+    }
+
+    /**
+     * @param int $roomNumber
+     * @return Offer
+     */
+    public function setRoomNumber($roomNumber)
+    {
+        $this->roomNumber = $roomNumber;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBathroomNumber()
+    {
+        return $this->bathroomNumber;
+    }
+
+    /**
+     * @param int $bathroomNumber
+     * @return Offer
+     */
+    public function setBathroomNumber($bathroomNumber)
+    {
+        $this->bathroomNumber = $bathroomNumber;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalFloor()
+    {
+        return $this->totalFloor;
+    }
+
+    /**
+     * @param int $totalFloor
+     * @return Offer
+     */
+    public function setTotalFloor($totalFloor)
+    {
+        $this->totalFloor = $totalFloor;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFloor()
+    {
+        return $this->floor;
+    }
+
+    /**
+     * @param int $floor
+     * @return Offer
+     */
+    public function setFloor($floor)
+    {
+        $this->floor = $floor;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBasementSurface()
+    {
+        return $this->basementSurface;
+    }
+
+    /**
+     * @param int $basementSurface
+     * @return Offer
+     */
+    public function setBasementSurface($basementSurface)
+    {
+        $this->basementSurface = $basementSurface;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getParkingNumber()
+    {
+        return $this->parkingNumber;
+    }
+
+    /**
+     * @param int $parkingNumber
+     * @return Offer
+     */
+    public function setParkingNumber($parkingNumber)
+    {
+        $this->parkingNumber = $parkingNumber;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBuildingYear()
+    {
+        return $this->buildingYear;
+    }
+
+    /**
+     * @param int $buildingYear
+     * @return Offer
+     */
+    public function setBuildingYear($buildingYear)
+    {
+        $this->buildingYear = $buildingYear;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLift()
+    {
+        return $this->lift;
+    }
+
+    /**
+     * @param bool $lift
+     * @return Offer
+     */
+    public function setLift($lift)
+    {
+        $this->lift = $lift;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBalcony()
+    {
+        return $this->balcony;
+    }
+
+    /**
+     * @param bool $balcony
+     * @return Offer
+     */
+    public function setBalcony($balcony)
+    {
+        $this->balcony = $balcony;
+        return $this;
     }
 
     /**
      * @return \datetime
      */
-    public function getUpdateDate()
+    public function getActivationDate()
     {
-        return $this->updateDate;
+        return $this->activationDate;
     }
 
     /**
-     * @param \datetime $updateDate
+     * @param \datetime $activationDate
      * @return Offer
      */
-    public function setUpdateDate($updateDate)
+    public function setActivationDate($activationDate)
     {
-        $this->updateDate = $updateDate;
+        $this->activationDate = $activationDate;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isActive()
-    {
-        $now = new \datetime();
-        return ($now >= $this->startDate) && ($now <= $this->endDate);
-    }
 
 
-    /**
-     * Get archived
-     *
-     * @return boolean
-     */
-    public function getArchived()
-    {
-        return $this->archived;
-    }
 
-    /**
-     * Get tag
-     *
-     * @return array
-     */
-    public function getLicense()
-    {
-        return $this->license;
-    }
-
-    /**
-     * Set license
-     *
-     * @param array
-     *
-     * @return Offer
-     */
-    public function setLicense($license)
-    {
-        $this->license = $license;
-
-        return $this;
-    }
 }

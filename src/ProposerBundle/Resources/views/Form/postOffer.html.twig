@@ -8,17 +8,7 @@
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
 
-    <script>
-        jQuery(function($) {
-            $( ".myDatePickerInput" ).datepicker();
-        });
-    </script>
-    {%  if (app.user.roles is defined) and ('ROLE_PROPOSER' in app.user.roles) %}
-        <a href="{{ path('dashboard_proposer') }}" class="btn btn-primary return-to-dashboard">{{ 'dashboard.proposer.return' | trans }}</a>
-    {% endif %}
     <div class="container post-offer">
 
         <h3 class="text-center">{{ 'header.proposers.post'|trans }}</h3>
@@ -54,29 +44,12 @@
             </div>
         </div>
         <div class="form-panel row shadow-box">
-            <div class="col-md-4">
-                {{ form_label (form.title, null, { 'label_attr':
-                    {'class': 'label-form'}
-                })  }}
-
-                {{ form_widget(form.title) }}
-                {{ form_errors(form.title) }}
-            </div>
-            <div class="col-md-12">
-                {{ form_label (form.description, null, { 'label_attr': {
-                    'class': 'label-form'
-                } }) }}
-                {{ form_widget(form.description) }}
-                {{ form_errors(form.description) }}
-            </div>
-        </div>
-        <div class="form-panel row shadow-box">
             <div class="col-md-6">
                 {{ form_label (form.surface, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.surface) }}
                 {{ form_errors(form.surface) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 house-field">
                 {{ form_label (form.groundSurface, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.groundSurface) }}
                 {{ form_errors(form.groundSurface) }}
@@ -91,12 +64,12 @@
                 {{ form_widget(form.bathroomNumber) }}
                 {{ form_errors(form.bathroomNumber) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 house-field">
                 {{ form_label (form.totalFloor, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.totalFloor) }}
                 {{ form_errors(form.totalFloor) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 flat-field">
                 {{ form_label (form.floor, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.floor) }}
                 {{ form_errors(form.floor) }}
@@ -118,18 +91,88 @@
                 {{ form_widget(form.buildingYear) }}
                 {{ form_errors(form.buildingYear) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 flat-field">
                 {{ form_label (form.lift, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.lift) }}
                 {{ form_errors(form.lift) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 flat-field">
                 {{ form_label (form.balcony, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.balcony) }}
                 {{ form_errors(form.balcony) }}
             </div>
         </div>
         <div class="form-panel row shadow-box">
+            <div class="col-md-6">
+
+                {% form_theme form.images 'jquery.collection.html.twig' %}
+                {{ form_label (form.images, "Photos") }}
+                {{ form_widget(form.images) }}
+                {{ form_errors(form.images) }}
+            </div>
+            <div class="col-md-4 col-md-offset-2">
+                <div>
+                    {{ 'offer.zipcode'|trans }} :
+                    <span class="zipcode"></span>
+                </div>
+                <div>
+                    {{ 'offer.town'|trans }} :
+                    <span class="town"></span>
+                </div>
+                <div>
+                    {{ 'offer.location'|trans }} :
+                    <span class="location"></span>
+                </div>
+                <div>
+                    {{ 'offer.type'|trans }} :
+                    <span class="type"></span>
+                </div>
+                <div>
+                    {{ 'offer.surface'|trans }} :
+                    <span class="surface"></span>
+                </div>
+                <div class="house-field">
+                    {{ 'offer.groundSurface'|trans }} :
+                    <span class="groundSurface"></span>
+                </div>
+                <div>
+                    {{ 'offer.roomNumber'|trans }} :
+                    <span class="roomNumber"></span>
+                </div>
+                <div>
+                    {{ 'offer.bathroomNumber'|trans }} :
+                    <span class="bathroomNumber"></span>
+                </div>
+                <div class="house-field">
+                    {{ 'offer.totalFloor'|trans }} :
+                    <span class="totalFloor"></span>
+                </div>
+                <div>
+                    {{ 'offer.floor'|trans }} :
+                    <span class="floor"></span>
+                </div>
+                <div>
+                    {{ 'offer.basementSurface'|trans }} :
+                    <span class="basementSurface"></span>
+                </div>
+                <div>
+                    {{ 'offer.parkingNumber'|trans }} :
+                    <span class="parkingNumber"></span>
+                </div>
+                <div>
+                    {{ 'offer.buildingYear'|trans }} :
+                    <span class="buildingYear"></span>
+                </div>
+                <div class="flat-fiel">
+                    {{ 'offer.lift'|trans }} :
+                    <span class="lift"></span>
+                </div>
+                <div class="flat-fiel">
+                    {{ 'offer.balcony'|trans }} :
+                    <span class="balcony"></span>
+                </div>
+            </div>
+
             <div class="col-md-4 col-md-offset-4">
                 {{ form_widget(form.submit, { 'label': 'offer.submit','class': 'btn' }) }}
             </div>
@@ -166,6 +209,7 @@
 
         {#});#}
     {#</script>#}
+
 <script>
     $('.previous').click(function (e) {
         e.preventDefault();
@@ -191,6 +235,18 @@
         var cur = $('.form-panel').index($('.form-panel.active'));
         if(cur == $('.form-panel').length-2){
             $(this).hide();
+            let formValue = $('.form-vertical').serializeArray();
+
+            for (let i = 0, len = formValue.length; i < len; i++) {
+                let className = formValue[i]['name'];
+                var matches = className.match(/\[(.*?)\]/);
+
+                if (matches) {
+                    className = matches[1];
+                }
+                $('.'+className).html(formValue[i]['value']);
+            }
+
         }
         if (cur!=$('.form-panel').length-1) {
             $('.form-panel').removeClass('active');
@@ -225,6 +281,5 @@
         width: 160px;
     }
 </style>
-
 
 {% endblock %}

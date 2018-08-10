@@ -98,7 +98,7 @@ class Offer
     /**
      * @var int
      *
-     * @ORM\Column(name="floor", type="integer")
+     * @ORM\Column(name="floor", type="integer", nullable=true)
      */
     private $floor;
 
@@ -146,19 +146,6 @@ class Offer
      */
     private $location;
 
-    /**
-     *
-     * @ORM\Column(name="description", type="text")
-     */
-    private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
-
 
     /**
      * @var \datetime
@@ -166,6 +153,13 @@ class Offer
      * @ORM\Column(name="creationDate", type="datetime")
      */
     private $creationDate;
+
+    /**
+     * @var \datetime
+     *
+     * @ORM\Column(name="activationDate", type="datetime")
+     */
+    private $activationDate;
 
     /**
      * @var boolean
@@ -184,6 +178,13 @@ class Offer
 
      */
     protected $validated;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="offer", cascade={"persist"})
+     *
+     */
+    private $images;
 
     public function __toString()
     {
@@ -322,42 +323,6 @@ class Offer
     public function setValidated($validated)
     {
         $this->validated = $validated;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param mixed $description
-     * @return Offer
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     * @return Offer
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
         return $this;
     }
 
@@ -649,6 +614,99 @@ class Offer
         return $this;
     }
 
+    /**
+     * @return \datetime
+     */
+    public function getActivationDate()
+    {
+        return $this->activationDate;
+    }
+
+    /**
+     * @param \datetime $activationDate
+     * @return Offer
+     */
+    public function setActivationDate($activationDate)
+    {
+        $this->activationDate = $activationDate;
+        return $this;
+    }
 
 
+
+
+
+    /**
+     * Get lift
+     *
+     * @return boolean
+     */
+    public function getLift()
+    {
+        return $this->lift;
+    }
+
+    /**
+     * Get balcony
+     *
+     * @return boolean
+     */
+    public function getBalcony()
+    {
+        return $this->balcony;
+    }
+
+    /**
+     * Get archived
+     *
+     * @return boolean
+     */
+    public function getArchived()
+    {
+        return $this->archived;
+    }
+
+    /**
+     * Get validated
+     *
+     * @return boolean
+     */
+    public function getValidated()
+    {
+        return $this->validated;
+    }
+
+    /**
+     * Add image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Offer
+     */
+    public function addImage(\AppBundle\Entity\Image $image)
+    {
+        $this->images[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \AppBundle\Entity\Image $image
+     */
+    public function removeImage(\AppBundle\Entity\Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
 }

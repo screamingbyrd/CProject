@@ -138,28 +138,5 @@ class Image
     {
         return $this->updatedAt;
     }
-
-    /**
-     * Set offer
-     *
-     * @param \AppBundle\Entity\Offer $offer
-     *
-     * @return Image
-     */
-    public function setOffer(\AppBundle\Entity\Offer $offer = null)
-    {
-        $this->offer = $offer;
-
-        return $this;
-    }
-
-    /**
-     * Get offer
-     *
-     * @return \AppBundle\Entity\Offer
-     */
-    public function getOffer()
-    {
-        return $this->offer;
-    }
 }
+

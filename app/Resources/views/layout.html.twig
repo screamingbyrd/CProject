@@ -85,6 +85,13 @@
                                             {{ path('fos_user_profile_edit') }}
                                         {% endif %}">
                                     <i class="fas fa-pencil-alt edit-icon"></i>{{ 'header.profile'|trans }}</a></li>
+                            <li><a href="{%  if (app.user.roles is defined) and ('ROLE_VOTER' in app.user.roles) %}
+                                            {{ path('dashboard_voter') }}
+                                        {% elseif 'ROLE_PROPOSER' in app.user.roles %}
+                                            {{ path('proposer_offers') }}
+                                        {% endif %}">
+                                    <i class="fas fa-list-alt"></i>{{ 'dashboard.proposer.myOffers' | trans }}</a></li>
+
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout') }}"><i class="fas fa-sign-out-alt"></i>{{ 'header.logout'|trans }}</a></li>
                         </ul>

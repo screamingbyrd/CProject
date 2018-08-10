@@ -19,126 +19,132 @@
 
     <div class="container post-offer">
 
-        <h3 class="text-center post-offer">{{ 'header.proposers.post'|trans }}</h3>
+        <h3 class="text-center">{{ 'header.proposers.post'|trans }}</h3>
 
         {{ form_start(form, {'attr': {'class': 'form-vertical'}}) }}
 
         {# Les erreurs générales du formulaire. #}
         {{ form_errors(form) }}
 
-        <div class="row">
-            <div class="col-md-4">
-                {{ form_label (form.title, null, { 'label_attr':
-                    {'class': 'label-form'}
-                })  }}
 
-                {{ form_widget(form.title) }}
-                {{ form_errors(form.title) }}
+        <div class="form-panel active row shadow-box">
+            <div class="col-md-4">
+                {{ form_label (form.zipcode, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.zipcode) }}
+                {{ form_errors(form.zipcode) }}
             </div>
             <div class="col-md-4">
-                {{ form_label (form.tag, null, { 'label_attr': {'class': 'label-form'}
-
-                }) }}
-
-                {{ form_widget(form.tag) }}
-                {{ form_errors(form.tag) }}
+                {{ form_label (form.town, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.town) }}
+                {{ form_errors(form.town) }}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 {{ form_label (form.location, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.location) }}
                 {{ form_errors(form.location) }}
             </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                {{ form_label (form.description, null, { 'label_attr': {
-                    'class': 'label-form'
-                } }) }}
-                {{ form_widget(form.description) }}
-                {{ form_errors(form.description) }}
+        <div class="form-panel row shadow-box">
+            <div class="col-md-6">
+                {{ form_label (form.type, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.type) }}
+                {{ form_errors(form.type) }}
             </div>
         </div>
-        <br>
-
-        <h4>{{ 'offer.option'|trans }}</h4>
-        <div class="row">
-            <div class="col-md-3">
-                {{ form_label (form.contractType, null, { 'label_attr': {'class': 'label-form'} }) }}
-                {{ form_widget(form.contractType) }}
-                {{ form_errors(form.contractType) }}
+        <div class="form-panel row shadow-box">
+            <div class="col-md-6">
+                {{ form_label (form.surface, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.surface) }}
+                {{ form_errors(form.surface) }}
             </div>
-            <div class="col-md-3">
-                {{ form_label (form.experience, null, { 'label_attr': {'class': 'label-form'} }) }}
-                {{ form_widget(form.experience) }}
-                {{ form_errors(form.experience) }}
+            <div class="col-md-6 house-field">
+                {{ form_label (form.groundSurface, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.groundSurface) }}
+                {{ form_errors(form.groundSurface) }}
             </div>
-            <div class="col-md-3">
-                {{ form_label (form.diploma, null, { 'label_attr': {'class': 'label-form'} }) }}
-                {{ form_widget(form.diploma) }}
-                {{ form_errors(form.diploma) }}
+            <div class="col-md-6">
+                {{ form_label (form.roomNumber, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.roomNumber) }}
+                {{ form_errors(form.roomNumber) }}
             </div>
-            <div class="col-md-3">
-                {{ form_label (form.availableDate, null, { 'label_attr': {'class': 'label-form'} }) }}
-                {{ form_widget(form.availableDate) }}
-                {{ form_errors(form.availableDate) }}
+            <div class="col-md-6">
+                {{ form_label (form.bathroomNumber, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.bathroomNumber) }}
+                {{ form_errors(form.bathroomNumber) }}
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                {{ form_label (form.wage, null, { 'label_attr': {'class': 'label-form'} }) }}
-                {{ form_widget(form.wage) }}
-                {{ form_errors(form.wage) }}
+            <div class="col-md-6 house-field">
+                {{ form_label (form.totalFloor, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.totalFloor) }}
+                {{ form_errors(form.totalFloor) }}
             </div>
-            <div class="col-md-3">
-                {{ form_label (form.benefits, null, { 'label_attr': {'class': 'label-form'} }) }}
-                {{ form_widget(form.benefits) }}
-                {{ form_errors(form.benefits) }}
-            </div>
-            <div class="col-md-3">
-                {{ form_label (form.language, null, { 'label_attr': {'class': 'label-form'} }) }}
-                {{ form_widget(form.language) }}
-                {{ form_errors(form.language) }}
-            </div>
-            <div class="col-md-3" style="display: none;">
-                {{ form_label (form.image,null, { 'label_attr': {'class': 'label-form'} }) }}
-                {{ form_widget(form.image) }}
-                {{ form_errors(form.image) }}
+            <div class="col-md-6 flat-field">
+                {{ form_label (form.floor, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.floor) }}
+                {{ form_errors(form.floor) }}
             </div>
         </div>
-
-        <div class="row">
+        <div class="form-panel row shadow-box">
+            <div class="col-md-6">
+                {{ form_label (form.basementSurface, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.basementSurface) }}
+                {{ form_errors(form.basementSurface) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_label (form.parkingNumber, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.parkingNumber) }}
+                {{ form_errors(form.parkingNumber) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_label (form.buildingYear, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.buildingYear) }}
+                {{ form_errors(form.buildingYear) }}
+            </div>
+            <div class="col-md-6 flat-field">
+                {{ form_label (form.lift, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.lift) }}
+                {{ form_errors(form.lift) }}
+            </div>
+            <div class="col-md-6 flat-field">
+                {{ form_label (form.balcony, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_widget(form.balcony) }}
+                {{ form_errors(form.balcony) }}
+            </div>
+        </div>
+        <div class="form-panel row shadow-box">
             <div class="col-md-4 col-md-offset-4">
                 {{ form_widget(form.submit, { 'label': 'offer.submit','class': 'btn' }) }}
             </div>
         </div>
+
+
+
+
+
+
+
+
+        {# Génération automatique des champs pas encore écrits.
+           Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+           et tous les champs cachés (type « hidden »). #}
+        {{ form_rest(form) }}
+
+        {# Fermeture de la balise <form> du formulaire HTML #}
+        {{ form_end(form) }}
+
+
     </div>
-    </div>
 
-
-
-    {# Génération automatique des champs pas encore écrits.
-       Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-       et tous les champs cachés (type « hidden »). #}
-    {{ form_rest(form) }}
-
-    {# Fermeture de la balise <form> du formulaire HTML #}
-    {{ form_end(form) }}
-
-
-    </div>
-
-    {#<script>#}
-
-    {#$(".slider-button").click(function(e) {#}
-    {#e.preventDefault();#}
-    {#$(".slider").slideToggle("slow");#}
-
-
-    {#});#}
-    {#</script>#}
-
-
+    <script>
+        $('#appbundle_proposer_type').on('change', function(e) {
+            console.log('rr')
+            if($(this).val()== 'type.house'){
+                $('.house-field').show();
+                $('.flat-field').hide();
+            }else if($(this).val()== 'type.flat'){
+                $('.flat-field').show();
+                $('.house-field').hide();
+            }
+        });
+    </script>
 
 {% endblock %}

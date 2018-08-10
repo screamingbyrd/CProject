@@ -438,12 +438,7 @@ class ProposerController extends Controller
             ->getManager()
             ->getRepository('AppBundle:Offer')
         ;
-        $slotRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Slot')
-        ;
-        $currentSlot = $slotRepository->getCurrentSlotProposer($user->getProposer()->getId());
+
         $searchArray = array('proposer' => $user->getProposer());
 
         if($archived == 0){
@@ -459,21 +454,9 @@ class ProposerController extends Controller
             $finalArray[$offer->getId()]['offer'] = $offer;
         }
 
-        $countOfferInSlot = $OfferRepository->countOffersInSlot($proposer);
-
-        $countActiveOffer = $OfferRepository->countActiveOffer($proposer);
-
-        $creditInfo = $this->container->get('app.credit_info');
-
         return $this->render('ProposerBundle::myOffers.html.twig', array(
             'offers' => $offers,
-            'publishedOffer' => $creditInfo->getPublishOffer(),
-            'boostOffers' => $creditInfo->getBoostOffers(),
-            'buySlot' => $creditInfo->getBuySlot(),
-            'slots' => $currentSlot,
             'proposer' => $proposer,
-            'countOfferInSlot' => $countOfferInSlot,
-            'countActiveOffer' => $countActiveOffer
         ));
     }
 

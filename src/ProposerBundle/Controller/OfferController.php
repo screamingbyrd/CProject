@@ -70,12 +70,13 @@ class OfferController extends Controller
 
             $offer->setProposer($user->getProposer());
 
-            $offer->setCountView(0);
-            $offer->setCountContact(0);
             $past = new \DateTime('01-01-1900');
-            $offer->setStartDate($past);
-            $offer->setEndDate($past);
-            $offer->setUpdateDate($past);
+            $offer->setActivationDate($past);
+
+            if ($offer->getImages()) {
+                foreach ($offer->getImages() as $image) $image->setOffer($offer);
+            }
+
 
             $em->persist($offer);
             $em->flush();
@@ -83,7 +84,7 @@ class OfferController extends Controller
             $translated = $this->get('translator')->trans('form.offer.creation.success');
             $session->getFlashBag()->add('info', $translated);
 
-            return $this->redirectToRoute('dashboard_proposer');
+            return $this->redirectToRoute('proposer_offers');
 
         }
         return $this->render('ProposerBundle:form:postOffer.html.twig', array(
@@ -125,38 +126,13 @@ class OfferController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $offer->setCountView($offer->getCountView());
-            $offer->setCountContact($offer->getCountContact());
-
-
             $em->merge($offer);
             $em->flush();
-
-            if(!$offer->isValidated()){
-                $mailer = $this->container->get('swiftmailer.mailer');
-                $message = (new \Swift_Message('Invalid offer modified: ' . $offer->getTitle(). ' id:'. $offer->getId()))
-                    ->setFrom('cprojectlu@noreply.lu')
-                    ->setTo('moderator@cproject.lu')
-                    ->setBody(
-                        $this->renderView(
-                            'AppBundle:Emails:invalidOfferModified.html.twig',
-                            array('offer' => $offer,
-                            )
-                        ),
-                        'text/html'
-                    )
-                ;
-
-                $message->getHeaders()->addTextHeader(
-                    CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
-                );
-                $mailer->send($message);
-            }
 
             $translated = $this->get('translator')->trans('form.offer.edition.success');
             $session->getFlashBag()->add('info', $translated);
 
-            return $this->redirectToRoute('dashboard_proposer', array('archived' => $_SESSION['archived']));
+            return $this->redirectToRoute('proposer_offers', array('archived' => $_SESSION['archived']));
 
         }
         return $this->render('ProposerBundle:form:editOffer.html.twig', array(
