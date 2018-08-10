@@ -8,8 +8,6 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\ContractType;
-use AppBundle\Entity\Tag;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Ivory\GoogleMapBundle\Form\Type\PlaceAutocompleteType;
 use Symfony\Component\Form\AbstractType;
@@ -18,8 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 
 class OfferType extends AbstractType
@@ -41,27 +39,6 @@ class OfferType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'offer.titlePH',
                 )
-
-
-            ))
-
-            ->add('tag', EntityType::class, array(
-                'choice_translation_domain' => true,
-                'required' => true,
-                'class' => Tag::class,
-                'choice_label' =>  'name',
-                'label' => 'Tag(s)',
-
-                'attr' => array(
-                    'class' => 'select2',
-                    'data-placeholder' =>  $translator->trans('offer.tagPH'),
-
-
-                    ),
-
-                'multiple' => true,
-
-
             ))
 
             ->add('location', PlaceAutocompleteType::class,array(
@@ -71,13 +48,103 @@ class OfferType extends AbstractType
                     'placeholder' =>  $translator->trans('offer.locationPH')
                 ),
                 'label' => 'offer.location',
-
-
-
             ))
-
-            ->add('description', CKEditorType::class, array(
+            ->add('zipcode',      TextType::class, array(
                 'required' => true,
+                'label' => 'offer.zipcode',
+                'attr' => array(
+                    'placeholder' => 'offer.zipcodePH',
+                )
+            ))
+            ->add('town',      TextType::class, array(
+                'required' => true,
+                'label' => 'offer.town',
+                'attr' => array(
+                    'placeholder' => 'offer.townPH',
+                )
+            ))
+            ->add('type', ChoiceType::class, array('choices' => array(
+                'type.house' => 'type.house',
+                'type.flat' => 'type.flat',
+            ),
+                'multiple' => false,
+                'required' => true,
+                'attr' => array('class' => 'select2'),
+                'label' => 'form.registration.type',
+            ))
+            ->add('surface', IntegerType::class, array(
+                'required' => true,
+                'label' => 'offer.surface',
+                'attr' => array(
+                    'placeholder' => 'offer.surfacePH',
+                )
+            ))
+            ->add('groundSurface', IntegerType::class, array(
+                'required' => false,
+                'label' => 'offer.groundSurface	',
+                'attr' => array(
+                    'placeholder' => 'offer.groundSurfacePH',
+                )
+            ))
+            ->add('roomNumber', IntegerType::class, array(
+                'required' => true,
+                'label' => 'offer.roomNumber',
+                'attr' => array(
+                    'placeholder' => 'offer.roomNumberPH',
+                )
+            ))
+            ->add('bathroomNumber', IntegerType::class, array(
+                'required' => true,
+                'label' => 'offer.bathroomNumber',
+                'attr' => array(
+                    'placeholder' => 'offer.bathroomNumberPH',
+                )
+            ))
+            ->add('totalFloor', IntegerType::class, array(
+                'required' => false,
+                'label' => 'offer.totalFloor',
+                'attr' => array(
+                    'placeholder' => 'offer.totalFloorPH',
+                )
+            ))
+            ->add('floor', IntegerType::class, array(
+                'required' => false,
+                'label' => 'offer.floor',
+                'attr' => array(
+                    'placeholder' => 'offer.floorPH',
+                )
+            ))
+            ->add('basementSurface', IntegerType::class, array(
+                'required' => false,
+                'label' => 'offer.basementSurface',
+                'attr' => array(
+                    'placeholder' => 'offer.basementSurfacePH',
+                )
+            ))
+            ->add('parkingNumber', IntegerType::class, array(
+                'required' => false,
+                'label' => 'offer.parkingNumber',
+                'attr' => array(
+                    'placeholder' => 'offer.parkingNumberPH',
+                )
+            ))
+            ->add('buildingYear', IntegerType::class, array(
+                'required' => false,
+                'label' => 'offer.buildingYear',
+                'attr' => array(
+                    'placeholder' => 'offer.buildingYearPH',
+                )
+            ))
+            ->add('lift', CheckboxType::class, array(
+                'required' => false,
+                'label' => 'offer.lift',
+            ))
+            ->add('balcony', CheckboxType::class, array(
+                'required' => false,
+                'label' => 'offer.balcony',
+            ))
+            ->add('description', CKEditorType::class, array(
+                'required' => false,
                 'label' => 'offer.description',
 
                 'config' => array(
@@ -86,124 +153,6 @@ class OfferType extends AbstractType
                 ),
             ))
 
-            ->add('availableDate',      DateType::class, array('required' => false,'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
-                'label' => 'offer.available',
-
-                'attr' => [
-                    'class' => 'form-control input-inline datepicker',
-                    'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy',
-                    'placeholder' => 'offer.availablePH']))
-
-            ->add('contractType', EntityType::class, array(
-                'choice_translation_domain' => true,
-                'required' => true,
-                'class' => ContractType::class,
-                'choice_label' =>  'name',
-                'label' => 'offer.contract',
-
-
-                'attr' => array(
-                    'class' => 'select2',
-                    'data-placeholder' =>  $translator->trans('offer.contractPH'))
-            ))
-
-            ->add('experience', ChoiceType::class, array(
-                'choices' => array(
-
-                'form.registration.exp1' => 'form.registration.exp1',
-                'form.registration.exp2' => 'form.registration.exp2',
-                'form.registration.exp3' => 'form.registration.exp3',
-                ),
-
-
-
-                'required' => false,
-                'attr' => array(
-                    'class' => 'select2',
-                    'data-placeholder' =>  $translator->trans('offer.expPH')),
-            ))
-
-            ->add('diploma', ChoiceType::class, array(
-                'choices' => array(
-                'form.registration.dip1' => 'form.registration.dip1',
-                'form.registration.dip2' => 'form.registration.dip2',
-                'form.registration.dip3' => 'form.registration.dip3',
-                'form.registration.dip4' => 'form.registration.dip4',
-                'form.registration.dip5' => 'form.registration.dip5',
-                 ),
-                'required' => false,
-                'label' => 'offer.diploma',
-                'attr' => array(
-                    'class' => 'select2',
-                    'data-placeholder' =>  $translator->trans('offer.diplomaPH')),
-            ))
-
-            ->add('wage', ChoiceType::class, array('choices' => array(
-                'form.registration.wag1' => 'form.registration.wag1',
-                'form.registration.wag2' => 'form.registration.wag2',
-                'form.registration.wag3' => 'form.registration.wag3',
-                'form.registration.wag4' => 'form.registration.wag4',
-                'form.registration.wag5' => 'form.registration.wag5',
-                'form.registration.wag6' => 'form.registration.wag6',
-                'form.registration.wag7' => 'form.registration.wag7',
-                'form.registration.wag8' => 'form.registration.wag8',
-                'form.registration.wag9' => 'form.registration.wag9',
-                'form.registration.wag10' => 'form.registration.wag10',
-
-            ),
-                'required' => false,
-                'label' => 'offer.wage',
-                'attr' => array(
-                    'class' => 'select2',
-                    'data-placeholder' =>  $translator->trans('offer.wagePH')
-                    ),
-            ))
-
-            ->add('benefits', ChoiceType::class, array('choices' => array(
-                'form.registration.ben1' => 'form.registration.ben1',
-                'form.registration.ben2' => 'form.registration.ben2',
-                'form.registration.ben3' => 'form.registration.ben3',
-                'form.registration.ben4' => 'form.registration.ben4',
-
-            ),
-
-                'required' => false,
-                'multiple' => true,
-                'label' => 'offer.benefits',
-
-                'attr' => array(
-                    'class' => 'select2',
-                    'data-placeholder' =>  $translator->trans('offer.benefitsPH')
-                    ),
-                
-
-
-            ))
-
-            ->add('image', ImageType::class, array(
-                'required' => false,
-                'label' => 'offer.image',
-
-            ))
-
-            ->add('language', ChoiceType::class, array('choices' => array(
-                'language.fr' => 'language.fr',
-                'language.en' => 'language.en',
-                'language.de' => 'language.de',
-                'language.lu' => 'language.lu',
-            ),
-                'multiple' => true,
-                'required' => false,
-                'attr' => array('class' => 'select2'),
-                'label' => 'form.registration.language',
-            ))
-
-            ->add('link',      TextType::class, array(
-                'required' => false,
-                'label' => 'offer.link',
-            ))
 
             ->add('submit',      SubmitType::class, array(
                 'attr' => array(

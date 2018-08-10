@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="register-voter container">
-        <div class="col-md-5">
+        <div class="col-md-5 shadow-box">
             <h3 class="title">{{ 'form.registration.title.voter' | trans }}</h3>
             <div>{{ 'form.registration.subTitle.voter'|trans }}</div>
             <div>{{ 'form.registration.already'|trans }} {{ 'form.registration.connect'|trans({'%link_start%' : '<a href="'~path('fos_user_security_login')~'">', '%link_end%' : '</a>'}) |raw }}</div>

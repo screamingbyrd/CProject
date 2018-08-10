@@ -42,6 +42,106 @@ class Offer
     /**
      * @var string
      *
+     * @ORM\Column(name="zipcode", type="string", length=255)
+     */
+    private $zipcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="town", type="string", length=255)
+     */
+    private $town;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="surface", type="integer")
+     */
+    private $surface;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="groundSurface", type="integer", nullable=true)
+     */
+    private $groundSurface;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="roomNumber", type="integer")
+     */
+    private $roomNumber;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="bathroomNumber", type="integer")
+     */
+    private $bathroomNumber;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="totalFloor", type="integer", nullable=true)
+     */
+    private $totalFloor;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="floor", type="integer")
+     */
+    private $floor;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="basementSurface", type="integer", nullable=true)
+     */
+    private $basementSurface;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="parkingNumber", type="integer", nullable=true)
+     */
+    private $parkingNumber;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="buildingYear", type="integer", nullable=true)
+     */
+    private $buildingYear;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="lift", type="boolean")
+
+     */
+    protected $lift;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="balcony", type="boolean")
+
+     */
+    protected $balcony;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="location", type="string", length=255)
      */
     private $location;
@@ -296,6 +396,259 @@ class Offer
         $this->toPrice = $toPrice;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+
+    /**
+     * @param string $zipcode
+     * @return Offer
+     */
+    public function setZipcode($zipcode)
+    {
+        $this->zipcode = $zipcode;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTown()
+    {
+        return $this->town;
+    }
+
+    /**
+     * @param string $town
+     * @return Offer
+     */
+    public function setTown($town)
+    {
+        $this->town = $town;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return Offer
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSurface()
+    {
+        return $this->surface;
+    }
+
+    /**
+     * @param int $surface
+     * @return Offer
+     */
+    public function setSurface($surface)
+    {
+        $this->surface = $surface;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGroundSurface()
+    {
+        return $this->groundSurface;
+    }
+
+    /**
+     * @param int $groundSurface
+     * @return Offer
+     */
+    public function setGroundSurface($groundSurface)
+    {
+        $this->groundSurface = $groundSurface;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRoomNumber()
+    {
+        return $this->roomNumber;
+    }
+
+    /**
+     * @param int $roomNumber
+     * @return Offer
+     */
+    public function setRoomNumber($roomNumber)
+    {
+        $this->roomNumber = $roomNumber;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBathroomNumber()
+    {
+        return $this->bathroomNumber;
+    }
+
+    /**
+     * @param int $bathroomNumber
+     * @return Offer
+     */
+    public function setBathroomNumber($bathroomNumber)
+    {
+        $this->bathroomNumber = $bathroomNumber;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalFloor()
+    {
+        return $this->totalFloor;
+    }
+
+    /**
+     * @param int $totalFloor
+     * @return Offer
+     */
+    public function setTotalFloor($totalFloor)
+    {
+        $this->totalFloor = $totalFloor;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFloor()
+    {
+        return $this->floor;
+    }
+
+    /**
+     * @param int $floor
+     * @return Offer
+     */
+    public function setFloor($floor)
+    {
+        $this->floor = $floor;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBasementSurface()
+    {
+        return $this->basementSurface;
+    }
+
+    /**
+     * @param int $basementSurface
+     * @return Offer
+     */
+    public function setBasementSurface($basementSurface)
+    {
+        $this->basementSurface = $basementSurface;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getParkingNumber()
+    {
+        return $this->parkingNumber;
+    }
+
+    /**
+     * @param int $parkingNumber
+     * @return Offer
+     */
+    public function setParkingNumber($parkingNumber)
+    {
+        $this->parkingNumber = $parkingNumber;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBuildingYear()
+    {
+        return $this->buildingYear;
+    }
+
+    /**
+     * @param int $buildingYear
+     * @return Offer
+     */
+    public function setBuildingYear($buildingYear)
+    {
+        $this->buildingYear = $buildingYear;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLift()
+    {
+        return $this->lift;
+    }
+
+    /**
+     * @param bool $lift
+     * @return Offer
+     */
+    public function setLift($lift)
+    {
+        $this->lift = $lift;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBalcony()
+    {
+        return $this->balcony;
+    }
+
+    /**
+     * @param bool $balcony
+     * @return Offer
+     */
+    public function setBalcony($balcony)
+    {
+        $this->balcony = $balcony;
+        return $this;
+    }
+
 
 
 }
