@@ -14,7 +14,6 @@ class ProposerRepository extends \Doctrine\ORM\EntityRepository
     {
         $query = $this->createQueryBuilder('e')->select("e")
             ->leftJoin('AppBundle:user', 'u', 'WITH', 'e = u.proposer');
-        $query->andWhere('u.main = 1');
 
         $proposers = $query->getQuery()->getResult();
 

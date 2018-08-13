@@ -13,6 +13,9 @@
 
         <h3 class="text-center">{{ 'header.proposers.post'|trans }}</h3>
 
+        <div class="col-md-8">
+
+
         {{ form_start(form, {'attr': {'class': 'form-vertical'}}) }}
 
         {# Les erreurs générales du formulaire. #}
@@ -110,84 +113,12 @@
                 {{ form_widget(form.images) }}
                 {{ form_errors(form.images) }}
             </div>
-            <div class="col-md-4 col-md-offset-2">
-                <div>
-                    {{ 'offer.zipcode'|trans }} :
-                    <span class="zipcode"></span>
-                </div>
-                <div>
-                    {{ 'offer.town'|trans }} :
-                    <span class="town"></span>
-                </div>
-                <div>
-                    {{ 'offer.location'|trans }} :
-                    <span class="location"></span>
-                </div>
-                <div>
-                    {{ 'offer.type'|trans }} :
-                    <span class="type"></span>
-                </div>
-                <div>
-                    {{ 'offer.surface'|trans }} :
-                    <span class="surface"></span>
-                </div>
-                <div class="house-field">
-                    {{ 'offer.groundSurface'|trans }} :
-                    <span class="groundSurface"></span>
-                </div>
-                <div>
-                    {{ 'offer.roomNumber'|trans }} :
-                    <span class="roomNumber"></span>
-                </div>
-                <div>
-                    {{ 'offer.bathroomNumber'|trans }} :
-                    <span class="bathroomNumber"></span>
-                </div>
-                <div class="house-field">
-                    {{ 'offer.totalFloor'|trans }} :
-                    <span class="totalFloor"></span>
-                </div>
-                <div>
-                    {{ 'offer.floor'|trans }} :
-                    <span class="floor"></span>
-                </div>
-                <div>
-                    {{ 'offer.basementSurface'|trans }} :
-                    <span class="basementSurface"></span>
-                </div>
-                <div>
-                    {{ 'offer.parkingNumber'|trans }} :
-                    <span class="parkingNumber"></span>
-                </div>
-                <div>
-                    {{ 'offer.buildingYear'|trans }} :
-                    <span class="buildingYear"></span>
-                </div>
-                <div class="flat-fiel">
-                    {{ 'offer.lift'|trans }} :
-                    <span class="lift"></span>
-                </div>
-                <div class="flat-fiel">
-                    {{ 'offer.balcony'|trans }} :
-                    <span class="balcony"></span>
-                </div>
-            </div>
+
 
             <div class="col-md-4 col-md-offset-4">
                 {{ form_widget(form.submit, { 'label': 'offer.submit','class': 'btn' }) }}
             </div>
         </div>
-        <div class="bottom-navigation">
-            <hr>
-            <button class="btn btn-primary previous bottom-button">Previous</button>
-            <button class="btn btn-primary next bottom-button">Next</button>
-        </div>
-
-
-
-
-
-
 
         {# Génération automatique des champs pas encore écrits.
            Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
@@ -196,7 +127,76 @@
 
         {# Fermeture de la balise <form> du formulaire HTML #}
         {{ form_end(form) }}
-
+        </div>
+        <div class="col-md-4">
+            <div class="shadow-box summary-offer">
+                <div class="animated fadeIn">
+                    {{ 'offer.zipcode'|trans }} :
+                    <span class="zipcode"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.town'|trans }} :
+                    <span class="town"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.location'|trans }} :
+                    <span class="location"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.type'|trans }} :
+                    <span class="type"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.surface'|trans }} :
+                    <span class="surface"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.groundSurface'|trans }} :
+                    <span class="groundSurface"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.roomNumber'|trans }} :
+                    <span class="roomNumber"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.bathroomNumber'|trans }} :
+                    <span class="bathroomNumber"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.totalFloor'|trans }} :
+                    <span class="totalFloor"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.floor'|trans }} :
+                    <span class="floor"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.basementSurface'|trans }} :
+                    <span class="basementSurface"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.parkingNumber'|trans }} :
+                    <span class="parkingNumber"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.buildingYear'|trans }} :
+                    <span class="buildingYear"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.lift'|trans }} :
+                    <span class="lift"></span>
+                </div>
+                <div class="animated fadeIn">
+                    {{ 'offer.balcony'|trans }} :
+                    <span class="balcony"></span>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-navigation">
+            <hr>
+            <button class="btn btn-primary previous bottom-button">Previous</button>
+            <button class="btn btn-primary next bottom-button">Next</button>
+        </div>
 
     </div>
 
@@ -233,20 +233,24 @@
             previous.show();
         }
         var cur = $('.form-panel').index($('.form-panel.active'));
-        if(cur == $('.form-panel').length-2){
-            $(this).hide();
-            let formValue = $('.form-vertical').serializeArray();
 
-            for (let i = 0, len = formValue.length; i < len; i++) {
-                let className = formValue[i]['name'];
-                var matches = className.match(/\[(.*?)\]/);
+        let formValue = $('.form-vertical').serializeArray();
 
-                if (matches) {
-                    className = matches[1];
-                }
-                $('.'+className).html(formValue[i]['value']);
+        for (let i = 0, len = formValue.length; i < len; i++) {
+            let className = formValue[i]['name'];
+            var matches = className.match(/\[(.*?)\]/);
+
+            if (matches) {
+                className = matches[1];
+            }
+            if(formValue[i]['value'] != ''){
+                $('.'+className).parent().show();
             }
 
+            $('.'+className).html(formValue[i]['value']);
+        }
+        if(cur == $('.form-panel').length-2){
+            $(this).hide();
         }
         if (cur!=$('.form-panel').length-1) {
             $('.form-panel').removeClass('active');
@@ -279,6 +283,12 @@
         padding-bottom: 10px;
         font-size: 16px;
         width: 160px;
+    }
+    .summary-offer div{
+        display: none;
+    }
+    .form-panel, .summary-offer{
+        min-height: 600px;
     }
 </style>
 

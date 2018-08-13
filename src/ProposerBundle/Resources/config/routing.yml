@@ -181,23 +181,3 @@ end_activation_offer_mail:
         en: "/mail-end-activation/{days}"
         fr: "/mail-fin-activation/{days}"
     defaults: { _controller: ProposerBundle:Offer:sendEndActivation }
-add_collaborator:
-    locales:
-        en: "/add-collaborator"
-        fr: "/ajout-collaborateur"
-    defaults: { _controller: ProposerBundle:Proposer:addCollaborator }
-list_collaborator:
-    locales:
-        en: "/collaborator-list/{id}"
-        fr: "/liste-collaborateur/{id}"
-    defaults: { _controller: ProposerBundle:Proposer:listCollaborator }
-archive_collaborator:
-    locales:
-        en: "/archive-collaborator/{id}"
-        fr: "/archiver-collaborateur/{id}"
-    defaults: { _controller: ProposerBundle:Proposer:archiveCollaborator }
-change_access_collaborator:
-    locales:
-        en: "/change-access-collaborator/{id}"
-        fr: "/changer-acces-collaborateur/{id}"
-    defaults: { _controller: ProposerBundle:Proposer:changeAccessCollaborator }

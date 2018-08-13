@@ -206,6 +206,8 @@ class AdminController extends Controller
         $id = $request->get('id');
         $status = $request->get('status');
         $message = $request->get('message');
+        $fromPrice = $request->get('fromPrice');
+        $toPrice = $request->get('toPrice');
 
         $user = $this->getUser();
 
@@ -221,6 +223,14 @@ class AdminController extends Controller
         $offer = $offerRepository->findOneBy(array('id' => $id));
 
         $offer->setValidated($status);
+
+        if($status == 1){
+            $offer->setFromPrice($fromPrice);
+            $offer->setToPrice($toPrice);
+            $now = new \dateTime();
+            $offer->setActivationDate($now);
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $em->merge($offer);
@@ -231,22 +241,17 @@ class AdminController extends Controller
             ->getManager()
             ->getRepository('AppBundle:User')
         ;
-        $users = $userRepository->findBy(array('proposer' => $offer->getProposer()));
-        $arrayEmail = array();
+        $user = $userRepository->findOneBy(array('proposer' => $offer->getProposer()));
 
-        foreach ($users as $proposerUser){
-            $arrayEmail[] = $proposerUser->getEmail();
-        }
+        $email = $user->getEmail();
 
-        if(is_array($arrayEmail) && !$status){
-            $firstUser = $arrayEmail[0];
+        if(isset($email) && !$status){
 
             $mailer = $this->container->get('swiftmailer.mailer');
             $translated = $this->get('translator')->trans('form.offer.invalid.subject');
             $message = (new \Swift_Message($translated . ' ' . $offer->getTitle() . " Id: " .$offer->getId()))
                 ->setFrom('cprojectlu@noreply.lu')
-                ->setTo($firstUser)
-                ->setCc(array_shift($arrayEmail))
+                ->setTo($email)
                 ->setBody(
                     $this->renderView(
                         'AppBundle:Emails:offerInvalid.html.twig',

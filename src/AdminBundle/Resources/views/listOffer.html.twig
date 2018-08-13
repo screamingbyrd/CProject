@@ -58,24 +58,21 @@
 
             <tbody id="table-voter">
             {% for offer in offers %}
-                {% if active %}
-                    {%  set condition = offer.isActive %}
-                {% else %}
-                    {%  set condition = 1 %}
-                {% endif %}
-                {% if condition %}
+
                 <tr class="{% if offer.archived %}archived-offer{% endif %} {% if offer.validated is null %}offer-not-validated{% elseif offer.validated %}offer-validated{% else %}offer-invalid{% endif %}">
                     <td>{{ offer.creationDate|date('d/m/Y') }}</td>
                     <td class="offer-id">{{ offer.id }}</td>
                     <td>
                         <a target="_blank" href="{{ path('show_offer', { 'id': offer.id, 'url':'' }) }}" class="offer-name">
-                            {{ offer.title }}
+                            {{ offer.type }} {{ offer.town }}
                         </a>
                     </td>
-                    <td>{{ offer.proposer.name }}</td>
+                    <td>{{ offer.proposer.user.username }}</td>
                     <td>
                         {% if offer.validated is null or offer.validated == false %}
-                            <a class="btn btn-success" href="{{ path('change_validation_status', {'id':offer.id, 'status':1}) }}">{{ 'admin.offerList.valid'|trans }}</a>
+                            <button class="modal-open-valid btn btn-success" data-id="{{ offer.id }}">
+                                {{ 'admin.offerList.valid'|trans }}
+                            </button>
                         {% endif %}
                         {% if offer.validated is null or offer.validated %}
                             <button class="modal-open-invalid btn btn-danger" data-id="{{ offer.id }}">
@@ -106,7 +103,6 @@
                         </div>
                     </td>
                 </tr>
-                {% endif %}
             {% endfor %}
             </tbody>
 
@@ -136,8 +132,29 @@
                     </div>
                     <form method="post" action="{{ path('change_validation_status') }}" id="search-offer-homepage">
                         <input id="invalid-offer-id" type="hidden" name="id">
-                        <input id="invalid-offer-id" type="hidden" name="status" value="0">
+                        <input type="hidden" name="status" value="0">
                         <textarea title="message" style="width: 100%;" name="message"></textarea>
+
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="{{ 'email.send'|trans }}">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="valid-modal">
+            <div class="modal-dialog modal-bg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{ 'admin.offerList.whyInvalid'|trans }}</h4>
+                    </div>
+                    <form method="post" action="{{ path('change_validation_status') }}" id="search-offer-homepage">
+                        <input id="valid-offer-id" type="hidden" name="id">
+                        <input type="hidden" name="status" value="1">
+                        <input type="number" title="fromPrice"  name="fromPrice">
+                        <input type="number" title="toPrice"  name="toPrice">
 
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-primary" value="{{ 'email.send'|trans }}">
@@ -195,6 +212,10 @@
             $(".modal-open-invalid").on("click", function(e){
                 $('#invalid-offer-id').val($(this).data('id'));
                 $("#invalid-modal").modal('show');
+            });
+            $(".modal-open-valid").on("click", function(e){
+                $('#valid-offer-id').val($(this).data('id'));
+                $("#valid-modal").modal('show');
             });
 
             $("#modal-btn-no").on("click", function(e){

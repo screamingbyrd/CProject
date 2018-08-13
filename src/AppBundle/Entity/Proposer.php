@@ -23,7 +23,7 @@ class Proposer
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", cascade={"persist","remove"}, mappedBy="proposer")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", cascade={"persist","remove"}, mappedBy="proposer")
      *
      */
     private $user;
@@ -162,7 +162,6 @@ class Proposer
      */
     public function __construct()
     {
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
         $this->creationDate =  new \datetime();
     }
 
@@ -175,27 +174,15 @@ class Proposer
      */
     public function addUser(\AppBundle\Entity\User $user)
     {
-        $this->user[] = $user;
-
-        $user->setProposer($this);
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Remove user
-     *
-     * @param \AppBundle\Entity\User $user
-     */
-    public function removeUser(\AppBundle\Entity\User $user)
-    {
-        $this->user->removeElement($user);
-    }
-
-    /**
      * Get user
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\User $user
      */
     public function getUser()
     {

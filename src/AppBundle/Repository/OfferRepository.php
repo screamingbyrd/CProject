@@ -66,7 +66,7 @@ class OfferRepository extends \Doctrine\ORM\EntityRepository
     public function countActiveOffer($proposer)
     {
         $query = $this->createQueryBuilder('o');
-        $query->andWhere('o.proposer = :proposer and o.archived = 0 and (o.slot is not null or (o.startDate <= CURRENT_TIMESTAMP() and o.endDate >= CURRENT_TIMESTAMP()))')
+        $query->andWhere('o.proposer = :proposer and o.archived = 0 and o.validated = 1')
             ->setParameter('proposer', $proposer);
 
         $offers = $query->getQuery()->getResult();
@@ -77,7 +77,7 @@ class OfferRepository extends \Doctrine\ORM\EntityRepository
     public function countTotalActiveOffer()
     {
         $query = $this->createQueryBuilder('o');
-        $query->andWhere('o.archived = 0 and (o.slot is not null or (o.startDate <= CURRENT_TIMESTAMP() and o.endDate >= CURRENT_TIMESTAMP()))');
+        $query->andWhere('o.archived = 0 and o.validated = 1');
 
         $offers = $query->getQuery()->getResult();
 
@@ -87,7 +87,7 @@ class OfferRepository extends \Doctrine\ORM\EntityRepository
     public function countTotalNotValidatedActiveOffer()
     {
         $query = $this->createQueryBuilder('o');
-        $query->andWhere('o.archived = 0 and o.validated is null and (o.slot is not null or (o.startDate <= CURRENT_TIMESTAMP() and o.endDate >= CURRENT_TIMESTAMP()))');
+        $query->andWhere('o.archived = 0 and o.validated is null and o.validated = 1');
 
         $offers = $query->getQuery()->getResult();
 
