@@ -281,38 +281,6 @@ class OfferController extends Controller
             return $this->redirectToRoute('offer_archived', array('id' => $id));
         }
 
-        $titleCV = null;
-        $titleCoverLetter = null;
-        if(isset($user)){
-            $voterRepository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('AppBundle:Voter')
-            ;
-
-            $voter = $voterRepository->findOneBy(array('user' => $user->getId()));
-
-            if(isset($voter)){
-                $originalCvPath = $voter->getCv();
-                if (isset($originalCvPath)){
-                    $titleCV = substr($originalCvPath, strrpos($originalCvPath, '%') + 1);
-                }
-                $originalCoverLetterPath = $voter->getCoverLetter();
-                if(isset($originalCoverLetterPath)){
-                    $titleCoverLetter = substr($originalCoverLetterPath, strrpos($originalCoverLetterPath, '%') + 1);
-                }
-            }
-        }
-
-
-        $similarOfferArray = $this->getSimilarOffers($offer);
-
-        $offer->setCountView($offer->getCountView() +1);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->merge($offer);
-        $em->flush();
-
         $map = new Map();
 
         //workarround to ssl certificat pb curl error 60
@@ -358,121 +326,9 @@ class OfferController extends Controller
 
         return $this->render('ProposerBundle:Offer:show.html.twig', array(
             'offer' => $offer,
-            'similarOfferArray' => $similarOfferArray['offers'],
-            'tags' => $similarOfferArray['tags'],
             'map' => $map,
             'status' => $status,
-            'cvTitle' => $titleCV,
-            'coverLetterTitle' => $titleCoverLetter
         ));
-    }
-
-    public function activateAction(Request $request){
-        $session = $request->getSession();
-
-        $id = $request->get('id');
-        $ajax = $request->get('ajax');
-
-        $user = $this->getUser();
-
-        $proposerRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Proposer')
-        ;
-        $proposer = $proposerRepository->findOneBy(array('id' => $user->getProposer()));
-        $creditProposer = $proposer->getCredit();
-        $creditInfo = $this->container->get('app.credit_info');
-        $offerRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Offer')
-        ;
-        $ids = is_array($id)?$id:array($id);
-
-        $creditOffer = 0;
-
-        $offerArray = array();
-
-        foreach ($ids as $id){
-            $offer = $offerRepository->findOneBy(array('id' => $id));
-            if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles()) || $offer->getProposer()->getId() != $proposer->getId()){
-                $translated = $this->get('translator')->trans('redirect.proposer');
-                $session->getFlashBag()->add('danger', $translated);
-                return $this->redirectToRoute('create_proposer');
-            }
-            $slot = $offer->getSlot();
-            if(!isset($slot)){
-                $creditOffer += $creditInfo->getPublishOffer();
-                $offerArray[] = $offer;
-            }
-
-        }
-
-
-        if($creditProposer < $creditOffer){
-            $translated = $this->get('translator')->trans('form.offer.activate.error');
-            $session->getFlashBag()->add('danger', $translated);
-
-            if(isset($ajax) && $ajax){
-                return new JsonResponse($this->generateUrl('proposer_offers', array('archived' => $_SESSION['archived'])));
-            }
-            return $this->redirectToRoute('cproject_credit');
-        }
-
-        $proposer->setCredit($creditProposer - $creditOffer);
-
-        $em = $this->getDoctrine()->getManager();
-
-        foreach ($offerArray as $offer){
-            $now =  new \DateTime("midnight");
-            $next = new \DateTime("midnight");
-            $offer->setUpdateDate($now);
-            $endDate = $offer->getEndDate();
-            if($endDate >= $now){
-                $more = $endDate->modify( '+ 2 month' );
-                $more = new \DateTime($more->format('Y-m-d H:i:s'));
-                $offer->setEndDate($more);
-
-                $activeLogRepository = $this
-                    ->getDoctrine()
-                    ->getManager()
-                    ->getRepository('AppBundle:ActiveLog')
-                ;
-                $activeLog = $activeLogRepository->selectCurrentLog($offer->getId());
-
-                if(isset($activeLog) && !empty($activeLog)){
-                    $activeLog[0]->setEndDate($more);
-                    $em->merge($activeLog[0]);
-                }
-
-            }else{
-                $offer->setStartDate($now);
-                $offer->setEndDate($next->modify( '+ 2 month' ));
-
-                $activeLog = new ActiveLog();
-                $activeLog->setOfferId($offer->getId());
-                $activeLog->setStartDate($now);
-                $new = new \DateTime("midnight");
-                $activeLog->setEndDate($new->modify( '+ 2 month' ));
-                $em->persist($activeLog);
-
-            }
-
-            $em->merge($offer);
-        }
-
-        $em->merge($proposer);
-        $em->flush();
-
-        $translated = $this->get('translator')->trans('form.offer.activate.success');
-        $session->getFlashBag()->add('info', $translated);
-
-        if(isset($ajax) && $ajax){
-            return new JsonResponse($this->generateUrl('proposer_offers', array('archived' => $_SESSION['archived'])));
-        }
-
-        return $this->redirectToRoute('proposer_offers', array('archived' => $_SESSION['archived']));
     }
 
     public function searchAction(Request $request){
@@ -493,17 +349,18 @@ class OfferController extends Controller
         );
         $searchParam = json_encode($searchParam);
 
-        $searchService = $this->get('app.search.offer');
-
+        $offerRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Offer')
+        ;
         if(preg_match("/[0-9]/",$keywords)){
-            $offerRepository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('AppBundle:Offer')
-            ;
+
             $data = $offerRepository->findBy(array('id'=>$keywords));
         }else{
-            $data = $searchService->searchOffer($searchParam);
+
+            $data = $offerRepository->findBy(array('archived' => 0));
+
         }
 
 
@@ -511,10 +368,13 @@ class OfferController extends Controller
 
         $offerArray = array();
 
+        $now = new \datetime();
+        $now = $now->modify('-1 month');
+
         foreach ($data as &$offer){
             $offer->setOfferUrl($generateUrlService->generateOfferUrl($offer));
             $validated = $offer->isValidated();
-            if($offer->isActive() && (!isset($validated) || $validated)){
+            if((!isset($validated) || $validated) && $offer->getActivationDate() >= $now){
                 $offerArray[] = $offer;
             }
         }
@@ -623,54 +483,6 @@ class OfferController extends Controller
     public function searchPageAction(Request $request){
         $keywords = $request->get('keyword');
         $location = $request->get('location');
-        $chosenProposer = $request->get('proposer');
-        $chosenTags = $request->get('tags');
-
-        $contractTypeRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:ContractType')
-        ;
-        $contractType = $contractTypeRepository->findAll();
-
-        $proposerRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Proposer')
-        ;
-        $proposers = $proposerRepository->findAll();
-
-
-        $tagRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Tag')
-        ;
-        $tags = $tagRepository->findAll();
-
-
-        $featuredOfferRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:FeaturedOffer')
-        ;
-
-        $featuredOffers = $featuredOfferRepository->getCurrentFeaturedOffer();
-
-        $generateUrlService = $this->get('app.offer_generate_url');
-
-        foreach ($featuredOffers as $featuredOffer){
-            $featuredOffer->getOffer()->setOfferUrl($generateUrlService->generateOfferUrl($featuredOffer->getOffer()));
-        }
-
-        if(isset($chosenTags)){
-            foreach ($chosenTags as &$tag){
-                $newTag = array();
-                $newTag['text'] = $this->get('translator')->trans($tag);
-                $newTag['value'] = $tag;
-                $tag = $newTag;
-            }
-        }
 
         $autoComplete = new Autocomplete();
         $autoComplete->setInputId('place_input');
@@ -701,13 +513,7 @@ class OfferController extends Controller
         $apiHelper = $apiHelperBuilder->build();
 
         return $this->render('ProposerBundle:Offer:searchPage.html.twig', array(
-            'contractType' => $contractType,
             'keyword' => $keywords,
-            'proposers' => $proposers,
-            'chosenProposer'=>$chosenProposer,
-            'tags' => $tags,
-            'chosenTags' => $chosenTags,
-            'featuredOffer' => $featuredOffers,
             'autoComplete' => $autoCompleteHelper->render($autoComplete),
             'autoCompleteScript' => $apiHelper->render([$autoComplete])
         ));
@@ -770,12 +576,14 @@ class OfferController extends Controller
         return $this->redirectToRoute('proposer_offers', array('archived' => $_SESSION['archived']));
     }
 
-    public function applyAction(Request $request){
+    public function voteAction(Request $request){
         $session = $request->getSession();
 
         $user = $this->getUser();
 
         $id = $request->get('id');
+        $estimation = $request->get('estimation');
+        $interested = $request->get('interested');
 
         if(!isset($user) || in_array('ROLE_PROPOSER', $user->getRoles())){
             return $this->redirectToRoute('create_voter', array('offerId' => $id));
@@ -789,34 +597,6 @@ class OfferController extends Controller
         $voter = $voterRepository->findOneBy(array('user' => $user->getId()));
 
         $voterMail = $user->getEmail();
-        $comment = $request->get('comment');
-        $target_dir = "uploads/images/voter/";
-
-        $cv = $voter->getCv();
-        if($_FILES["cv"]["size"] != 0){
-            $target_file = $target_dir . md5(uniqid()) . '%' . basename($_FILES["cv"]["name"]);
-            move_uploaded_file($_FILES["cv"]["tmp_name"], $target_file);
-            if(isset($cv) && $cv != ''){
-                unlink($cv);
-            }
-            $voter->setCv($target_file);
-        }else{
-            $target_file = $cv;
-        }
-
-        $coverLetter = $voter->getCoverLetter();
-        if($_FILES["cover-file"]["size"] != 0){
-            $target_file_cover = null;
-            $target_dir_cover = "uploads/images/voter/";
-            $target_file_cover = $target_dir_cover . md5(uniqid()) . '%' . basename($_FILES["cover-file"]["name"]);
-            move_uploaded_file($_FILES["cover-file"]["tmp_name"], $target_file_cover);
-            if(isset($coverLetter) && $coverLetter != ''){
-                unlink($coverLetter);
-            }
-            $voter->setCoverLetter($target_file_cover);
-        }else{
-            $target_file_cover = $coverLetter;
-        }
 
         $offerRepository = $this
             ->getDoctrine()
@@ -842,78 +622,23 @@ class OfferController extends Controller
             return $this->redirectToRoute('dashboard_voter');
         }
 
-        $userRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:User')
-        ;
-        $users = $userRepository->findBy(array('proposer' => $offer->getProposer()));
-
-        $arrayEmail = array();
-
-        foreach ($users as $emplyerUser){
-            $arrayEmail[] = $emplyerUser->getEmail();
-        }
-        $firstUser = $arrayEmail[0];
-
-        $mailer = $this->container->get('swiftmailer.mailer');
-
-        $translatedProposer = $this->get('translator')->trans('offer.applied.proposer');
-
-        $messageEmmployer = (new \Swift_Message($translatedProposer . ' ' . $offer->getTitle()))
-            ->setFrom('cprojectlu@noreply.lu')
-            ->setTo($firstUser)
-            ->setCc(array_shift($arrayEmail))
-            ->setBody(
-                $this->renderView(
-                    'AppBundle:Emails:apply.html.twig',
-                    array('comment' => $comment, 'offer' => $offer, 'link' => $target_file, 'linkCover' => $target_file_cover)
-                ),
-                'text/html'
-            );
-        ;
-
-
-        $translatedVoter = $this->get('translator')->trans('offer.applied.voter');
-        $messageVoter = (new \Swift_Message($translatedVoter . ' ' . $offer->getTitle()))
-            ->setFrom('cprojectlu@noreply.lu')
-            ->setTo($voterMail)
-            ->setBody(
-                $this->renderView(
-                    'AppBundle:Emails:applied.html.twig',
-                    array('offer' => $offer)
-                ),
-                'text/html'
-            );
-        ;
-        $messageEmmployer->getHeaders()->addTextHeader(
-            CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
-        );
-        $messageVoter->getHeaders()->addTextHeader(
-            CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
-        );
-
-        $mailer->send($messageVoter);
-        $mailer->send($messageEmmployer);
-
         $em = $this->getDoctrine()->getManager();
 
         $vote = new Vote();
         $vote->setVoter($voter);
         $vote->setOffer($offer);
+        $vote->setEstimation($estimation);
+        if($interested == '1'){
+            $vote->setInterested($interested);
+        }
+
         $now =  new \DateTime();
         $vote->setDate($now);
-        $vote->setCoverLetter($comment);
 
-
-        $offer->setCountContact($offer->getCountContact() +1);
-
-        $em->merge($offer);
         $em->persist($vote);
-        $em->merge($voter);
         $em->flush();
 
-        $translated = $this->get('translator')->trans('offer.applied.success', array('%title%' => $offer->getTitle()));
+        $translated = $this->get('translator')->trans('offer.applied.success');
         $session->getFlashBag()->add('info', $translated);
 
         return $this->redirectToRoute('dashboard_voter');

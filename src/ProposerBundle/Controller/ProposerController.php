@@ -58,8 +58,10 @@ class ProposerController extends Controller
 
                 $proposer->setPhone($data->getPhone());
                 $proposer->addUser($user);
+                $user->setProposer($proposer);
 
                 $em->persist($user);
+                $em->persist($proposer);
                 $em->flush();
 
                 $translated = $this->get('translator')->trans('form.registration.successProposer');

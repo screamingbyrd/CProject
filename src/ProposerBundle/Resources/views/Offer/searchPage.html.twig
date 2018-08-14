@@ -13,14 +13,6 @@
 
 
             <div class="row form-group search-input-container">
-                <div class="col-md-3">
-                    <select title="Category" id="category-input" multiple class="select2" data-placeholder="{{ 'form.offer.search.categoryPH' | trans }}">
-                        <option></option>
-                        {% for tag in tags %}
-                            <option value="{{ tag.name }}">{{ tag.name|trans }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
                 <div class=" col-md-4">
                     <input value="{{ keyword }}" class="form-control" type="text" id="keyword-input" placeholder="{{ 'form.offer.search.keyword' | trans }}" title="{{ 'form.offer.search.keyword' | trans }}">
                 </div>
@@ -43,16 +35,7 @@
             </div>
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <ul class="contractType-list">
-                            {% for type in contractType %}
-                                <li class="contract-type">
-                                    <input type="checkbox" name="filter_job_type[]" class="type-contract-checkbox" value="{{ type.name }}" checked="checked" id="job_type_{{ type.name }}">
-                                    {{  type.name | trans }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+
                     <div class="col-md-1" style="display: none">
                         <select id="number-of-offer" class="col-md-1 col-md-offset-3 form-control">
                             <option value="20" selected>20</option>
@@ -83,47 +66,11 @@
     <div class="container">
 
         <div class="row">
-            <div class="{% if featuredOffer is defined and featuredOffer|length > 0 and chosenProposer is null %}col-md-8{% endif %}">
+            <div>
                 <ul id="myUL">
 
                 </ul>
             </div>
-            {% if featuredOffer is defined and featuredOffer|length > 0 and chosenProposer is null %}
-            <div class="col-md-3 featured-offer-search">
-                <h1>{{ 'featured.offer.title'|trans }}</h1>
-                <ul >
-                    {% for offer in featuredOffer %}
-                        <li class="zoom">
-                            <a href="{{ path('show_offer', {'id': offer.offer.id, 'url':offer.offer.offerUrl}) }}">
-                                <div class="thumbnail  featured-offer-item">
-                                    {% if offer.offer.image is not null and offer.offer.image.imageName is not null %}
-                                        {% set image =  'uploads' ~ vich_uploader_asset(offer.offer.image, 'imageFile', 'AppBundle\\Entity\\Image') %}
-                                    {% elseif offer.offer.proposer.coverImage.imageName is not null %}
-                                        {% set image =  'uploads' ~ vich_uploader_asset(offer.offer.proposer.coverImage, 'imageFile', 'AppBundle\\Entity\\Image') %}
-                                    {% elseif offer.offer.proposer.logo.imageName is not null %}
-                                        {% set image =  'uploads' ~ vich_uploader_asset(offer.offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image') %}
-                                    {% else %}
-                                        {% set image = 'images/default_cover_image6.jpg' %}
-                                    {% endif %}
-                                    <div class="caption background-offer" style="display: flex; justify-content: center;align-items: center;background-repeat: no-repeat;background-size: cover;background-image: url({{ asset(image) }});min-height: 110px;">
-                                        <div class="layer">
-                                        </div>
-                                        <div class="offer-thumb-image-div">
-                                            {% if offer.offer.proposer.logo.imageName is not null and offer.offer.proposer.coverImage.imageName is not null %}<img src="{{asset('uploads' ~ vich_uploader_asset(offer.offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image')) }}" class="offer-thumb-logo" />{% endif %}
-                                        </div>
-                                    </div>
-
-                                    <div class="caption">
-                                        <h3>{{ offer.offer.title|truncate(20, true) }} # {{ offer.offer.id }}</h3>
-                                        <p><span class="other-element offer-location"><i class="fa fa-map-marker"></i>{{ offer.offer.location|truncate(20, true) }}</span><span class="other-element"><i class="fa fa-file-text-o"></i>{{ offer.offer.contractType.name |trans }}</span></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
         </div>
 
         <div id="paginator-offer">
@@ -177,15 +124,6 @@
             }
 
             window.onload = function() {
-                let arrayTags = {{ chosenTags|json_encode|raw }};
-                if(arrayTags != null){
-                    arrayTags.forEach(function(element) {
-                        let option = new Option(element.text, element.value);
-                        option.selected = true;
-
-                        $("#category-input").append(option);
-                    });
-                }
 
                 let total = $('#number-of-offer').val();
                 searchOffer(1,total);

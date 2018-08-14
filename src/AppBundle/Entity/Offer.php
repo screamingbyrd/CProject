@@ -208,6 +208,7 @@ class Offer
     public function __construct()
     {
         $this->creationDate =  new \Datetime();
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

@@ -64,13 +64,6 @@ erase_offer:
     defaults: { _controller: ProposerBundle:Offer:erase }
     requirements:
       id: \d+
-activate_offer:
-    locales:
-        en: "/activate-offer"
-        fr: "/activer-offre"
-    defaults: { _controller: ProposerBundle:Offer:activate }
-    requirements:
-      id: \d+
 show_offer:
     locales:
         en: "/offer/{url}/{id}"
@@ -78,11 +71,11 @@ show_offer:
     defaults: { _controller: ProposerBundle:Offer:show }
     requirements:
         url:    .*
-apply_offer:
+vote_offer:
     locales:
-        en: "/apply-offer/{id}"
-        fr: "/postuler-offre/{id}"
-    defaults: { _controller: ProposerBundle:Offer:apply }
+        en: "/vote/{id}"
+        fr: "/voter/{id}"
+    defaults: { _controller: ProposerBundle:Offer:vote }
     requirements:
       id: \d+
 search_offer:

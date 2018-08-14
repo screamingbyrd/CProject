@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Vote
  *
- * @ORM\Table(name="postulated_offers")
+ * @ORM\Table(name="vote")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VoteRepository")
  */
 class Vote
@@ -35,6 +35,14 @@ class Vote
      * @ORM\Column(name="estimation", type="text")
      */
     private $estimation;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="interested", type="boolean")
+
+     */
+    protected $interested = 0;
 
     /**
      * @var \DateTime
@@ -150,4 +158,23 @@ class Vote
     {
         $this->date =  new \datetime();
     }
+
+    /**
+     * @return bool
+     */
+    public function isInterested()
+    {
+        return $this->interested;
+    }
+
+    /**
+     * @param bool $interested
+     * @return Vote
+     */
+    public function setInterested($interested)
+    {
+        $this->interested = $interested;
+        return $this;
+    }
+
 }

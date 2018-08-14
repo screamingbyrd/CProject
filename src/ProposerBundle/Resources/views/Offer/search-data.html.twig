@@ -72,12 +72,8 @@
         {% endif %}
         <li class="search-result animated fadeIn">
             <a class='offer-element' href="{{ path('show_offer', {'id': offer.id, 'url':offer.offerUrl}) }}">
-                {% if offer.image is not null and offer.image.imageName is not null %}
-                    {% set image =  'uploads' ~ vich_uploader_asset(offer.image, 'imageFile', 'AppBundle\\Entity\\Image') %}
-                {% elseif offer.proposer.coverImage.imageName is not null %}
-                    {% set image =  'uploads' ~ vich_uploader_asset(offer.proposer.coverImage, 'imageFile', 'AppBundle\\Entity\\Image') %}
-                {% elseif offer.proposer.logo.imageName is not null %}
-                    {% set image =  'uploads' ~ vich_uploader_asset(offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image') %}
+                {% if offer.images.first != false and offer.images.first.imageName is not null %}
+                    {% set image =  'uploads' ~ vich_uploader_asset(offer.images.first, 'imageFile', 'AppBundle\\Entity\\Image') %}
                 {% else %}
                     {% set image = 'images/default_cover_image6.jpg' %}
                 {% endif %}
@@ -85,15 +81,11 @@
                     <div class="layer layer-offer-element animated">
                     </div>
                 </div>
-                {% if offer.proposer.logo.imageName is not null and offer.proposer.coverImage.imageName is not null %}<img class="logo-proposer-in-offer-search" src="{{asset('uploads' ~ vich_uploader_asset(offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image') )}}"/>{% endif %}
                 <div class="offer-search-element">
                     <div class="offer-element-details">
-                        <div class="offer-element-name">{{ offer.proposer.name }}<span class="offer-item-experience other-element"><i class="fa fa-address-book" aria-hidden="true"></i>{{ offer.experience | trans }}</span></div>
-                        <div class="offer-element-title">{{ offer.title |truncate(80, true)}}</div>
+                        <div class="offer-element-title">{{ offer.type }} {{ offer.town }}</div>
                         <div class="offer-element-other">
-                            <span class="other-element offer-item-contract item-contract-{{ offer.contractType.name }}">{{ offer.contractType.name | trans }}</span>
                             <span class="other-element offer-location"><i class="fa fa-map-marker"></i>{{ offer.location |truncate(20, true)}}</span>
-                            <span class="other-element"><i class="fa fa-clock-o"></i>{{ offer.startDate|time_diff }}</span>
                         </div>
                     </div>
                 </div>

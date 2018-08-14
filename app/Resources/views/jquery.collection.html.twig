@@ -21,13 +21,66 @@
 
 {% block collection_widget %}
     {% spaceless %}
-        {% if prototype is defined %}
-            {% set attr = attr|merge({'data-prototype': form_row(prototype)}) %}
-            {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
-        {% endif %}
-        {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
-        {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
-        {% set attr = attr|merge({'data-name-prefix': full_name}) %}
-        {{ block('form_widget') }}
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#'+input.dataset.imageId)
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(200).show();
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            // $(document).ready(function(){
+            //     $("#btn1").click(function(){
+            //         var totalInput = $(this).data('value');
+            //         totalInput++;
+            //         $("#appbundle_proposer_images_0_imageFile_file").parent().append($("<input/>",{type:"file",name:"appbundle_proposer[images]["+totalInput+"][imageFile][file]",accept:'image/*',id:'#appbundle_proposer_images_'+totalInput+'_imageFile_file'})).append("<img id="+totalInput+" src=\"#\"/>");
+            //         $(this).data('value', totalInput);
+            //         if(totalInput == 9){
+            //             $(this).prop('disabled', true);
+            //         }
+            //     });
+            // });
+        </script>
+        {#<button type="button" class="btn btn-info" id="btn1" data-value="0">#}
+            {#<span class="glyphicon glyphicon-plus"></span>#}
+        {#</button>#}
+        {#<hr>#}
+        {#<input type="file" onchange="readURL(this);" data-image-id="0" id="appbundle_proposer_images_0_imageFile_file" name="appbundle_proposer[images][0][imageFile][file]">#}
+        {#<img id="0" src="#"/>#}
+        <div class="box">
+            <input type="file" onchange="readURL(this);" data-image-id="0" class="inputfile inputfile-1" id="appbundle_proposer_images_0_imageFile_file" name="appbundle_proposer[images][0][imageFile][file]">
+            <label for="appbundle_proposer_images_0_imageFile_file"><i class="fas fa-download"></i><span>  1</span></label>
+            <img id="0" src="#" style="display: none;"/>
+        </div>
+        <style>
+            .inputfile{
+                width: 0.1px;
+                height: 0.1px;
+                opacity: 0;
+                overflow: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+            .inputfile + label {
+                max-width: 80%;
+                font-size: 1.25rem;
+                font-weight: 700;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                cursor: pointer;
+                display: inline-block;
+                overflow: hidden;
+                padding: 0.625rem 1.25rem;
+                color: #f1e5e6;
+                background-color: #d3394c;
+            }
+        </style>
     {% endspaceless %}
 {% endblock collection_widget %}

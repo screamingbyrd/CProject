@@ -21,14 +21,14 @@
                 <tr>
                     <td>
                         <a href="{{ path('show_offer', {'id': offer.offer.id, 'url':offer.offer.offerUrl}) }}">
-                            {% if offer.offer.proposer.logo.imageName is not null %}
-                                {% set image =  'uploads' ~ vich_uploader_asset(offer.offer.proposer.logo, 'imageFile', 'AppBundle\\Entity\\Image') %}
-                            {% else %}
-                                {% set image = 'images/logo-default.png' %}
-                            {% endif %}
-                                <img class="logo-proposer-in-applied-offer" src="{{ asset(image) }}"/>
+                            {#{% if offer.offer.images.first != false and offer.offer.images.first.imageName is not null %}#}
+                                {#{% set image =  'uploads' ~ vich_uploader_asset(offer.offer.images.first, 'imageFile', 'AppBundle\\Entity\\Image') %}#}
+                            {#{% else %}#}
+                                {#{% set image = 'images/default_cover_image6.jpg' %}#}
+                            {#{% endif %}#}
+                            {#<img class="logo-proposer-in-applied-offer" src="{{ asset(image) }}"/>#}
 
-                            {{ offer.offer.title |trans }}
+                            {{ offer.offer.type }} {{ offer.offer.town }}
                         </a>
                     </td>
                     <td>{{ offer.date|date('d/m/Y') }}</td>
