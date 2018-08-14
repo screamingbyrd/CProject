@@ -87,7 +87,7 @@ class OfferController extends Controller
             return $this->redirectToRoute('proposer_offers');
 
         }
-        return $this->render('ProposerBundle:form:postOffer.html.twig', array(
+        return $this->render('ProposerBundle:Form:postOffer.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -135,7 +135,7 @@ class OfferController extends Controller
             return $this->redirectToRoute('proposer_offers', array('archived' => $_SESSION['archived']));
 
         }
-        return $this->render('ProposerBundle:form:editOffer.html.twig', array(
+        return $this->render('ProposerBundle:Form:editOffer.html.twig', array(
             'form' => $form->createView(),
         ));
     }

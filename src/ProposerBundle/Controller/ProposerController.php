@@ -80,7 +80,7 @@ class ProposerController extends Controller
                 return $this->redirectToRoute('cproject_home');
             }
         }
-        return $this->render('ProposerBundle:form:createProposer.html.twig', array(
+        return $this->render('ProposerBundle:Form:createProposer.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -159,7 +159,7 @@ class ProposerController extends Controller
             }
         }
 
-        return $this->render('ProposerBundle:form:editProposer.html.twig', array(
+        return $this->render('ProposerBundle:Form:editProposer.html.twig', array(
             'form' => $form->createView(),
             'user' => $user,
         ));
