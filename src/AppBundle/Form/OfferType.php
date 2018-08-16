@@ -64,7 +64,7 @@ class OfferType extends AbstractType
                 'multiple' => false,
                 'required' => true,
                 'attr' => array('class' => 'select2'),
-                'label' => 'form.registration.type',
+                'label' => 'offer.type',
             ))
             ->add('surface', IntegerType::class, array(
                 'required' => true,

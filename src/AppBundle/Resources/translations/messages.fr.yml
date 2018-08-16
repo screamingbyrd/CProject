@@ -3,6 +3,10 @@ no: non
 or: ou
 to: au
 
+type:
+  house: Maison
+  flat: Appartement
+
 homepage:
   title: Find the career you deserve
   subtitle: Your job search starts and ends with us
@@ -234,43 +238,29 @@ slot:
     success: Le slot à bien été vidé
 
 offer:
-  title: Titre
-  titlePH: Votre titre
   posted: Ajouté le
-  companyPage: Page de l'entreprise
-  tag: Catégorie(s)
-  tagPH: Domaine(s) de compétence(s)
   location: Adresse
   locationPH: Indiquez un lieu
-  description: Description
-  contract: Type de contrat
-  contractPH:  Choisissez le type de contrat
-  exp: Expérience professionel
-  expPH: Expérience requise
-  available: Date de disponibilité
-  availablePH: Date de début souhaitée
-  diploma: Diplôme
-  diplomaPH:  Niveau d'études requis
-  wage: Salaire
-  wagePH: Choisissez un salaire
-  benefits: Avantages
-  benefitsPH: Avantage(s) offert(s)
-  license: Permis
-  licensePH: Permis de conduire requis
-  image: Image pour votre offre
   submit: Soumettre
   option: Plus de précision (faculatatif)
-  about: À propos de cette offre
-  jobDescription: Description de l'offre
   sorry: Désolé, cette offre à été archivé
   hereSomeSimilar: Voici quelques offre similaire qui pourraient vous interessé:
   similarOffer: Offres similaires
   watchSimilar: Voir toutes les offres similaires
-  experience: Expérience
-  startDate: Date de début
-  votersList: Candidats qui ont postulé à cette offre :
-  link: Lien de redirection
-  inSlot: Dans un slot
+  zipcode: Code postale
+  town: Ville
+  type: Type de bien
+  surface: Surface
+  groundSurface: Surface du terrain
+  roomNumber: Nombre de pièce
+  bathroomNumber: Nombre de salle de bain
+  totalFloor: Nombre de niveaux
+  floor: Etage
+  basementSurface: Surface de la cave
+  parkingNumber: Nombre de place de parking
+  buildingYear: Année de construction
+  lift: Ascenseur
+  balcony: Balcon
 
   search:
     title: Recherche d'offres

@@ -130,63 +130,63 @@
         <div class="col-md-4">
             <div class="shadow-box summary-offer">
                 <div class="animated fadeIn">
-                    {{ 'offer.zipcode'|trans }} :
+                    <b>{{ 'offer.zipcode'|trans }}</b> :
                     <span class="zipcode"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.town'|trans }} :
+                    <b>{{ 'offer.town'|trans }}</b> :
                     <span class="town"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.location'|trans }} :
+                    <b>{{ 'offer.location'|trans }}</b> :
                     <span class="location"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.type'|trans }} :
+                    <b>{{ 'offer.type'|trans }}</b> :
                     <span class="type"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.surface'|trans }} :
+                    <b>{{ 'offer.surface'|trans }}</b> :
                     <span class="surface"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.groundSurface'|trans }} :
+                    <b>{{ 'offer.groundSurface'|trans }}</b> :
                     <span class="groundSurface"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.roomNumber'|trans }} :
+                    <b>{{ 'offer.roomNumber'|trans }}</b> :
                     <span class="roomNumber"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.bathroomNumber'|trans }} :
+                    <b>{{ 'offer.bathroomNumber'|trans }}</b> :
                     <span class="bathroomNumber"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.totalFloor'|trans }} :
+                    <b>{{ 'offer.totalFloor'|trans }}</b> :
                     <span class="totalFloor"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.floor'|trans }} :
+                    <b>{{ 'offer.floor'|trans }}</b> :
                     <span class="floor"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.basementSurface'|trans }} :
+                    <b>{{ 'offer.basementSurface'|trans }}</b> :
                     <span class="basementSurface"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.parkingNumber'|trans }} :
+                    <b>{{ 'offer.parkingNumber'|trans }}</b> :
                     <span class="parkingNumber"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.buildingYear'|trans }} :
+                    <b>{{ 'offer.buildingYear'|trans }}</b> :
                     <span class="buildingYear"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.lift'|trans }} :
+                    <b>{{ 'offer.lift'|trans }}</b> :
                     <span class="lift"></span>
                 </div>
                 <div class="animated fadeIn">
-                    {{ 'offer.balcony'|trans }} :
+                    <b>{{ 'offer.balcony'|trans }}</b> :
                     <span class="balcony"></span>
                 </div>
             </div>
@@ -246,7 +246,14 @@
                 $('.'+className).parent().show();
             }
 
-            $('.'+className).html(formValue[i]['value']);
+            var translation = formValue[i]['value'];
+            {#if(formValue[i]['value'] == 'type.house'){#}
+                {#translation = {{ 'type.house'|trans }};#}
+            {#}else if(formValue[i]['value'] == 'type.flat'){#}
+                {#translation = {{ 'type.flat'|trans }};#}
+            {#}#}
+
+            $('.'+className).html(translation);
         }
         if(cur == $('.form-panel').length-2){
             $(this).hide();

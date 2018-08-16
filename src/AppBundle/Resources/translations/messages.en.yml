@@ -3,6 +3,10 @@ no: no
 or: or
 to: to
 
+type:
+  house: House
+  flat: Flat
+
 homepage:
   title: Find the career you deserve
   subtitle: Your job search starts and ends with us
@@ -234,43 +238,29 @@ slot:
     success: The slot has been emptied
 
 offer:
-  title: Title
-  titlePH: Your offer title
   posted: Posted the
-  companyPage: Company page
-  tag: Tag(s)
-  tagPH: Skills area
   location: Location
   locationPH: Indicate a place
-  description: Descritpion
-  contract: Type de contrat
-  contractPH: Choose contract type
-  exp: Experience
-  expPH: Requested experience
-  diploma: Diploma
-  dilomaPH: Requested study level
-  available: Available date
-  availablePH: Choose a start date
-  wage: Wage
-  wagePH: Choose salary wage
-  benefits: Benefits
-  benefitsPH: Benefits you offer
-  license: License
-  licensePH: Requested license
-  image: Offer image
   submit: Submit
   option: More options (not mandatory)
-  about: About the offer
-  jobDescription: Job description
   sorry: Sorry, this offer has been closed
   hereSomeSimilar: Here are some similar offers you might be interested in:
   similarOffer: Similar offers
   watchSimilar: Watch all similar offers
-  experience: Experience
-  startDate: Start date
-  votersList: Voters who applied to this offer:
-  link: Redirection link
-  inSlot: In slot
+  zipcode: Zipcode
+  town: Town
+  type: Type of offer
+  surface: Surface
+  groundSurface: Ground surface
+  roomNumber: Room number
+  bathroomNumber: Bathroom number
+  totalFloor: Level number
+  floor: Floor
+  basementSurface: Basement surface
+  parkingNumber: Parking number
+  buildingYear: Building year
+  lift: Lift
+  balcony: Balcony
 
   search:
       title: Search offers
