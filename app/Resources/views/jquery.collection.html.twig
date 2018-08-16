@@ -74,7 +74,7 @@
             });
 
             $( document ).ready(function() {
-                {% if true %}
+                {% if images is defined %}
                     {% set i = 0 %}
                     {% for image in images %}
                         var input = $('#sortable li input:eq({{ i }})');
