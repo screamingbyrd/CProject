@@ -37,11 +37,32 @@
                 }
             }
             function removeImage(input) {
-
+                input.parentNode.getElementsByTagName('input')[0].value = "";
                 input.parentNode.style.backgroundImage = '';
                 input.parentNode.getElementsByTagName('label')[0].style.display = "flex";
                 input.style.display = "none";
             }
+
+            $('.form-vertical').submit(function(e) {
+                var reorderedValues = [];
+                //loop trought each input...
+                $('#sortable li input').each( function(e) {
+                    reorderedValues.push( $(this).val() );
+                });
+
+                var i;
+                for (i = 0; i < reorderedValues.length; i++) {
+                    if(typeof reorderedValues[i] == 'undefined' ){
+                        reorderedValues[i] = '';
+                    }
+                    $('input[name="appbundle_proposer[images]['+i+'][imageFile][file]"]').val(reorderedValues[i]);
+                }
+
+                return true;
+            });
+
+
+
         </script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
