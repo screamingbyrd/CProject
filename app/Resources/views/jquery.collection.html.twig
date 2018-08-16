@@ -41,6 +41,18 @@
                 input.parentNode.style.backgroundImage = '';
                 input.parentNode.getElementsByTagName('label')[0].style.display = "flex";
                 input.style.display = "none";
+
+                if(typeof input.getAttribute("data-image-id") !== undefined){
+                    let id = input.getAttribute("data-image-id");
+                    let url = "{{ path('delete_image') }}";
+                    $.ajax({
+                        url: url,
+                        data: {id:id}
+                    }).done(function( data ) {
+
+                    });
+                }
+
             }
 
             $('.form-vertical').submit(function(e) {
@@ -61,7 +73,20 @@
                 return true;
             });
 
+            $( document ).ready(function() {
+                {% if true %}
+                    {% set i = 0 %}
+                    {% for image in images %}
+                        var input = $('#sortable li input:eq({{ i }})');
+                        input.parent().find('.remove-image').attr('data-image-id', {{ image.id }});
+                        input.parent().css('background-image', 'url({{ asset('uploads' ~ vich_uploader_asset(image, 'imageFile', 'AppBundle\\Entity\\Image')) }})');
+                        input.parent().find('label').hide();
+                        input.parent().find('.remove-image').show();
 
+                        {% set i = i+1 %}
+                    {% endfor %}
+                {% endif %}
+            });
 
         </script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

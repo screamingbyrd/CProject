@@ -111,13 +111,11 @@
             </div>
         </div>
         <div class="form-panel row shadow-box">
-            <div class="col-md-6">
 
                 {% form_theme form.images 'jquery.collection.html.twig' %}
                 {{ form_label (form.images, "Photos") }}
-                {{ form_widget(form.images) }}
+                {{ form_widget(form.images, {'images': images, 'edit':1}) }}
                 {{ form_errors(form.images) }}
-            </div>
         </div>
         <div class="form-panel row shadow-box">
             <div class="col-md-4 col-md-offset-4">

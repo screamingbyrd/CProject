@@ -124,6 +124,11 @@ class OfferController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
+//            var_dump($form->getData()->getImages());exit;
+
+            if ($offer->getImages()) {
+                foreach ($offer->getImages() as $image) $image->setOffer($offer);
+            }
             $em = $this->getDoctrine()->getManager();
 
             $em->merge($offer);
@@ -137,6 +142,7 @@ class OfferController extends Controller
         }
         return $this->render('ProposerBundle:Form:editOffer.html.twig', array(
             'form' => $form->createView(),
+            'images' => $form->getData()->getImages()
         ));
     }
 
@@ -735,6 +741,38 @@ class OfferController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $em->merge($offer);
+        $em->flush();
+
+
+        return new Response();
+    }
+
+    public function deleteImageAction(Request $request)
+    {
+        $imageId = $request->get('id');
+
+        $imageRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Image')
+        ;
+        $image = $imageRepository->findOneBy(array('id' => $imageId));
+
+        $offerRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Offer')
+        ;
+        $offer = $offerRepository->findOneBy(array('id' => $image->getOffer()->getId()));
+
+        if(is_object($offer)){
+            $offer->removeImage($image);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->merge($offer);
+        $em->remove($image);
         $em->flush();
 
 

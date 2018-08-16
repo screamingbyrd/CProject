@@ -93,6 +93,11 @@ boost_offers:
         en: "/boost-offer"
         fr: "/booster-offre"
     defaults: { _controller: ProposerBundle:Offer:boost }
+delete_image:
+    locales:
+        en: "/delete-image"
+        fr: "/effacer-image"
+    defaults: { _controller: ProposerBundle:Offer:deleteImage }
 increment_offer:
     locales:
         en: "/increment-offer"
