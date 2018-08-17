@@ -1,0 +1,117 @@
+{#
+# jquery.collection.html.twig
+#
+# Adds the following html attributes to the root node of your collection fields:
+#
+# - data-prototype-name: placeholder used in the prototype to replace element indexes on the collection
+# - data-allow-add: if set to false, plugin will automatically set allow_add option to false
+# - data-allow-delete: if set to false, plugin will automatically set allow_remove option to false
+# - data-name-prefix: contains the collection's prefix used in descendant field names
+#
+# Those information let you configure the plugin options automatically.
+#
+# If you are already using a form theme, you can use both by using:
+# {%
+#   form_theme myForm
+#       'FuzAppBundle::my-form-theme.html.twig'
+#       'FuzAppBundle::jquery.collection.html.twig'
+#       ...
+# %}
+#}
+
+{% block choice_widget %}
+    <div id="appbundle_proposer_type">
+        <label for="appbundle_proposer_type_0" class="required">
+            <input type="radio" required="required" name="appbundle_proposer[type]" id="appbundle_proposer_type_0" value="type.house">
+            <div class="front-end box">
+                <span>
+                    <i class="fas fa-home"></i>
+                    <div>
+                        {{ 'type.house'|trans }}
+                    </div>
+                </span>
+            </div>
+        </label>
+
+        <label for="appbundle_proposer_type_1" class="required">
+            <input type="radio" required="required" id="appbundle_proposer_type_1" name="appbundle_proposer[type]" value="type.flat">
+            <div class="back-end box">
+                <span>
+                    <i class="fas fa-building"></i>
+                    <div>
+                        {{ 'type.flat'|trans }}
+                    </div>
+                </span>
+            </div>
+        </label>
+    </div>
+
+
+    <style>
+        #appbundle_proposer_type {
+            width: 100%;
+            text-align: center;
+            background-color: lightgrey;
+            padding-top: 10px;
+            display: inline-flex;
+        }
+        #appbundle_proposer_type label{
+            margin: 20px;
+        }
+        input[type="radio"] {
+            display: none;
+        }
+        input[type="radio"]:checked + .box{
+            background-color: #337ab7 !important;
+        }
+        input[type="radio"]:checked + span{
+            color: white;
+            transform: translateY(70px);
+        }
+        input[type="radio"]:checked:before{
+            transform: translateY(0px);
+            opacity: 1
+        }
+        #appbundle_proposer_type .box{
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            transition: all 250ms ease;
+            will-change: transition;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            font-weight: 900;
+        }
+        #appbundle_proposer_type .box:active{
+            transform: translateY(10px);
+        }
+        #appbundle_proposer_type span{
+            position: absolute;
+            transform: translate(0, 20px);
+            left: 0;
+            right: 0;
+            transition: all 300ms ease;
+            font-size: 1.5em;
+            user-select: none;
+            color: #191717;
+        }
+        #appbundle_proposer_type span:before{
+            font-size: 1.2em;
+            font-family: FontAwesome;
+            display: block;
+            transform: translateY(-80px);
+            opacity: 0;
+            transition: all 300ms ease-in-out;
+            font-weight: normal;
+            color: white;
+        }
+        #appbundle_proposer_type .front-end span:before{
+            content: '\f121';
+        }
+        #appbundle_proposer_type .back-end span:before{
+            content: '\f0f4';
+        }
+    </style>
+{% endblock choice_widget %}

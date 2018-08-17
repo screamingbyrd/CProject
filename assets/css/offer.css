@@ -740,28 +740,41 @@
 h3.post-offer{
     margin-top: 0;
 }
-
-.apply-button{
-    width: 150px;
-    height: 50px;
-    font-size: 20px;
+.offer-field{
+    margin-bottom: 10px;
 }
-
-.job-description{
-    margin-bottom: 80px;
+.form-panel:not(.active) {
+    display:none;
 }
-
-.featured-offer-search ul{
-    list-style: none;
-    padding-left: 0;
+.post-offer{
+    min-height: 80vh;
+    position: relative
 }
-.featured-offer-search a{
-    text-decoration: none;
-}
-.featured-offer-search a .offer-thumb-image-div{
+.bottom-navigation{
     position: absolute;
-    bottom: -14px;
+    bottom: 0;
+    width: 100%;
 }
+.previous{
+    float: left;
+    display: none;
+}
+.next{
+    float: right;
+}
+.bottom-button{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    width: 160px;
+}
+.summary-offer div{
+    display: none;
+}
+.form-panel, .summary-offer{
+    min-height: 600px;
+}
+
 .offer-location{
     max-width: 50% !important;
     overflow: hidden;

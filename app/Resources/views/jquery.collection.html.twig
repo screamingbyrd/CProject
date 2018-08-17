@@ -42,7 +42,7 @@
                 input.parentNode.getElementsByTagName('label')[0].style.display = "flex";
                 input.style.display = "none";
 
-                if(typeof input.getAttribute("data-image-id") !== undefined){
+                if(input.getAttribute("data-image-id") !== null){
                     let id = input.getAttribute("data-image-id");
                     let url = "{{ path('delete_image') }}";
                     $.ajax({

@@ -87,7 +87,20 @@ $(document).ready(function() {
         }else{
             $(this).addClass('empty');
         }
-        });
+    });
+
+    $('.select2').on("change", function(e) {
+        if (!$(this).val().length) {
+            $(this).addClass('empty');
+            $(this).removeClass('not-empty');
+            $('.next').prop("disabled", true);
+        } else {
+            $(this).addClass('not-empty');
+            $(this).removeClass('empty');
+            $('.next').prop("disabled", false);
+        }
+    });
+
 
     //main page
 

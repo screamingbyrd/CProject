@@ -23,83 +23,84 @@
 
 
         <div class="form-panel active row shadow-box">
-            <div class="col-md-4">
+            <div class="col-md-6 offer-field">
                 {{ form_label (form.zipcode, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.zipcode) }}
                 {{ form_errors(form.zipcode) }}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 offer-field">
                 {{ form_label (form.town, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.town) }}
                 {{ form_errors(form.town) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-9 offer-field">
                 {{ form_label (form.location, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.location) }}
                 {{ form_errors(form.location) }}
             </div>
         </div>
         <div class="form-panel row shadow-box">
-            <div class="col-md-6">
+            <div class="col-md-12 offer-field">
+                {% form_theme form.type 'typeChoice.html.twig' %}
                 {{ form_label (form.type, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.type) }}
                 {{ form_errors(form.type) }}
             </div>
         </div>
         <div class="form-panel row shadow-box">
-            <div class="col-md-6">
+            <div class="col-md-8 offer-field">
                 {{ form_label (form.surface, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.surface) }}
                 {{ form_errors(form.surface) }}
             </div>
-            <div class="col-md-6 house-field">
+            <div class="col-md-8 house-field offer-field">
                 {{ form_label (form.groundSurface, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.groundSurface) }}
                 {{ form_errors(form.groundSurface) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8 offer-field">
                 {{ form_label (form.roomNumber, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.roomNumber) }}
                 {{ form_errors(form.roomNumber) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8 offer-field">
                 {{ form_label (form.bathroomNumber, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.bathroomNumber) }}
                 {{ form_errors(form.bathroomNumber) }}
             </div>
-            <div class="col-md-6 house-field">
+            <div class="col-md-8 house-field offer-field">
                 {{ form_label (form.totalFloor, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.totalFloor) }}
                 {{ form_errors(form.totalFloor) }}
             </div>
-            <div class="col-md-6 flat-field">
+            <div class="col-md-8 flat-field offer-field">
                 {{ form_label (form.floor, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.floor) }}
                 {{ form_errors(form.floor) }}
             </div>
         </div>
         <div class="form-panel row shadow-box">
-            <div class="col-md-6">
+            <div class="col-md-8 offer-field">
                 {{ form_label (form.basementSurface, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.basementSurface) }}
                 {{ form_errors(form.basementSurface) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8 offer-field">
                 {{ form_label (form.parkingNumber, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.parkingNumber) }}
                 {{ form_errors(form.parkingNumber) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8 offer-field">
                 {{ form_label (form.buildingYear, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.buildingYear) }}
                 {{ form_errors(form.buildingYear) }}
             </div>
-            <div class="col-md-6 flat-field">
+            <div class="col-md-8 flat-field offer-field">
                 {{ form_label (form.lift, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.lift) }}
                 {{ form_errors(form.lift) }}
             </div>
-            <div class="col-md-6 flat-field">
+            <div class="col-md-8 flat-field offer-field">
                 {{ form_label (form.balcony, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.balcony) }}
                 {{ form_errors(form.balcony) }}
@@ -194,7 +195,7 @@
         <div class="bottom-navigation">
             <hr>
             <button class="btn btn-primary previous bottom-button">Previous</button>
-            <button class="btn btn-primary next bottom-button">Next</button>
+            <button class="btn btn-primary next bottom-button" disabled>Next</button>
         </div>
 
     </div>
@@ -224,6 +225,8 @@
             $('.form-panel').removeClass('active');
             $('.form-panel').eq(cur-1).addClass('active');
         }
+
+        checkMandatory();
     });
     $('.next').click(function (e) {
         e.preventDefault();
@@ -262,40 +265,44 @@
             $('.form-panel').removeClass('active');
             $('.form-panel').eq(cur+1).addClass('active');
         }
+
+        checkMandatory();
+
     });
+
+    $("input").keyup(function(){
+        checkMandatory();
+    });
+
+    $("input[type='radio']").click(function(){
+        checkMandatory();
+    });
+
+    function checkMandatory(){
+        var disable = 0;
+        $('.active input[required="required"]').each( function(e) {
+            if($(this).val() == ''){
+                disable++
+            }
+        });
+
+        if($('.active #appbundle_proposer_type').length > 0){
+            if($('.active input[type="radio"]:checked').length > 0){
+                $('.next').prop("disabled", false);
+            }else{
+                $('.next').prop("disabled", true);
+            }
+
+        }else if(disable == 0){
+            $('.next').prop("disabled", false);
+        }else {
+            $('.next').prop("disabled", true);
+        }
+
+
+
+    }
+
 </script>
-<style>
-    .form-panel:not(.active) {
-        display:none;
-    }
-    .post-offer{
-        min-height: 80vh;
-        position: relative
-    }
-    .bottom-navigation{
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-    }
-    .previous{
-        float: left;
-        display: none;
-    }
-    .next{
-        float: right;
-    }
-    .bottom-button{
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-size: 16px;
-        width: 160px;
-    }
-    .summary-offer div{
-        display: none;
-    }
-    .form-panel, .summary-offer{
-        min-height: 600px;
-    }
-</style>
 
 {% endblock %}

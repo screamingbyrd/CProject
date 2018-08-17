@@ -57,14 +57,16 @@ class OfferType extends AbstractType
                 )
             ))
             ->add('type', ChoiceType::class, array('choices' => array(
-                '' => '',
                 'type.house' => 'type.house',
                 'type.flat' => 'type.flat',
             ),
                 'multiple' => false,
                 'required' => true,
-                'attr' => array('class' => 'select2'),
                 'label' => 'offer.type',
+                'expanded' => false,
+                'choices_as_values' => true,
+                'empty_data' => false,
+                'placeholder' => false,
             ))
             ->add('surface', IntegerType::class, array(
                 'required' => true,
@@ -75,20 +77,20 @@ class OfferType extends AbstractType
             ))
             ->add('groundSurface', IntegerType::class, array(
                 'required' => false,
-                'label' => 'offer.groundSurface	',
+                'label' => 'offer.groundSurface',
                 'attr' => array(
                     'placeholder' => 'offer.groundSurfacePH',
                 )
             ))
             ->add('roomNumber', IntegerType::class, array(
-                'required' => true,
+                'required' => false,
                 'label' => 'offer.roomNumber',
                 'attr' => array(
                     'placeholder' => 'offer.roomNumberPH',
                 )
             ))
             ->add('bathroomNumber', IntegerType::class, array(
-                'required' => true,
+                'required' => false,
                 'label' => 'offer.bathroomNumber',
                 'attr' => array(
                     'placeholder' => 'offer.bathroomNumberPH',
