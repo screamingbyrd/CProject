@@ -22,7 +22,7 @@
         {{ form_errors(form) }}
 
 
-        <div class="form-panel active row shadow-box">
+        <div class="form-panel active row shadow-box" data-step="1">
             <div class="col-md-6 offer-field">
                 {{ form_label (form.zipcode, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.zipcode) }}
@@ -39,7 +39,7 @@
                 {{ form_errors(form.location) }}
             </div>
         </div>
-        <div class="form-panel row shadow-box">
+        <div class="form-panel row shadow-box" data-step="2">
             <div class="col-md-12 offer-field">
                 {% form_theme form.type 'typeChoice.html.twig' %}
                 {{ form_label (form.type, null, { 'label_attr': {'class': 'label-form'} }) }}
@@ -47,7 +47,7 @@
                 {{ form_errors(form.type) }}
             </div>
         </div>
-        <div class="form-panel row shadow-box">
+        <div class="form-panel row shadow-box" data-step="3">
             <div class="col-md-8 offer-field">
                 {{ form_label (form.surface, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.surface) }}
@@ -79,7 +79,7 @@
                 {{ form_errors(form.floor) }}
             </div>
         </div>
-        <div class="form-panel row shadow-box">
+        <div class="form-panel row shadow-box" data-step="4">
             <div class="col-md-8 offer-field">
                 {{ form_label (form.basementSurface, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.basementSurface) }}
@@ -106,7 +106,7 @@
                 {{ form_errors(form.balcony) }}
             </div>
         </div>
-        <div class="form-panel row shadow-box">
+        <div class="form-panel row shadow-box" data-step="5">
 
                 {% form_theme form.images 'jquery.collection.html.twig' %}
                 {{ form_label (form.images, "Photos") }}
@@ -193,6 +193,21 @@
             </div>
         </div>
         <div class="bottom-navigation">
+            <div class="container-progress-bar">
+                <div class="progress-bar"></div>
+            </div>
+
+            <style>
+                .container-progress-bar{
+                    background-color: lightgray;
+                    height: 24px;
+                }
+                .progress-bar{
+                    height:24px;
+                    color: #337ab7;
+                }
+            </style>
+
             <hr>
             <button class="btn btn-primary previous bottom-button">Previous</button>
             <button class="btn btn-primary next bottom-button" disabled>Next</button>
@@ -211,6 +226,8 @@
     {#</script>#}
 
 <script>
+
+    $('.progress-bar').css('width',(100/5)+"%");
     $('.previous').click(function (e) {
         e.preventDefault();
         let next = $('.next');
@@ -227,6 +244,7 @@
         }
 
         checkMandatory();
+        progress();
     });
     $('.next').click(function (e) {
         e.preventDefault();
@@ -267,7 +285,7 @@
         }
 
         checkMandatory();
-
+        progress();
     });
 
     $("input").keyup(function(){
@@ -298,9 +316,11 @@
         }else {
             $('.next').prop("disabled", true);
         }
+    }
 
-
-
+    function progress(){
+        var current = $('.active').data('step');
+        $('.progress-bar').css('width',(100*current/5)+"%");
     }
 
 </script>

@@ -1,18 +1,6 @@
 {% if data is not defined or data|length == 0%}
 <li class="no-offer search-result animated fadeIn">
     <div>Sorry but there is no offer for this search</div>
-    <div>Do you want to be alerted in case of new offer ?</div>
-    <div class="shadow-box search-alert-email-container no-offer-alert">
-        <form method="post" action="{{ path('create_search_notification') }}" id="alert-search-offer">
-            <div class="row">
-                <input type="hidden" name="type" id="type-input" value="notification.search">
-                <input type="hidden" name="id" id="id-input" value="{{ searchParam }}">
-                <div class="col-md-8"><input class="form-control" name="mail" type="text" id="mail-input" placeholder="email" title="email"></div>
-                <div class="col-md-4"><input type="submit" class="cproject-button" value="Créer une alerte"></div>
-                <div class="col-md-4 error-field" style="color: red;display: none;"></div>
-            </div>
-        </form>
-    </div>
 </li>
 {% else %}
     <span hidden id="hidden-search-info" data-page="{{ page }}" data-total="{{ total }}"></span>
@@ -22,17 +10,6 @@
         </div>
     </div>
 
-    <div class="shadow-box search-alert-email-container" style="width: 96%;">
-        <form method="post" action="{{ path('create_search_notification') }}" id="alert-search-offer">
-            <div class="row">
-                <input type="hidden" name="type" id="type-input" value="notification.search">
-                <input type="hidden" name="id" id="id-input" value="{{ searchParam }}">
-                <div class="col-md-8"><input class="form-control" name="mail" type="text" id="mail-input" placeholder="email" title="email"></div>
-                <div class="col-md-4"><input type="submit" class="cproject-button searchOffer" value="Créer une alerte"></div>
-                <div class="col-md-12 error-field" style="color: red;display: none;"></div>
-            </div>
-        </form>
-    </div>
 
     {#<div class="search-map shadow-box">#}
         {#{{ ivory_google_map(map) }}#}

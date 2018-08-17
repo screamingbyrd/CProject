@@ -154,7 +154,7 @@ class ProposerController extends Controller
                 $session->getFlashBag()->add('info', $translated);
 
 
-                return $this->redirectToRoute('dashboard_proposer');
+                return $this->redirectToRoute('post_offer');
 
             }
         }
