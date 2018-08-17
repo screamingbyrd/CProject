@@ -377,6 +377,11 @@ class OfferController extends Controller
 
         }
 
+        $voteRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Vote')
+        ;
 
         $generateUrlService = $this->get('app.offer_generate_url');
 
@@ -387,6 +392,7 @@ class OfferController extends Controller
 
         foreach ($data as &$offer){
             $offer->setOfferUrl($generateUrlService->generateOfferUrl($offer));
+            $offer->setCountVote($voteRepository->countVoteOffer($offer));
             $validated = $offer->isValidated();
             if((!isset($validated) || $validated) && $offer->getActivationDate() >= $now){
                 $offerArray[] = $offer;

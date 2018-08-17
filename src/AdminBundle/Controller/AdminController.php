@@ -264,7 +264,7 @@ class AdminController extends Controller
 
             $mailer = $this->container->get('swiftmailer.mailer');
             $translated = $this->get('translator')->trans('form.offer.invalid.subject');
-            $message = (new \Swift_Message($translated . ' ' . $offer->getTitle() . " Id: " .$offer->getId()))
+            $message = (new \Swift_Message($translated . ' ' . $offer->getTown() . " Id: " .$offer->getId()))
                 ->setFrom('cprojectlu@noreply.lu')
                 ->setTo($email)
                 ->setBody(
@@ -285,6 +285,87 @@ class AdminController extends Controller
         }
 
         return $this->redirectToRoute('list_offer_admin');
+    }
+
+    public function closeEstimationAction(Request $request){
+        $id = $request->get('id');
+        $finalPrice = $request->get('finalPrice');
+
+        $user = $this->getUser();
+
+        if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
+            return $this->redirectToRoute('cproject_home');
+        }
+
+        $offerRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Offer')
+        ;
+        $offer = $offerRepository->findOneBy(array('id' => $id));
+
+        $offer->setFinalPrice($finalPrice);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->merge($offer);
+        $em->flush();
+
+        return $this->redirectToRoute('list_offer_admin');
+    }
+
+    public function listVotePageAction(Request $request){
+        $id = $request->get('id');
+
+        $session = $request->getSession();
+
+        $user = $this->getUser();
+
+        if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
+            return $this->redirectToRoute('cproject_home');
+        }
+
+        $offerRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Offer')
+        ;
+        $offer = $offerRepository->findOneBy(array('id' => $id));
+
+        $voteRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Vote')
+        ;
+
+        $votes = $voteRepository->findBy(array('offer' => $offer));
+
+        $voteArray = array();
+        $sortingArray = array();
+
+        foreach ($votes as $vote){
+            $sortingArray[] = $vote->getEstimation();
+            $voteArray[$vote->getEstimation()][] = $vote;
+        }
+
+        $closest = null;
+
+        $finaPrice = $offer->getFinalPrice();
+
+        foreach ($sortingArray as $item) {
+            if ($closest === null || abs($finaPrice - $closest) > abs($item - $finaPrice)) {
+                $closest = $item;
+            }
+        }
+
+        $winners = $voteArray[$closest];
+
+
+        return $this->render('AdminBundle::votePage.html.twig', array(
+            'votes' => $votes,
+            'offer' => $offer,
+            'winners' => $winners
+        ));
     }
 
     public function logPageAction(Request $request)

@@ -72,7 +72,7 @@
                     </td>
                     <td>{{ offer.fromPrice }}</td>
                     <td>{{ offer.toPrice }}</td>
-                    <td>{{ countArray[offer.id] }}</td>
+                    <td><a data-toggle="tooltip" title="{{ 'dashboard.viewCandidate'|trans }}" href="{{ path('vote_page', {'id': offer.id}) }}" class="btn btn-primary">{{ countArray[offer.id] }}</a></td>
                     <td>{{ offer.proposer.user.username }}</td>
                     <td>
                         {% if offer.validated is null or offer.validated == false %}
@@ -85,6 +85,9 @@
                                 {{ 'admin.offerList.invalid'|trans }}
                             </button>
                         {% endif %}
+                        <button class="modal-open-close-estimation btn btn-primary" data-id="{{ offer.id }}">
+                            Close
+                        </button>
                         <div class="btn-group dropup">
                             <button type="button" class="element-offer-list btn btn-primary element-offer-list toggle-buttons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-pencil-alt"></i> <span class="caret"></span>
@@ -140,6 +143,25 @@
                         <input id="invalid-offer-id" type="hidden" name="id">
                         <input type="hidden" name="status" value="0">
                         <textarea title="message" style="width: 100%;" name="message"></textarea>
+
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="{{ 'email.send'|trans }}">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="close-estimation-modal">
+            <div class="modal-dialog modal-bg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Pour conclure les estimation metttez une valeur finale</h4>
+                    </div>
+                    <form method="post" action="{{ path('close_estimation') }}" id="search-offer-homepage">
+                        <input id="offer-id" type="hidden" name="id">
+                        <input type="number" title="finalPrice"  name="finalPrice">
 
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-primary" value="{{ 'email.send'|trans }}">
@@ -224,13 +246,19 @@
                 $("#valid-modal").modal('show');
             });
 
+            $(".modal-open-close-estimation").on("click", function(e){
+                $('#offer-id').val($(this).data('id'));
+                $("#close-estimation-modal").modal('show');
+            });
+
             $("#modal-btn-no").on("click", function(e){
                 e.preventDefault();
                 $("#mi-modal").modal('hide');
             });
 
-            $("#payment-form_submit").on("click", function(){
-                $("#mi-modal").modal('hide');
+            $("#modal-btn-no").on("click", function(e){
+                e.preventDefault();
+                $("#close-estimation-modal").modal('hide');
             });
         </script>
         <style>

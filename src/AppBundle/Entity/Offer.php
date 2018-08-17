@@ -40,6 +40,12 @@ class Offer
     private $toPrice;
 
     /**
+     *
+     * @ORM\Column(name="finalPrice", type="text", nullable=true)
+     */
+    private $finalPrice;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="zipcode", type="string", length=255)
@@ -170,6 +176,8 @@ class Offer
     protected $archived = 0;
 
     private $offerUrl;
+
+    private $countVote;
 
     /**
      * @var boolean
@@ -710,4 +718,41 @@ class Offer
     {
         return $this->images;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFinalPrice()
+    {
+        return $this->finalPrice;
+    }
+
+    /**
+     * @param mixed $finalPrice
+     * @return Offer
+     */
+    public function setFinalPrice($finalPrice)
+    {
+        $this->finalPrice = $finalPrice;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountVote()
+    {
+        return $this->countVote;
+    }
+
+    /**
+     * @param mixed $countVote
+     * @return Offer
+     */
+    public function setCountVote($countVote)
+    {
+        $this->countVote = $countVote;
+        return $this;
+    }
+
 }

@@ -8,7 +8,7 @@
 {% block body %}
 
     <div class="jumbotron offer-jumbotron">
-        <h2>{{ offer.type }} {{ offer.town }}</h2>
+        <h2>{{ offer.type|trans }} {{ offer.town }}</h2>
     </div>
 
     <div class="container container-offer-page">
@@ -109,6 +109,8 @@
                 </div>
             {% endif %}
         </div>
+
+        {% if offer.finalPrice is null %}
         <div class="shadow-box row">
             <form id="vote-form" method="post" action="{{ path('vote_offer', {'id':offer.id}) }}">
                 <div class="range-input-box">
@@ -128,6 +130,13 @@
                 <div>Nombre de vote : {{ countVote }}</div>
             </form>
         </div>
+        {% else %}
+            <div class="shadow-box row">
+                <h1>Cette offre est fermé</h1>
+                <div>Nombre de vote : {{ countVote }}</div>
+                <div>Prix finale : {{ offer.finalPrice }} €</div>
+            </div>
+        {% endif %}
 
     </div>
 

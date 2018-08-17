@@ -46,6 +46,17 @@ change_validation_status:
         fr: "/changer-status-validation"
     defaults: { _controller: AdminBundle:Admin:changeValidationStatus }
 
+close_estimation:
+    locales:
+        en: "/close-estimation"
+        fr: "/fermer-estimation"
+    defaults: { _controller: AdminBundle:Admin:closeEstimation }
+
+vote_page:
+    locales:
+        en: "/vote-page"
+        fr: "/page-vote"
+    defaults: { _controller: AdminBundle:Admin:listVotePage }
 log_page:
     locales:
         en: "/log-page"

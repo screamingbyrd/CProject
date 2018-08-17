@@ -1,0 +1,63 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'dashboard.title' | trans }}
+{% endblock %}
+
+{% block body %}
+    {%  if (app.user.roles is defined) and ('ROLE_ADMIN' in app.user.roles) %}
+        <a href="{{ path('list_offer_admin') }}" class="btn btn-primary return-to-dashboard">Retour a la liste des offres</a>
+    {% endif %}
+    <div class="container cproject-container">
+        <div class="candidate-content">
+            <div>
+                <h3><a target="_blank" href="{{ path('show_offer', {'id':offer.id, 'url':''}) }}">{{ offer.type|trans }} {{ offer.town }}</a></h3>
+                <h3>Final price : {{ offer.finalPrice }}€</h3>
+                <h3>Liste des gagnants</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ 'bill.date'|trans }}</th>
+                        <th scope="col">{{ 'form.registration.email'|trans }}</th>
+                        <th scope="col">vote</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for winner in winners %}
+                        <tr>
+                            <td>{{ winner.date|date('d/m/Y') }}</td>
+                            <td>{{ winner.voter.user.email }}</td>
+                            <td>{{ winner.estimation }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <h3>Liste des votes</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ 'bill.date'|trans }}</th>
+                        <th scope="col">{{ 'form.registration.email'|trans }}</th>
+                        <th scope="col">vote</th>
+                        <th scope="col">Interested</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for vote in votes %}
+                        <tr>
+                            <td>{{ vote.date|date('d/m/Y') }}</td>
+                            <td>{{ vote.voter.user.email }}</td>
+                            <td>{{ vote.estimation }}</td>
+                            <td>{{ vote.interested }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
