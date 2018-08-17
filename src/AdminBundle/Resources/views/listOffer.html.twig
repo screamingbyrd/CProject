@@ -38,7 +38,7 @@
             </a>
             <a href="{{ path('list_offer_admin', {'validated':  validated is null ? 0:null }) }}" class="element-offer-list btn btn-primary element-offer-list global-a not-validated">
                 {% if validated is not null %}
-                    {{ 'admin.offerList.showActive' | trans }}
+                    {{ 'admin.offerList.showAll' | trans }}
                 {% else %}
                     {{ 'admin.offerList.showNotValidated' | trans }}
                 {% endif %}
@@ -51,7 +51,10 @@
                 <th>{{ 'admin.offerList.creationDate' | trans }}</th>
                 <th>ID</th>
                 <th>{{ 'form.registration.title.title' | trans }}</th>
-                <th>{{ 'form.offer.search.proposerPH' | trans }}</th>
+                <th>Min Price</th>
+                <th>Max Price</th>
+                <th>Nbre vote</th>
+                <th>Proposer</th>
                 <th>{{ 'dashboard.action' | trans }}</th>
             </tr>
             </thead>
@@ -67,6 +70,9 @@
                             {{ offer.type }} {{ offer.town }}
                         </a>
                     </td>
+                    <td>{{ offer.fromPrice }}</td>
+                    <td>{{ offer.toPrice }}</td>
+                    <td>{{ countArray[offer.id] }}</td>
                     <td>{{ offer.proposer.user.username }}</td>
                     <td>
                         {% if offer.validated is null or offer.validated == false %}
@@ -148,7 +154,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{ 'admin.offerList.whyInvalid'|trans }}</h4>
+                        <h4 class="modal-title" id="myModalLabel">Fixer les valeurs maximale et minimale de, l'offre</h4>
                     </div>
                     <form method="post" action="{{ path('change_validation_status') }}" id="search-offer-homepage">
                         <input id="valid-offer-id" type="hidden" name="id">

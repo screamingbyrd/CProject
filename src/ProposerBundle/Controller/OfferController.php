@@ -287,6 +287,13 @@ class OfferController extends Controller
             return $this->redirectToRoute('offer_archived', array('id' => $id));
         }
 
+        $voteRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Vote')
+        ;
+        $countVote = $voteRepository->countVoteOffer($offer);
+
         $map = new Map();
 
         //workarround to ssl certificat pb curl error 60
@@ -334,6 +341,7 @@ class OfferController extends Controller
             'offer' => $offer,
             'map' => $map,
             'status' => $status,
+            'countVote' => $countVote
         ));
     }
 

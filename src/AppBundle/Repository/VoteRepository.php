@@ -22,4 +22,14 @@ class VoteRepository extends \Doctrine\ORM\EntityRepository
         return $offers;
     }
 
+    public function countVoteOffer($offer)
+    {
+        $query = $this->createQueryBuilder('v');
+        $query->andWhere('v.offer = :offer')
+            ->setParameter('offer', $offer);
+
+        $offers = $query->getQuery()->getResult();
+
+        return count($offers);
+    }
 }

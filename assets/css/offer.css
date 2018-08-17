@@ -754,6 +754,21 @@ h3.post-offer{
     position: absolute;
     bottom: 0;
     width: 100%;
+    padding-left: 0;
+}
+.container-progress-bar{
+    background-color: lightgray;
+    height: 24px;
+    -webkit-box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
+    -moz-box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
+    -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.9, 0.26, 0.58, 1) false;
+    -moz-transition: -moz-transform 0.5s cubic-bezier(0.9, 0.26, 0.58, 1) false false;
+    -o-transition: -o-transform 0.5s cubic-bezier(0.9, 0.26, 0.58, 1) false false;
+}
+.progress-bar{
+    height:24px;
+    color: #337ab7;
 }
 .previous{
     float: left;

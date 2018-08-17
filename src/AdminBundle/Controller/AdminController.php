@@ -167,7 +167,7 @@ class AdminController extends Controller
         $archived = $request->get('archived');
         $archived = isset($archived)?$archived:0;
         $active = $request->get('active');
-        $active = isset($active)?$active:1;
+        $active = isset($active)?$active:0;
         $validated = $request->get('validated');
 
         $user = $this->getUser();
@@ -187,7 +187,21 @@ class AdminController extends Controller
             $arraySearch['validated'] = null;
         }
 
+        if(isset($active) and $active){
+            $arraySearch['validated'] = 1;
+        }
+
         $offers = $offerRepository->findBy($arraySearch, array('creationDate' => 'DESC'));
+
+        $voteRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Vote')
+        ;
+        $countArray = array();
+        foreach ($offers as $offer){
+            $countArray[$offer->getId()] = $voteRepository->countVoteOffer($offer);
+        }
 
         $totalActiveOffer = $offerRepository->countTotalActiveOffer();
         $totalNotValidatedActiveOffer = $offerRepository->countTotalNotValidatedActiveOffer();
@@ -198,7 +212,8 @@ class AdminController extends Controller
             'archived' => $archived,
             'validated' => $validated,
             'totalActiveOffer' => $totalActiveOffer,
-            'totalNotValidatedActiveOffer' => $totalNotValidatedActiveOffer
+            'totalNotValidatedActiveOffer' => $totalNotValidatedActiveOffer,
+            'countArray' => $countArray
         ));
     }
 
