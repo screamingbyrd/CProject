@@ -286,12 +286,12 @@ legend{
     border: 1px solid black;
     background: rgba(0, 0, 0, 0.5);
     opacity: 1.5;
-    width: 60%;
+    width: 40%;
     margin: auto;
     padding-top: 10px;
     min-width: 300px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
     border-radius: 4px;
 }
 

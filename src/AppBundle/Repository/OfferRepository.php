@@ -93,4 +93,15 @@ class OfferRepository extends \Doctrine\ORM\EntityRepository
 
         return count($offers);
     }
+
+    public function findByLocation($location)
+    {
+        $query = $this->createQueryBuilder('o');
+        $query->andWhere('o.archived = 0 and o.validated = 1 and o.location LIKE :location');
+        $query->setParameter('location', '%'.$location.'%');
+
+        $offers = $query->getQuery()->getResult();
+
+        return $offers;
+    }
 }

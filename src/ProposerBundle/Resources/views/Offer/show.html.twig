@@ -9,7 +9,7 @@
 
     <div class="jumbotron offer-jumbotron">
         <h2>{{ offer.type|trans }} {{ offer.town }}</h2>
-        <h3>J-{{ remainingDays }}</h3>
+        {% if offer.validated %}<h3>J-{{ remainingDays }}</h3>{% endif %}
     </div>
 
     <div class="container container-offer-page">
@@ -55,7 +55,7 @@
             </div>
             <div class="col-xs-6 col-sm-4 col-md-4 about-offer-elements">
                 <div class="about-offer-item">
-                    <span><b>{{ 'offer.bathroom'|trans }}</b></span>
+                    <span><b>{{ 'offer.bathroomNumber'|trans }}</b></span>
                     {{ offer.bathroomNumber }}
                 </div>
             </div>
@@ -117,30 +117,45 @@
                 <div class="range-input-box">
                     <div class="fromToPrice">{{ offer.fromPrice }}</div>
                     <div class="slidecontainer">
-                        <input data-thumbwidth="20" type="range" min="{{ offer.fromPrice }}" max="{{ offer.toPrice }}" value="50" class="slider" id="myRange" name="estimation">
+                        <input step="100" data-thumbwidth="20" type="range" min="{{ offer.fromPrice }}" max="{{ offer.toPrice }}" value="{{ offer.fromPrice }}" class="slider" id="myRange" name="estimation">
+                        {#<datalist id="steplist">#}
+                            {#{% set step = (offer.toPrice- offer.fromPrice)/100 %}#}
+                            {#{% for i in 0..step  %}#}
+                                {#<option>{{ offer.fromPrice + i*step }}</option>#}
+                            {#{% endfor %}#}
+                        {#</datalist>#}
                     </div>
                     <div  class="fromToPrice">{{ offer.toPrice }}</div>
                 </div>
-                <p>Value: <span id="demo"></span></p>
+                <p>{{ 'offer.value'|trans }} <span id="demo"></span></p>
                 <input type="checkbox" name="interested" value="1"/>
-                <label for="horns">Je suis interessé par ce bien</label> (Vous serez contacté si ce bien aboutit)
+                <label for="horns">{{ 'offer.interested'|trans }}</label> {{ 'offer.contacted'|trans }}
                 <div>
-                    <input type="submit" class="btn btn-primary bottom-button" value="estimate">
+                    <input type="submit" class="btn btn-primary bottom-button" value="{{ 'offer.estimate'|trans }}">
                 </div>
 
-                <div>Nombre de vote : {{ countVote }}</div>
+                <div>{{ 'offer.numberVote'|trans }} {{ countVote }}</div>
 
                 {% if app.user == offer.proposer.user %}
-                <div>Prix moyen évalué : {{ averageValue }}</div>
+                <div>{{ 'offer.estimated'|trans }} {{ averageValue }}</div>
                 {% endif %}
             </form>
         </div>
         {% else %}
             <div class="shadow-box row">
-                <h1>Cette offre est fermé</h1>
-                <div>Nombre de vote : {{ countVote }}</div>
-                <div>Prix moyen évalué : {{ averageValue }}</div>
-                <div>Prix finale : {{ offer.finalPrice }} €</div>
+                <h1>{{ 'offer.closed'|trans }}</h1>
+                <div>{{ 'offer.numberVote'|trans }} {{ countVote }}</div>
+                <div>{{ 'offer.estimated'|trans }} {{ averageValue }}</div>
+                <div>{{ 'offer.finalPrice'|trans }} {{ offer.finalPrice }} €</div>
+            </div>
+        {% endif %}
+        {% if app.user == offer.proposer.user %}
+            <div class="shadow-box row" style="display: -webkit-box;">
+                <a href="{{ path('edit_offer', { 'id': offer.id }) }}" class="btn btn-primary">{{ 'dashboard.proposer.editOffer' | trans }}</a>
+                <button class="archive-button btn btn-danger" data-href="{{ path('delete_offer', { 'id': offer.id }) }}">
+                    {{ 'admin.ads.archiveUnarchive' | trans }}
+                </button>
+                <div class="offer-status">Status: {{ statusOffer }}</div>
             </div>
         {% endif %}
 
@@ -156,7 +171,32 @@
         </div>
     </div>
 
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="archive-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{ 'admin.offerList.sureArchive'|trans }}</h4>
+                </div>
+                <div class="modal-footer">
+                    <a href={{ path('delete_offer', {'id':offer.id}) }} type="button" class="btn btn-default" id="modal-btn-yes">{{ 'yes'|trans }}</a>
+                    <button type="button" class="btn btn-primary modal-btn-no">{{ 'no'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
+        .offer-status{
+            margin-left: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 3px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border: solid 1px black;
+        }
         .close span{
             position: absolute;
             top: 1px;
@@ -312,6 +352,11 @@
         $("#modal-btn-no").on("click", function(e){
             e.preventDefault();
             $("#mi-modal").modal('hide');
+            $("#archive-modal").modal('hide');
+        });
+
+        $(".archive-button").on("click", function(e){
+            $("#archive-modal").modal('show');
         });
 
         var slider = document.getElementById("myRange");

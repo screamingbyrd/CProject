@@ -90,7 +90,7 @@ class Offer
     /**
      * @var int
      *
-     * @ORM\Column(name="bathroomNumber", type="integer")
+     * @ORM\Column(name="bathroomNumber", type="integer", nullable=true)
      */
     private $bathroomNumber;
 
@@ -132,7 +132,7 @@ class Offer
     /**
      * @var boolean
      *
-     * @ORM\Column(name="lift", type="boolean")
+     * @ORM\Column(name="lift", type="boolean", nullable=true)
 
      */
     protected $lift;
@@ -140,7 +140,7 @@ class Offer
     /**
      * @var boolean
      *
-     * @ORM\Column(name="balcony", type="boolean")
+     * @ORM\Column(name="balcony", type="boolean", nullable=true)
 
      */
     protected $balcony;

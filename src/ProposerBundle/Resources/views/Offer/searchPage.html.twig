@@ -13,12 +13,11 @@
 
 
             <div class="row form-group search-input-container">
-                <div class=" col-md-4">
-                    <input value="{{ keyword }}" class="form-control" type="text" id="keyword-input" placeholder="{{ 'form.offer.search.keyword' | trans }}" title="{{ 'form.offer.search.keyword' | trans }}">
+                <div class=" col-md-2">
+                    <input value="{{ keyword }}" class="form-control" type="text" id="keyword-input" placeholder="ID" title="ID">
                 </div>
-                <div class="col-md-3">
-                    {{ autoComplete|raw  }}
-                    {{ autoCompleteScript|raw  }}
+                <div class="col-md-7">
+                    <input id="location-input" type="text" class="form-control" name="location" placeholder="Location">
                 </div>
                 <div class="col-md-2">
                     <input type="submit" class="cproject-button searchOffer" value="Search">
@@ -84,7 +83,7 @@
                 $(".search-result").removeClass('fadeIn').addClass('fadeOut');
                 //$("#myUL").html(loader);
                 let keyword = $("#keyword-input").val();
-                let location = $("#place_input").val();
+                let location = $("#location-input").val();
                 let proposer = $("#proposer-input").val();
                 let tags = $("#category-input").val();
                 let url = window.location.href;

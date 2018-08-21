@@ -348,13 +348,24 @@ class OfferController extends Controller
             $remainingDays = $activationDate->diff($now)->format("%a");
         }
 
+        $validated = $offer->getValidated();
+        $statusOffer = $this->get('translator')->trans('offer.status.active');
+        if($offer->isArchived()){
+            $statusOffer = $this->get('translator')->trans('offer.archived');
+        }elseif(!isset($validated)){
+            $statusOffer = $this->get('translator')->trans('offer.status.standBy');
+        }elseif (!$validated){
+            $statusOffer = $this->get('translator')->trans('admin.offerList.invalid');
+        }
+
         return $this->render('ProposerBundle:Offer:show.html.twig', array(
             'offer' => $offer,
             'map' => $map,
             'status' => $status,
             'countVote' => $countVote,
             'remainingDays' => $remainingDays,
-            'averageValue' => $averageValue
+            'averageValue' => $averageValue,
+            'statusOffer' => $statusOffer
         ));
     }
 
@@ -381,7 +392,11 @@ class OfferController extends Controller
             ->getManager()
             ->getRepository('AppBundle:Offer')
         ;
-        if(preg_match("/[0-9]/",$keywords)){
+
+        if(isset($location) && $location != ''){
+            $data = $offerRepository->findByLocation($location);
+        }
+        elseif(preg_match("/[0-9]/",$keywords)){
 
             $data = $offerRepository->findBy(array('id'=>$keywords));
         }else{

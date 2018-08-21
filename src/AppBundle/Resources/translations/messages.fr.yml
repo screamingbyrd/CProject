@@ -291,6 +291,18 @@ offer:
     voter: Vous avez postulez à l'offre
     proposer: Un candidat à postulé à cette offre :
 
+  value: Valeur :
+  interested: Je suis interessé par ce bien
+  contacted: (Vous serez contacté si ce bien aboutit)
+  numberVote: Nombre de vote :
+  estimate: Estimer
+  estimated: Valeur estimé :
+  finalPrice: Valeur finale :
+  closed: Cette offre est terminée
+  status:
+    active: Active
+    standBy: En attente
+
 voter:
   delete:
     delete: Supprimer mon compte

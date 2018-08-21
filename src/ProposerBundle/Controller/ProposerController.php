@@ -70,7 +70,7 @@ class ProposerController extends Controller
                 if(isset($postAnOffer) and $postAnOffer){
                     return $this->redirectToRoute('post_offer');
                 }else{
-                    return $this->redirectToRoute('edit_proposer');
+                    return $this->redirectToRoute('post_offer');
                 }
             }else{
 
@@ -154,7 +154,7 @@ class ProposerController extends Controller
                 $session->getFlashBag()->add('info', $translated);
 
 
-                return $this->redirectToRoute('post_offer');
+                return $this->redirectToRoute('proposer_offers');
 
             }
         }
@@ -451,9 +451,14 @@ class ProposerController extends Controller
 
         $offers = $OfferRepository->findBy($searchArray);
         $generateUrlService = $this->get('app.offer_generate_url');
+        $finalArray = array();
         foreach ($offers as &$offer){
             $offer->setOfferUrl($generateUrlService->generateOfferUrl($offer));
             $finalArray[$offer->getId()]['offer'] = $offer;
+        }
+
+        if(count($finalArray) == 1){
+            return $this->redirectToRoute('show_offer', array('id' => current($finalArray)['offer']->getId(), 'url' => current($finalArray)['offer']->getOfferUrl()));
         }
 
         return $this->render('ProposerBundle::myOffers.html.twig', array(

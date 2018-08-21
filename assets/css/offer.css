@@ -94,16 +94,25 @@
     box-sizing: border-box;
 }
 
-#keyword-input, #location-input {
+#keyword-input {
     background-position: 10px 12px;
     background-repeat: no-repeat;
-    width: 100%;
     font-size: 16px;
     padding: 12px 20px 12px 13px;
     border: 1px solid #ddd;
     margin-bottom: 8px;
     margin-right: -4px;
-    min-width: 130px;
+    min-width: 63px;
+}
+#location-input {
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 12px 20px 12px 13px;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+    margin-right: -4px;
+    min-width: 63px;
 }
 
 

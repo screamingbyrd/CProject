@@ -287,8 +287,18 @@ offer:
     success: You applied to the offer %title% !
     voter: You applied to the offer
     proposer: A voter applied to the offer:
-  countView: Views
-  countContact: Applications
+
+  value: Value:
+    interested: I am intered by this offer
+    contacted: (You will be contacted when the offer close)
+    numberVote: Number of vote:
+    estimate: Estimate
+    estimated: Estimated value:
+    finalPrice: Final value:
+    closed: This offer is closed
+    status:
+      active: Active
+      standBy: Stand by
 
 voter:
   delete:

@@ -83,7 +83,7 @@ class OfferType extends AbstractType
                 )
             ))
             ->add('roomNumber', IntegerType::class, array(
-                'required' => false,
+                'required' => true,
                 'label' => 'offer.roomNumber',
                 'attr' => array(
                     'placeholder' => 'offer.roomNumberPH',
