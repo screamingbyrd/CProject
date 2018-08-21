@@ -179,6 +179,8 @@ class Offer
 
     private $countVote;
 
+    private $remainingDays;
+
     /**
      * @var boolean
      *
@@ -754,5 +756,24 @@ class Offer
         $this->countVote = $countVote;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRemainingDays()
+    {
+        return $this->remainingDays;
+    }
+
+    /**
+     * @param mixed $remainingDays
+     * @return Offer
+     */
+    public function setRemainingDays($remainingDays)
+    {
+        $this->remainingDays = $remainingDays;
+        return $this;
+    }
+
 
 }

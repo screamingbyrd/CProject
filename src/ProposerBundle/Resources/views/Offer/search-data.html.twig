@@ -62,7 +62,7 @@
                     <div class="offer-element-details">
                         <div class="offer-element-title">{{ offer.type|trans }} {{ offer.town }}</div>
                         <div class="offer-element-other">
-                            <span class="other-element offer-location"><i class="fa fa-map-marker"></i>{{ offer.location |truncate(20, true)}}</span><span class="other-element offer-location"><i class="fas fa-check-square"></i> Nombre de vote {{ offer.countVote }}</span>
+                            <span class="other-element offer-location"><i class="fa fa-map-marker"></i>{{ offer.location |truncate(20, true)}}</span><span class="other-element offer-location"><i class="fas fa-check-square"></i> Nombre de vote {{ offer.countVote }}</span><span class="other-element offer-remaining"><i class="fas fa-calendar-alt"></i> J-{{ offer.remainingDays }}</span>
                         </div>
                     </div>
                 </div>

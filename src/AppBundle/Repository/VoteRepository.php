@@ -32,4 +32,28 @@ class VoteRepository extends \Doctrine\ORM\EntityRepository
 
         return count($offers);
     }
+
+    public function getAverageValue($offer)
+    {
+        $query = $this->createQueryBuilder('v');
+        $query->andWhere('v.offer = :offer')
+            ->setParameter('offer', $offer);
+
+        $offers = $query->getQuery()->getResult();
+
+        $nbrTotalVote = count($offers);
+
+        if($nbrTotalVote == 0){
+            return 0;
+        }
+
+        $sumQuery = $this->getEntityManager()
+            ->createQuery(
+                'select sum(v.estimation) as total
+                    from AppBundle:vote v');
+
+        $sumTotal = $sumQuery->getResult();
+
+        return $sumTotal[0]['total'] / $nbrTotalVote;
+    }
 }

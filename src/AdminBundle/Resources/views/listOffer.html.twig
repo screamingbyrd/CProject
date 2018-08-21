@@ -67,7 +67,7 @@
                     <td class="offer-id">{{ offer.id }}</td>
                     <td>
                         <a target="_blank" href="{{ path('show_offer', { 'id': offer.id, 'url':'' }) }}" class="offer-name">
-                            {{ offer.type }} {{ offer.town }}
+                            {{ offer.type|trans }} {{ offer.town }}
                         </a>
                     </td>
                     <td>{{ offer.fromPrice }}</td>

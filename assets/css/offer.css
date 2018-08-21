@@ -795,6 +795,13 @@ h3.post-offer{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.offer-remaining{
+    float: right;
+    margin-right: 29px;
+    font-size: 24px;
+    margin-top: -15px;
+    color: black;
+}
 .search-map{
     padding: 10px;
     border: 1px solid #ddd;

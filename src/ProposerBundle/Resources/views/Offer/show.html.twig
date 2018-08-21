@@ -9,6 +9,7 @@
 
     <div class="jumbotron offer-jumbotron">
         <h2>{{ offer.type|trans }} {{ offer.town }}</h2>
+        <h3>J-{{ remainingDays }}</h3>
     </div>
 
     <div class="container container-offer-page">
@@ -128,12 +129,17 @@
                 </div>
 
                 <div>Nombre de vote : {{ countVote }}</div>
+
+                {% if app.user == offer.proposer.user %}
+                <div>Prix moyen évalué : {{ averageValue }}</div>
+                {% endif %}
             </form>
         </div>
         {% else %}
             <div class="shadow-box row">
                 <h1>Cette offre est fermé</h1>
                 <div>Nombre de vote : {{ countVote }}</div>
+                <div>Prix moyen évalué : {{ averageValue }}</div>
                 <div>Prix finale : {{ offer.finalPrice }} €</div>
             </div>
         {% endif %}

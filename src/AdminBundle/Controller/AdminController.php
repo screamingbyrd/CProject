@@ -340,6 +340,8 @@ class AdminController extends Controller
 
         $votes = $voteRepository->findBy(array('offer' => $offer));
 
+        $averageValue = $voteRepository->getAverageValue($offer);
+
         $voteArray = array();
         $sortingArray = array();
 
@@ -364,7 +366,8 @@ class AdminController extends Controller
         return $this->render('AdminBundle::votePage.html.twig', array(
             'votes' => $votes,
             'offer' => $offer,
-            'winners' => $winners
+            'winners' => $winners,
+            'averageValue' => $averageValue
         ));
     }
 

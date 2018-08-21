@@ -28,7 +28,7 @@
                             {#{% endif %}#}
                             {#<img class="logo-proposer-in-applied-offer" src="{{ asset(image) }}"/>#}
 
-                            {{ offer.offer.type }} {{ offer.offer.town }}
+                            {{ offer.offer.type|trans }} {{ offer.offer.town }}
                         </a>
                     </td>
                     <td>{{ offer.date|date('d/m/Y') }}</td>

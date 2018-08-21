@@ -118,7 +118,7 @@
                 {% for offer in offers %}
                         <tr class='offer-element-dashboard {% if offer.archived %}archived-offer{% endif %}'>
                             <th class="offer-id">{{ offer.id }}</th>
-                            <td><a target="_blank" class="offer-title-link" href="{{ path('show_offer', {'id': offer.id, 'url':offer.offerUrl}) }}">{{ offer.type }} {{ offer.town }}</a></td>
+                            <td><a target="_blank" class="offer-title-link" href="{{ path('show_offer', {'id': offer.id, 'url':offer.offerUrl}) }}">{{ offer.type|trans }} {{ offer.town }}</a></td>
                             <td>
                                 <a href="{{ path('edit_offer', { 'id': offer.id }) }}" class="btn btn-primary">
                                     {{ 'dashboard.proposer.editOffer' | trans }}

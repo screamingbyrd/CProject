@@ -13,6 +13,7 @@
             <div>
                 <h3><a target="_blank" href="{{ path('show_offer', {'id':offer.id, 'url':''}) }}">{{ offer.type|trans }} {{ offer.town }}</a></h3>
                 <h3>Final price : {{ offer.finalPrice }}€</h3>
+                <h3>Average price : {{ averageValue }}€</h3>
                 <h3>Liste des gagnants</h3>
                 <table class="table">
                     <thead>

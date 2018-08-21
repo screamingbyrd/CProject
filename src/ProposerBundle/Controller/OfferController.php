@@ -294,6 +294,8 @@ class OfferController extends Controller
         ;
         $countVote = $voteRepository->countVoteOffer($offer);
 
+        $averageValue = $voteRepository->getAverageValue($offer);
+
         $map = new Map();
 
         //workarround to ssl certificat pb curl error 60
@@ -337,11 +339,22 @@ class OfferController extends Controller
         $map->setStylesheetOption('min-height', 1100);
         $map->setMapOption('zoom', 10);
 
+        $remainingDays = 0;
+        $activationDate = $offer->getActivationDate();
+        $activated = $offer->isValidated();
+        if(isset($activated) && $activated){
+            $now = new \DateTime();
+            date_modify($activationDate, '+2 week');
+            $remainingDays = $activationDate->diff($now)->format("%a");
+        }
+
         return $this->render('ProposerBundle:Offer:show.html.twig', array(
             'offer' => $offer,
             'map' => $map,
             'status' => $status,
-            'countVote' => $countVote
+            'countVote' => $countVote,
+            'remainingDays' => $remainingDays,
+            'averageValue' => $averageValue
         ));
     }
 
@@ -388,13 +401,18 @@ class OfferController extends Controller
         $offerArray = array();
 
         $now = new \datetime();
-        $now = $now->modify('-1 month');
+        $now = $now->modify('-2 week');
+        $comparaisonNow = new \datetime();
 
         foreach ($data as &$offer){
             $offer->setOfferUrl($generateUrlService->generateOfferUrl($offer));
             $offer->setCountVote($voteRepository->countVoteOffer($offer));
             $validated = $offer->isValidated();
             if((!isset($validated) || $validated) && $offer->getActivationDate() >= $now){
+                $activationDate = $offer->getActivationDate();
+                date_modify($activationDate, '+2 week');
+                $remainingDays = $activationDate->diff($comparaisonNow)->format("%a");
+                $offer->setRemainingDays($remainingDays);
                 $offerArray[] = $offer;
             }
         }
