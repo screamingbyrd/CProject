@@ -142,8 +142,15 @@
     </div>
 
     <script>
+        if($('#appbundle_proposer_type').val()== 'type.house'){
+            $('.house-field').show();
+            $('.flat-field').hide();
+        }else {
+            $('.flat-field').show();
+            $('.house-field').hide();
+        }
+
         $('#appbundle_proposer_type').on('change', function(e) {
-            console.log('rr')
             if($(this).val()== 'type.house'){
                 $('.house-field').show();
                 $('.flat-field').hide();

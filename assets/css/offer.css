@@ -115,7 +115,18 @@
     min-width: 63px;
 }
 
-
+.mandatory{
+    display: inline;
+    color: red;
+    margin-left: 8px;
+}
+.mandatory-text{
+    color: red;
+    margin-left: 8px;
+    position: absolute;
+    left: 9px;
+    bottom: 30px;
+}
 
 .offer-search-element{
     width: 94%;
@@ -463,7 +474,19 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
-
+.container-owner-offer{
+    display: -webkit-box;
+}
+.offer-status{
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid 1px black;
+}
 @media screen and (max-device-width: 480px){
     .floating-proposer{
         margin-top: 20px;
@@ -594,6 +617,44 @@
     #comment-input{
         height: 160px;
     }
+    .summary-container{
+        display: none;
+    }
+    .search-result{
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .offer-remaining{
+        margin-right: -3px !important;
+        font-size: 21px !important;
+        margin-top: -19px !important;
+    }
+    .offer-location{
+        width: 50%;
+    }
+    .container-offer-page{
+        padding-right: 25px !important;
+        padding-left: 25px !important;
+    }
+    .post-offer{
+        padding-right: 25px !important;
+        padding-left: 25px !important;
+    }
+    .container-owner-offer{
+        display: grid;
+    }
+    .container-owner-offer .archive-button{
+        margin-top: 10px;
+    }
+    .offer-status{
+        margin-left: 0!important;
+        margin-top: 10px;
+    }
+}
+
+.modal-offer-image{
+    width: max-content;
+    max-width: 95% !important;
 }
 
 #proposer-input{
@@ -742,10 +803,7 @@
 
 /*Formulaire post offer*/
 
-.container.post-offer{
-    width: 60% !important;
-    margin-top: 97px;;
-}
+
 h3.post-offer{
     margin-top: 0;
 }
@@ -836,8 +894,14 @@ h3.post-offer{
     .container-offer-page{
         margin-bottom: 60px;
     }
+    .container.post-offer{
+        width: 60% !important;
+    }
 }
 @media (max-width: 991px) {
+    .bottom-navigation{
+        margin-bottom: 20px;
+    }
     .apply-div-form{
         bottom: 0 !important;
     }
@@ -867,6 +931,12 @@ h3.post-offer{
     .offer-element{
         width: 100% !important;
         margin: 10px 0 !important;
+    }
+    #myUL li .offer-element:hover:not(.header) {
+        transform: none !important;
+    }
+    #modal-image{
+        width: 100%;
     }
 }
 

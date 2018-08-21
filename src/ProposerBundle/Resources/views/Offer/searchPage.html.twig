@@ -97,14 +97,12 @@
                     data: {keyword:keyword,location:location,proposer:proposer,type:type,row:row,number:totalItem,tags:tags}
                 }).done(function( data ) {
                     if(detectmob()){
-                        if(tags.length >= searchedTags.length){
                             let $el = $('.searchpage-jumbotron');
                             let bottom = $el.position().top + $el.outerHeight(true) - 40;
                             $('html, body').animate({
                                 scrollTop: bottom
                             }, 500);
-                        }
-                        searchedTags = tags;
+
                     }
                     $('#loading').hide();
 

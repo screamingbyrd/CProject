@@ -248,6 +248,7 @@ offer:
   similarOffer: Offres similaires
   watchSimilar: Voir toutes les offres similaires
   zipcode: Code postale
+  buildingYearPH: 1984
   town: Ville
   type: Type de bien
   surface: Surface
@@ -299,6 +300,7 @@ offer:
   estimated: Valeur estimé :
   finalPrice: Valeur finale :
   closed: Cette offre est terminée
+  mandatory: Champs obligatoire
   status:
     active: Active
     standBy: En attente

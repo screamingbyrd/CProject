@@ -150,7 +150,7 @@
             </div>
         {% endif %}
         {% if app.user == offer.proposer.user %}
-            <div class="shadow-box row" style="display: -webkit-box;">
+            <div class="shadow-box row container-owner-offer">
                 <a href="{{ path('edit_offer', { 'id': offer.id }) }}" class="btn btn-primary">{{ 'dashboard.proposer.editOffer' | trans }}</a>
                 <button class="archive-button btn btn-danger" data-href="{{ path('delete_offer', { 'id': offer.id }) }}">
                     {{ 'admin.ads.archiveUnarchive' | trans }}
@@ -162,7 +162,7 @@
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
-        <div class="modal-dialog modal-bg">
+        <div class="modal-dialog modal-offer-image modal-bg">
             <div class="modal-content">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
@@ -187,16 +187,6 @@
         </div>
     </div>
     <style>
-        .offer-status{
-            margin-left: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 3px;
-            padding-left: 10px;
-            padding-right: 10px;
-            border: solid 1px black;
-        }
         .close span{
             position: absolute;
             top: 1px;
@@ -206,9 +196,6 @@
         }
         .modal-content{
             padding: 20px;
-        }
-        .modal-dialog{
-            width: max-content !important;
         }
         .bottom-button{
             padding-top: 10px;

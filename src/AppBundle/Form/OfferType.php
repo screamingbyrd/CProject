@@ -45,16 +45,10 @@ class OfferType extends AbstractType
             ->add('zipcode',      TextType::class, array(
                 'required' => true,
                 'label' => 'offer.zipcode',
-                'attr' => array(
-                    'placeholder' => 'offer.zipcodePH',
-                )
             ))
             ->add('town',      TextType::class, array(
                 'required' => true,
                 'label' => 'offer.town',
-                'attr' => array(
-                    'placeholder' => 'offer.townPH',
-                )
             ))
             ->add('type', ChoiceType::class, array('choices' => array(
                 'type.house' => 'type.house',
@@ -71,58 +65,34 @@ class OfferType extends AbstractType
             ->add('surface', IntegerType::class, array(
                 'required' => true,
                 'label' => 'offer.surface',
-                'attr' => array(
-                    'placeholder' => 'offer.surfacePH',
-                )
             ))
             ->add('groundSurface', IntegerType::class, array(
                 'required' => false,
                 'label' => 'offer.groundSurface',
-                'attr' => array(
-                    'placeholder' => 'offer.groundSurfacePH',
-                )
             ))
             ->add('roomNumber', IntegerType::class, array(
                 'required' => true,
                 'label' => 'offer.roomNumber',
-                'attr' => array(
-                    'placeholder' => 'offer.roomNumberPH',
-                )
             ))
             ->add('bathroomNumber', IntegerType::class, array(
                 'required' => false,
                 'label' => 'offer.bathroomNumber',
-                'attr' => array(
-                    'placeholder' => 'offer.bathroomNumberPH',
-                )
             ))
             ->add('totalFloor', IntegerType::class, array(
                 'required' => false,
                 'label' => 'offer.totalFloor',
-                'attr' => array(
-                    'placeholder' => 'offer.totalFloorPH',
-                )
             ))
             ->add('floor', IntegerType::class, array(
                 'required' => false,
                 'label' => 'offer.floor',
-                'attr' => array(
-                    'placeholder' => 'offer.floorPH',
-                )
             ))
             ->add('basementSurface', IntegerType::class, array(
                 'required' => false,
                 'label' => 'offer.basementSurface',
-                'attr' => array(
-                    'placeholder' => 'offer.basementSurfacePH',
-                )
             ))
             ->add('parkingNumber', IntegerType::class, array(
                 'required' => false,
                 'label' => 'offer.parkingNumber',
-                'attr' => array(
-                    'placeholder' => 'offer.parkingNumberPH',
-                )
             ))
             ->add('buildingYear', IntegerType::class, array(
                 'required' => false,

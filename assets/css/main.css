@@ -26,6 +26,7 @@ a{
 
 
 body {
+    padding-top: 102px;
     padding-bottom: 65px;
     font-family: myFirstFont;
     font-size: 18px !important;
@@ -93,7 +94,7 @@ body {
     }
 
     .header-navbar {
-        background-color: #0d67bf;
+        background-color: #272f3b;
         border-color: #080808;
         height: 75px;
         font-size: 20px;
@@ -124,17 +125,19 @@ body {
 
 
 .header-navbar {
-    background: linear-gradient(135deg,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.7) 100%);
+    background-color: #272f3b;
     border-color: #080808;
     height: 88px;
     font-size: 18px;
 }
 .navbar-collapse{
+    background-color: #272f3b;
     border-color: #080808;
 }
 
 .navbar-fixed-bottom{
-    background: linear-gradient(135deg,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.7) 100%);
+    background-color: #272f3b;
+    border-color: #080808;
 }
 
 .navbar-default .navbar-nav>li>a{

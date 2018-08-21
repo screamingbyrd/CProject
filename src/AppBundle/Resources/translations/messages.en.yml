@@ -248,6 +248,7 @@ offer:
   similarOffer: Similar offers
   watchSimilar: Watch all similar offers
   zipcode: Zipcode
+  buildingYearPH: 1984
   town: Town
   type: Type of offer
   surface: Surface
@@ -289,16 +290,17 @@ offer:
     proposer: A voter applied to the offer:
 
   value: Value:
-    interested: I am intered by this offer
-    contacted: (You will be contacted when the offer close)
-    numberVote: Number of vote:
-    estimate: Estimate
-    estimated: Estimated value:
-    finalPrice: Final value:
-    closed: This offer is closed
-    status:
-      active: Active
-      standBy: Stand by
+  interested: I am intered by this offer
+  contacted: (You will be contacted when the offer close)
+  numberVote: Number of vote:
+  estimate: Estimate
+  estimated: Estimated value:
+  finalPrice: Final value:
+  closed: This offer is closed
+  mandatory: Mandatory field
+  status:
+    active: Active
+    standBy: Stand by
 
 voter:
   delete:

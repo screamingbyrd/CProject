@@ -16,7 +16,7 @@
         <div class="row">
 
 
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-8">
 
 
         {{ form_start(form, {'attr': {'class': 'form-vertical'}}) }}
@@ -27,32 +27,34 @@
 
         <div class="form-panel active row shadow-box" data-step="1">
             <div class="col-md-6 offer-field">
-                {{ form_label (form.zipcode, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_label (form.zipcode, null, { 'label_attr': {'class': 'label-form'} }) }}<div class="mandatory">*</div>
                 {{ form_widget(form.zipcode) }}
                 {{ form_errors(form.zipcode) }}
             </div>
             <div class="col-md-6 offer-field">
-                {{ form_label (form.town, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_label (form.town, null, { 'label_attr': {'class': 'label-form'} }) }}<div class="mandatory">*</div>
                 {{ form_widget(form.town) }}
                 {{ form_errors(form.town) }}
             </div>
             <div class="col-md-9 offer-field">
-                {{ form_label (form.location, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_label (form.location, null, { 'label_attr': {'class': 'label-form'} }) }}<div class="mandatory">*</div>
                 {{ form_widget(form.location) }}
                 {{ form_errors(form.location) }}
             </div>
+            <div class="mandatory-text">* {{ 'offer.mandatory'|trans }}</div>
         </div>
         <div class="form-panel row shadow-box" data-step="2">
             <div class="col-md-12 offer-field">
                 {% form_theme form.type 'typeChoice.html.twig' %}
-                {{ form_label (form.type, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_label (form.type, null, { 'label_attr': {'class': 'label-form'} }) }}<div class="mandatory">*</div>
                 {{ form_widget(form.type) }}
                 {{ form_errors(form.type) }}
             </div>
+            <div class="mandatory-text">* {{ 'offer.mandatory'|trans }}</div>
         </div>
         <div class="form-panel row shadow-box" data-step="3">
             <div class="col-md-8 offer-field">
-                {{ form_label (form.surface, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_label (form.surface, null, { 'label_attr': {'class': 'label-form'} }) }}<div class="mandatory">*</div>
                 {{ form_widget(form.surface) }}
                 {{ form_errors(form.surface) }}
             </div>
@@ -62,7 +64,7 @@
                 {{ form_errors(form.groundSurface) }}
             </div>
             <div class="col-md-8 offer-field">
-                {{ form_label (form.roomNumber, null, { 'label_attr': {'class': 'label-form'} }) }}
+                {{ form_label (form.roomNumber, null, { 'label_attr': {'class': 'label-form'} }) }}<div class="mandatory">*</div>
                 {{ form_widget(form.roomNumber) }}
                 {{ form_errors(form.roomNumber) }}
             </div>
@@ -81,6 +83,7 @@
                 {{ form_widget(form.floor) }}
                 {{ form_errors(form.floor) }}
             </div>
+            <div class="mandatory-text">* {{ 'offer.mandatory'|trans }}</div>
         </div>
         <div class="form-panel row shadow-box" data-step="4">
             <div class="col-md-8 offer-field">
@@ -131,7 +134,7 @@
         {# Fermeture de la balise <form> du formulaire HTML #}
         {{ form_end(form) }}
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-4 summary-container">
             <div class="shadow-box summary-offer">
                 <div class="animated fadeIn">
                     <b>{{ 'offer.zipcode'|trans }}</b> :
@@ -219,6 +222,30 @@
     {#</script>#}
 
 <script>
+    $('#appbundle_proposer_type_0').change(function(e) {
+            if(this.checked) {
+                $('.house-field').show();
+                $('.flat-field').hide();
+            }else {
+                $('.flat-field').show();
+                $('.house-field').hide();
+            }
+    });
+    $('#appbundle_proposer_type_1').change(function(e) {
+            if(this.checked) {
+                $('.flat-field').show();
+                $('.house-field').hide();
+            }
+    });
+
+    $('#appbundle_proposer_town').keypress(function(e) {
+        e = e || window.event;
+        var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+        var charStr = String.fromCharCode(charCode);
+        if (/\d/.test(charStr)) {
+            return false;
+        }
+    });
 
     $('.progress-bar').css('width',(100/5)+"%");
     $('.previous').click(function (e) {
@@ -291,12 +318,17 @@
     });
 
     function checkMandatory(){
+
         var disable = 0;
         $('.active input[required="required"]').each( function(e) {
             if($(this).val() == ''){
                 disable++
             }
         });
+
+        if($('.active #appbundle_proposer_location').val() ==''){
+            disable++
+        }
 
         if($('.active #appbundle_proposer_type').length > 0){
             if($('.active input[type="radio"]:checked').length > 0){
