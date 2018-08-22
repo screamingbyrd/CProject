@@ -38,9 +38,7 @@
             {% for admin in admins %}
                 <tr>
                     <td>
-                        <a href="{{ path('dashboard_proposer', { 'id': admin.proposer.id }) }}">
-                            {{admin.firstName }} {{ admin.lastName }}
-                        </a>
+                        {{admin.firstName }} {{ admin.lastName }}
                     </td>
                     <td class="voter-mail">{{ admin.email }}</td>
                     <td>
