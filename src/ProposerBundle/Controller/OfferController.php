@@ -80,6 +80,27 @@ class OfferController extends Controller
 
             $em->persist($offer);
             $em->flush();
+            $title = $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown();
+
+            $mailer = $this->container->get('swiftmailer.mailer');
+            $translated = $this->get('translator')->trans('form.offer.created.subject');
+            $message = (new \Swift_Message($translated . ' ' . $title))
+                ->setFrom('cprojectlu@noreply.lu')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'AppBundle:Emails:offerCreated.html.twig',
+                        array('title' => $title,
+                        )
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $message->getHeaders()->addTextHeader(
+                CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
+            );
+            $mailer->send($message);
 
             $translated = $this->get('translator')->trans('form.offer.creation.success');
             $session->getFlashBag()->add('info', $translated);
@@ -714,42 +735,42 @@ class OfferController extends Controller
     }
 
 
-    //@TODO put in CRON with 1 and 7 days
-    public function sendEndActivationAction(Request $request, $days){
+    //@TODO put in CRON to turn every day
+    public function sendEndActivationAction(Request $request){
 
         $now  =  new \DateTime("midnight");
 
-        $next = $now->modify( '+ '.$days.' day' );
+        $last = $now->modify( '- 2 week' );
 
         $offerRepository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('AppBundle:Offer')
         ;
-        $offers = $offerRepository->findBy(array('endDate' => $next));
+        $offers = $offerRepository->findBy(array('validated' => 1, 'archived' => 0));
 
-        $userRepository = $this
+        $translated = $this->get('translator')->trans('email.endOfActivation.closed');
+
+        $voteRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:User');
+            ->getRepository('AppBundle:Vote')
+        ;
 
         if(!empty($offers)){
             $mailer = $this->container->get('swiftmailer.mailer');
             foreach ($offers as $offer){
-
-                $userArray = $userRepository->findBy(array('proposer' => $offer->getProposer()));
-
-                $subject = 'Your offer will expire in '.$days.' days';
-
-                foreach ($userArray as $user){
-                    $message = (new \Swift_Message($subject))
-                        ->setFrom('cprojectlu@noreply.lu')
-                        ->setTo($user->getEmail())
+                if($offer->getActivationDate() == $last){
+                    $averageValue = $voteRepository->getAverageValue($offer);
+                    $message = (new \Swift_Message($translated))
+                        ->setFrom('cproject@noreply.lu')
+                        ->setTo($offer->getProposer()->getUser()->getEmail())
+                        ->setBcc('commercial@cproject.lu')
                         ->setBody(
                             $this->renderView(
                                 'AppBundle:Emails:endOfActivation.html.twig',
                                 array('offer' => $offer,
-                                    'days' => $days
+                                    'averageValue' => $averageValue
                                 )
                             ),
                             'text/html'
@@ -760,7 +781,11 @@ class OfferController extends Controller
                         CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
                     );
                     $mailer->send($message);
+
                 }
+
+
+
             }
         }
 

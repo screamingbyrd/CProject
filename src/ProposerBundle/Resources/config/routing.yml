@@ -176,6 +176,6 @@ apply_spontaneous:
     defaults: { _controller: ProposerBundle:Proposer:sendSearch }
 end_activation_offer_mail:
     locales:
-        en: "/mail-end-activation/{days}"
-        fr: "/mail-fin-activation/{days}"
+        en: "/mail-end-activation"
+        fr: "/mail-fin-activation"
     defaults: { _controller: ProposerBundle:Offer:sendEndActivation }

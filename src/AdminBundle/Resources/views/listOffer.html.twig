@@ -53,6 +53,7 @@
                 <th>{{ 'form.registration.title.title' | trans }}</th>
                 <th>Min Price</th>
                 <th>Max Price</th>
+                <th>Final Price</th>
                 <th>Nbre vote</th>
                 <th>Proposer</th>
                 <th>{{ 'dashboard.action' | trans }}</th>
@@ -72,6 +73,7 @@
                     </td>
                     <td>{{ offer.fromPrice }}</td>
                     <td>{{ offer.toPrice }}</td>
+                    <td>{{ offer.finalPrice }}</td>
                     <td><a data-toggle="tooltip" title="{{ 'dashboard.viewCandidate'|trans }}" href="{{ path('vote_page', {'id': offer.id}) }}" class="btn btn-primary">{{ countArray[offer.id] }}</a></td>
                     <td>{{ offer.proposer.user.username }}</td>
                     <td>
@@ -85,9 +87,15 @@
                                 {{ 'admin.offerList.invalid'|trans }}
                             </button>
                         {% endif %}
-                        <button class="modal-open-close-estimation btn btn-primary" data-id="{{ offer.id }}">
-                            Close
-                        </button>
+                        {% if offer.finalPrice is null %}
+                            <button class="modal-open-close-estimation btn btn-primary" data-id="{{ offer.id }}">
+                                Close
+                            </button>
+                        {% else %}
+                            <button class="modal-open-change-estimation btn btn-primary" data-id="{{ offer.id }}" data-price="{{ offer.finalPrice }}">
+                                Change final
+                            </button>
+                        {% endif %}
                         <div class="btn-group dropup">
                             <button type="button" class="element-offer-list btn btn-primary element-offer-list toggle-buttons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-pencil-alt"></i> <span class="caret"></span>
@@ -162,6 +170,25 @@
                     <form method="post" action="{{ path('close_estimation') }}" id="search-offer-homepage">
                         <input id="offer-id" type="hidden" name="id">
                         <input type="number" title="finalPrice"  name="finalPrice">
+
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="{{ 'email.send'|trans }}">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="change-estimation-modal">
+            <div class="modal-dialog modal-bg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Changer la valeur finale</h4>
+                    </div>
+                    <form method="post" action="{{ path('change_estimation') }}" id="search-offer-homepage">
+                        <input id="change-offer-id" type="hidden" name="id">
+                        <input id="offer-final-price" type="number" title="finalPrice"  name="finalPrice">
 
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-primary" value="{{ 'email.send'|trans }}">
@@ -249,6 +276,12 @@
             $(".modal-open-close-estimation").on("click", function(e){
                 $('#offer-id').val($(this).data('id'));
                 $("#close-estimation-modal").modal('show');
+            });
+
+            $(".modal-open-change-estimation").on("click", function(e){
+                $('#change-offer-id').val($(this).data('id'));
+                $('#offer-final-price').val($(this).data('price'));
+                $("#change-estimation-modal").modal('show');
             });
 
             $("#modal-btn-no").on("click", function(e){

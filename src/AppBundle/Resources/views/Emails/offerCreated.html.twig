@@ -57,9 +57,7 @@
         </div>
 
         <div class="content-mail">
-            <div class="other-footer">
-                {{ 'email.endOfActivation.youOffer'|trans({'%title%':offer.type|trans ~ ' ' ~ offer.town, '%averageValue%':averageValue}) }}
-            </div>
+            <div>{{ 'form.offer.created.mail'| trans({'%title%' : title}) |raw}}</div>
         </div>
 
         <div class="footer-mail">

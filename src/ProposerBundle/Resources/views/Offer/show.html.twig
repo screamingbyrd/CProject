@@ -111,42 +111,44 @@
             {% endif %}
         </div>
 
-        {% if offer.finalPrice is null %}
-        <div class="shadow-box row">
-            <form id="vote-form" method="post" action="{{ path('vote_offer', {'id':offer.id}) }}">
-                <div class="range-input-box">
-                    <div class="fromToPrice">{{ offer.fromPrice }}</div>
-                    <div class="slidecontainer">
-                        <input step="100" data-thumbwidth="20" type="range" min="{{ offer.fromPrice }}" max="{{ offer.toPrice }}" value="{{ offer.fromPrice }}" class="slider" id="myRange" name="estimation">
-                        {#<datalist id="steplist">#}
-                            {#{% set step = (offer.toPrice- offer.fromPrice)/100 %}#}
-                            {#{% for i in 0..step  %}#}
-                                {#<option>{{ offer.fromPrice + i*step }}</option>#}
-                            {#{% endfor %}#}
-                        {#</datalist>#}
+        {% if "now"|date('Y-m-d') < offer.activationDate|date_modify("+2 week")|date('Y-m-d') %}
+            <div class="shadow-box row">
+                <form id="vote-form" method="post" action="{{ path('vote_offer', {'id':offer.id}) }}">
+                    <div class="range-input-box">
+                        <div class="fromToPrice">{{ offer.fromPrice }}</div>
+                        <div class="slidecontainer">
+                            <input step="100" data-thumbwidth="20" type="range" min="{{ offer.fromPrice }}" max="{{ offer.toPrice }}" value="{{ offer.fromPrice }}" class="slider" id="myRange" name="estimation">
+                            {#<datalist id="steplist">#}
+                                {#{% set step = (offer.toPrice- offer.fromPrice)/100 %}#}
+                                {#{% for i in 0..step  %}#}
+                                    {#<option>{{ offer.fromPrice + i*step }}</option>#}
+                                {#{% endfor %}#}
+                            {#</datalist>#}
+                        </div>
+                        <div  class="fromToPrice">{{ offer.toPrice }}</div>
                     </div>
-                    <div  class="fromToPrice">{{ offer.toPrice }}</div>
-                </div>
-                <p>{{ 'offer.value'|trans }} <span id="demo"></span></p>
-                <input type="checkbox" name="interested" value="1"/>
-                <label for="horns">{{ 'offer.interested'|trans }}</label> {{ 'offer.contacted'|trans }}
-                <div>
-                    <input type="submit" class="btn btn-primary bottom-button" value="{{ 'offer.estimate'|trans }}">
-                </div>
+                    <p>{{ 'offer.value'|trans }} <span id="demo"></span></p>
+                    <input type="checkbox" name="interested" value="1"/>
+                    <label for="horns">{{ 'offer.interested'|trans }}</label> {{ 'offer.contacted'|trans }}
+                    <div>
+                        <input type="submit" class="btn btn-primary bottom-button" value="{{ 'offer.estimate'|trans }}">
+                    </div>
 
-                <div>{{ 'offer.numberVote'|trans }} {{ countVote }}</div>
+                    <div>{{ 'offer.numberVote'|trans }} {{ countVote }}</div>
 
-                {% if app.user == offer.proposer.user %}
-                <div>{{ 'offer.estimated'|trans }} {{ averageValue }}</div>
-                {% endif %}
-            </form>
-        </div>
+                    {% if app.user == offer.proposer.user %}
+                    <div>{{ 'offer.estimated'|trans }} {{ averageValue }}</div>
+                    {% endif %}
+                </form>
+            </div>
         {% else %}
             <div class="shadow-box row">
                 <h1>{{ 'offer.closed'|trans }}</h1>
                 <div>{{ 'offer.numberVote'|trans }} {{ countVote }}</div>
                 <div>{{ 'offer.estimated'|trans }} {{ averageValue }}</div>
-                <div>{{ 'offer.finalPrice'|trans }} {{ offer.finalPrice }} €</div>
+                {% if offer.finalPrice is not null %}
+                    <div>{{ 'offer.finalPrice'|trans }} {{ offer.finalPrice }} €</div>
+                {% endif %}
             </div>
         {% endif %}
         {% if app.user == offer.proposer.user %}

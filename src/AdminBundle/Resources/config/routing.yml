@@ -52,6 +52,12 @@ close_estimation:
         fr: "/fermer-estimation"
     defaults: { _controller: AdminBundle:Admin:closeEstimation }
 
+change_estimation:
+    locales:
+        en: "/change-estimation"
+        fr: "/changer-estimation"
+    defaults: { _controller: AdminBundle:Admin:changeEstimation }
+
 vote_page:
     locales:
         en: "/vote-page"

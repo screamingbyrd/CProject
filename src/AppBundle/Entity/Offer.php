@@ -775,5 +775,15 @@ class Offer
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isClosed()
+    {
+        $now  =  new \DateTime("midnight");
+        $last = $now->modify( '- 2 week' );
+        return $this->activationDate == $last;
+    }
+
 
 }

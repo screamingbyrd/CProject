@@ -242,7 +242,7 @@ class AdminController extends Controller
         if($status == 1){
             $offer->setFromPrice($fromPrice);
             $offer->setToPrice($toPrice);
-            $now = new \dateTime();
+            $now = new \dateTime("midnight");
             $offer->setActivationDate($now);
         }
 
@@ -251,43 +251,120 @@ class AdminController extends Controller
         $em->merge($offer);
         $em->flush();
 
-        $userRepository = $this
+        if(!$status){
+            $subject = 'form.offer.invalid.subject';
+            $view = 'AppBundle:Emails:offerInvalid.html.twig';
+        }else{
+            $subject = 'form.offer.valid.subject';
+            $view = 'AppBundle:Emails:offerValid.html.twig';
+        }
+
+        $mailer = $this->container->get('swiftmailer.mailer');
+        $translated = $this->get('translator')->trans($subject);
+        $message = (new \Swift_Message($translated . ' ' . $translated = $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
+            ->setFrom('cprojectlu@noreply.lu')
+            ->setTo($offer->getProposer()->getUser()->getEmail())
+            ->setBody(
+                $this->renderView(
+                    $view,
+                    array('offer' => $offer,
+                        'message' => $message,
+                        'fromPrice' => $fromPrice,
+                        'toPrice' => $toPrice,
+                    )
+                ),
+                'text/html'
+            )
+        ;
+
+        $message->getHeaders()->addTextHeader(
+            CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
+        );
+        $mailer->send($message);
+
+        return $this->redirectToRoute('list_offer_admin');
+    }
+
+    public function closeEstimationAction(Request $request){
+        $id = $request->get('id');
+        $finalPrice = $request->get('finalPrice');
+
+        $user = $this->getUser();
+
+        if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
+            return $this->redirectToRoute('cproject_home');
+        }
+
+        $offerRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:User')
+            ->getRepository('AppBundle:Offer')
         ;
-        $user = $userRepository->findOneBy(array('proposer' => $offer->getProposer()));
+        $offer = $offerRepository->findOneBy(array('id' => $id));
 
-        $email = $user->getEmail();
+        $offer->setFinalPrice($finalPrice);
 
-        if(isset($email) && !$status){
+        $em = $this->getDoctrine()->getManager();
 
-            $mailer = $this->container->get('swiftmailer.mailer');
-            $translated = $this->get('translator')->trans('form.offer.invalid.subject');
-            $message = (new \Swift_Message($translated . ' ' . $offer->getTown() . " Id: " .$offer->getId()))
+        $em->merge($offer);
+        $em->flush();
+
+        $mailer = $this->container->get('swiftmailer.mailer');
+        $translated = $this->get('translator')->trans('email.closed.subject');
+        $messageProposer = (new \Swift_Message($translated . ' ' . $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
+            ->setFrom('cprojectlu@noreply.lu')
+            ->setTo('arthur.regnault@altea.lu')
+            ->setBody(
+                $this->renderView(
+                    'AppBundle:Emails:offerClosedProposer.html.twig',
+                    array('offer' => $offer,
+                        'finalPrice' => $finalPrice,
+                    )
+                ),
+                'text/html'
+            )
+        ;
+
+        $messageProposer->getHeaders()->addTextHeader(
+            CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
+        );
+        $mailer->send($messageProposer);
+
+        $voteRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Vote')
+        ;
+        $votes = $voteRepository->findBy(array('offer' => $offer));
+
+        foreach ($votes as $vote){
+            $messageVoter = (new \Swift_Message($translated . ' ' . $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
                 ->setFrom('cprojectlu@noreply.lu')
-                ->setTo($email)
+                ->setTo('arthur.regnault@altea.lu')
                 ->setBody(
                     $this->renderView(
-                        'AppBundle:Emails:offerInvalid.html.twig',
+                        'AppBundle:Emails:offerClosedVoter.html.twig',
                         array('offer' => $offer,
-                            'message' => $message
+                            'finalPrice' => $finalPrice,
                         )
                     ),
                     'text/html'
                 )
             ;
 
-            $message->getHeaders()->addTextHeader(
+            $messageVoter->getHeaders()->addTextHeader(
                 CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
             );
-            $mailer->send($message);
+
+            $mailer->send($messageVoter);
         }
+
+
 
         return $this->redirectToRoute('list_offer_admin');
     }
 
-    public function closeEstimationAction(Request $request){
+    public function changeEstimationAction(Request $request){
         $id = $request->get('id');
         $finalPrice = $request->get('finalPrice');
 

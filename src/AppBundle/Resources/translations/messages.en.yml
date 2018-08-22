@@ -153,6 +153,9 @@ form:
   offer:
     creation:
       success: The offer has been created !
+    created:
+      subject: Your offer has been created:
+      mail: Your offer %title% has been created. It will be checked by our moderators and put online, you will be informed of this by mail.
     edition:
       success: The offer has been modified !
       error: You can't modify this offer !
@@ -167,6 +170,9 @@ form:
       subject: Your offer is invalid:
       mail: You offer %title% is not valid, please modify it.
       message: Reason of the problem:
+    valid:
+      subject: Your offer is online :
+      mail: Your offer %title% is online, it will be for two weeks, the estimation will be between %fromPrice% and %toPrice% euros.
     activate:
       success: The offer has been activated !
       error: You do not have enought credit !
@@ -391,8 +397,8 @@ email:
   deleted: Votre compte à bien été éffacé
   contacted: Vous avez reçu un message !
   endOfActivation:
-    youOffer: Your offer %title% will arrive at the end of activation in %days% days
-    thinkAbout: Think about extending their activations on your dashboard
+    closed: The estimation time of your offer is finished
+    youOffer: The estimation time of your offer %title% is finished. It has been evaluated to %averageValue%, our expert will choose a final value. You will be informed of it at this moment.
   notification:
     new: Vous avez créé une alerte email
     created:

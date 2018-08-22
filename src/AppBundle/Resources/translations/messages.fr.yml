@@ -151,6 +151,9 @@ form:
   offer:
     creation:
       success: L'offre a bien été crée !
+    created:
+      subject: Votre offre a été crée:
+      mail: Votre offre %title% à été crée. Elle sera vérifiée par un de nos modérateur avant d'être mise en ligne, vous serez avertit par mail à ce moment là.
     edition:
       success: L'offre a bien été éditée !
       error: Vous ne pouvez pas modifier cette offre !
@@ -165,6 +168,9 @@ form:
       subject: Votre offre est invalide :
       mail: Votre offre %title% est invalide, veuillez la modififé.
       message: Raison du problème:
+    valid:
+      subject: Votre offre est en ligne :
+      mail: Votre offre %title% est en ligne, elle le restera pendant deux semaine, l'estimation de prix se fera entre %fromPrice% et %toPrice% euros.
     activate:
       success: L'offre a bien été activée !
       error: Vous n'avez pas assez de credit !
@@ -390,8 +396,12 @@ email:
   deleted: Your account has been deleted
   contacted: You have received a message !
   endOfActivation:
-    youOffer: Your offer %title% will arrive at the end of activation in %days% days
-    thinkAbout: Think about extending their activations on your dashboard
+    closed: La periode d'estimation de votre offre est terminé
+    youOffer: La periode d'estimation de votre offre %title% est terminé elle à été estimé par les voteurs a %averageValue%, notre expert immobilier va décider du prix final, vous serez avertit par email a ce moment là.
+  closed:
+    subject: La valeur final de l'offre à été choisit.
+    mailProposer: Notre expert à éstimé que le prix de votre offre %title% était de %finalPrice% euros. Vous serez directement contacté par téléphone si nous décidond d'acheter.
+    mailVoter: Les votes sont terminés. Notre expert à éstimé que le prix de l'offre %title% était de %finalPrice% euros. Vous serez directement contacté par téléphone si vous faites parties des vainqueurs.
   notification:
     new: Vous avez créé une alerte email
     created:

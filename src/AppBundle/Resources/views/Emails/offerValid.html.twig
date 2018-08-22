@@ -57,8 +57,12 @@
         </div>
 
         <div class="content-mail">
+            <div>{{ 'form.offer.valid.mail'| trans({'%title%' : offer.type|trans ~ ' ' ~ offer.town, '%fromPrice%':fromPrice, '%toPrice%':toPrice }) |raw}}</div>
+
             <div class="other-footer">
-                {{ 'email.endOfActivation.youOffer'|trans({'%title%':offer.type|trans ~ ' ' ~ offer.town, '%averageValue%':averageValue}) }}
+                <a href="{{ path('show_offer', {'id':offer.id,'url':''}) }}">
+                    {{ offer.type|trans ~ ' ' ~ offer.town }}
+                </a>
             </div>
         </div>
 
