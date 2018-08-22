@@ -212,10 +212,16 @@ class OfferController extends Controller
         $translated = $this->get('translator')->trans(!$bool?'form.offer.archived.success':'form.offer.unarchived.success');
         $session->getFlashBag()->add('info', $translated);
 
-        if(isset($ajax) && $ajax){
-            return new JsonResponse($this->generateUrl('proposer_offers', array('archived' => $_SESSION['archived'])));
+        $route = 'proposer_offers';
+
+        if(in_array('ROLE_ADMIN', $user->getRoles())){
+            $route = 'list_offer_admin';
         }
-        return $this->redirectToRoute('proposer_offers', array('archived' => $_SESSION['archived']));
+
+        if(isset($ajax) && $ajax){
+            return new JsonResponse($this->generateUrl($route));
+        }
+        return $this->redirectToRoute($route);
     }
 
     public function eraseAction(Request $request){
@@ -241,55 +247,37 @@ class OfferController extends Controller
 
         $offer = $offerRepository->findOneBy(array('id' => $id));
 
-        $title = $offer->getTitle();
-
         if(!((isset($user) and in_array('ROLE_PROPOSER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
             $translated = $this->get('translator')->trans('form.offer.edition.error');
             $session->getFlashBag()->add('danger', $translated);
             return $this->redirectToRoute('dashboard_proposer', array('archived' => $_SESSION['archived']));
         }
 
-        $userRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:User')
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($offer);
+
+        $em->flush();
+
+        $mailer = $this->container->get('swiftmailer.mailer');
+        $translated = $this->get('translator')->trans('form.offer.deleted.subject');
+        $message = (new \Swift_Message($translated . ' ' . $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
+            ->setFrom('cprojectlu@noreply.lu')
+            ->setTo($offer->getProposer()->getUser()->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'AppBundle:Emails:offerDeleted.html.twig',
+                    array('title' => $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown(),
+                    )
+                ),
+                'text/html'
+            )
         ;
-        $users = $userRepository->findBy(array('proposer' => $offer->getProposer()));
-        $arrayEmail = array();
 
-        foreach ($users as $proposerUser){
-            $arrayEmail[] = $proposerUser->getEmail();
-        }
+        $message->getHeaders()->addTextHeader(
+            CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
+        );
+        $mailer->send($message);
 
-        if(is_array($arrayEmail)){
-            $firstUser = $arrayEmail[0];
-
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($offer);
-
-            $em->flush();
-
-            $mailer = $this->container->get('swiftmailer.mailer');
-            $translated = $this->get('translator')->trans('form.offer.deleted.subject');
-            $message = (new \Swift_Message($translated . ' ' . $title))
-                ->setFrom('cprojectlu@noreply.lu')
-                ->setTo($firstUser)
-                ->setCc(array_shift($arrayEmail))
-                ->setBody(
-                    $this->renderView(
-                        'AppBundle:Emails:offerDeleted.html.twig',
-                        array('title' => $title,
-                        )
-                    ),
-                    'text/html'
-                )
-            ;
-
-            $message->getHeaders()->addTextHeader(
-                CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
-            );
-            $mailer->send($message);
-        }
 
         return $this->redirectToRoute('list_offer_admin');
     }

@@ -74,7 +74,7 @@
                     <td>{{ offer.fromPrice }}</td>
                     <td>{{ offer.toPrice }}</td>
                     <td>{{ offer.finalPrice }}</td>
-                    <td><a data-toggle="tooltip" title="{{ 'dashboard.viewCandidate'|trans }}" href="{{ path('vote_page', {'id': offer.id}) }}" class="btn btn-primary">{{ countArray[offer.id] }}</a></td>
+                    <td><a data-toggle="tooltip" title="Voir les votes" href="{{ path('vote_page', {'id': offer.id}) }}" class="btn btn-primary">{{ countArray[offer.id] }}</a></td>
                     <td>{{ offer.proposer.user.username }}</td>
                     <td>
                         {% if offer.validated is null or offer.validated == false %}

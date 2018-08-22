@@ -1,0 +1,87 @@
+<meta charset="UTF-8">
+<style type="text/css">
+    .logo-cproject{
+        width: 250px;
+    }
+    .header-mail{
+        background-color: #272f3b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+    }
+    .footer-mail{
+        background-color: #272f3b;
+        padding-top: 30px;
+        padding-bottom: 20px;
+        color: white;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .container{
+        width: 600px;
+        margin: auto;
+        font-family: 'Open Sans','Open Sans',Arial,sans-serif;
+    }
+    .container-mail{
+        width: 100%;
+    }
+    .content-mail{
+        text-align: center;
+        padding-top: 15px;
+        padding-bottom: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .social-netwok-container{
+        width: 100%;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    a{
+        color: #ff9600;
+        text-decoration-color: #ff9600 ;
+    }
+    .location{
+        color: white !important;
+        text-decoration: none !important;
+    }
+    .other-footer{
+        margin-top: 20px;
+    }
+</style>
+<div class="container">
+    <div class="container-mail">
+        <div class="header-mail">
+            <a href="{{ path('cproject_home') }}"><img class="logo-cproject" src="{{asset('images/logo_cproject.png')}}"></a>
+        </div>
+
+        <div class="content-mail">
+            <div>{{ 'email.stillInterested.mail'| trans({'%title%' : offer.type|trans ~ ' ' ~ offer.town, '%finalPrice%':offer.finalPrice }) |raw}}</div>
+
+            <div class="other-footer">
+                <a href="{{ path('show_offer', {'id':offer.id, 'url':''}) }}">{{ offer.type|trans ~ ' ' ~ offer.town }}</a>
+            </div>
+        </div>
+
+        <div class="footer-mail">
+            <div class="social-netwok-container">
+                <a href="">facebook</a>
+                <a href="">twitter<i class="fab fa-twitter-square"></i></a>
+                <a href="">instagram</a>
+            </div>
+
+            <div class="other-footer">
+                <div>{{ 'email.footer.contact'| trans({'%link_start%' : '<a href="mailto:support@athome.lu">', '%link_end%' : '</a>'}) |raw}}</div>
+                <div>{{ 'email.footer.consult'| trans({'%link_start%' : '<a href="'~path('privacy_page')~'">', '%link_end%' : '</a>'}) |raw}}</div>
+            </div>
+            <div class="other-footer">
+                © 2018 Jobnow.lu
+            </div>
+            <div class="other-footer">
+                <div class="location"><a href="" style="text-decoration:none;color: white;">228 Route d’Esch</a></div>
+                <div class="location"><a href="" style="text-decoration:none;color: white;">L-1471 Luxembourg</a></div>
+            </div>
+        </div>
+    </div>
+</div>

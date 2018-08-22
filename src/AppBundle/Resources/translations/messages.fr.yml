@@ -402,6 +402,9 @@ email:
     subject: La valeur final de l'offre à été choisit.
     mailProposer: Notre expert à éstimé que le prix de votre offre %title% était de %finalPrice% euros. Vous serez directement contacté par téléphone si nous décidond d'acheter.
     mailVoter: Les votes sont terminés. Notre expert à éstimé que le prix de l'offre %title% était de %finalPrice% euros. Vous serez directement contacté par téléphone si vous faites parties des vainqueurs.
+  stillInterested:
+    subject: Etes vous toujours interessé par l'offre
+    mail: Le prix final de l'offre %title% est de %finalPrice% euros. Si vous êtes toujours interessé par cette offre écrivé nous à cproject@us.lu pour que nous puissions organiser un entretien téléphonique.
   notification:
     new: Vous avez créé une alerte email
     created:

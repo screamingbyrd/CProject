@@ -14,12 +14,16 @@
                 <h3><a target="_blank" href="{{ path('show_offer', {'id':offer.id, 'url':''}) }}">{{ offer.type|trans }} {{ offer.town }}</a></h3>
                 <h3>Final price : {{ offer.finalPrice }}€</h3>
                 <h3>Average price : {{ averageValue }}€</h3>
+                <button class="send-interested-mail btn btn-primary">
+                Contact interested
+                </button>
                 <h3>Liste des gagnants</h3>
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">{{ 'bill.date'|trans }}</th>
                         <th scope="col">{{ 'form.registration.email'|trans }}</th>
+                        <th scope="col">phone</th>
                         <th scope="col">vote</th>
                     </tr>
                     </thead>
@@ -28,6 +32,7 @@
                         <tr>
                             <td>{{ winner.date|date('d/m/Y') }}</td>
                             <td>{{ winner.voter.user.email }}</td>
+                            <td>{{ winner.voter.phone }}</td>
                             <td>{{ winner.estimation }}</td>
                         </tr>
                     {% endfor %}
@@ -59,6 +64,32 @@
                 </table>
             </div>
         </div>
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="send-contact-modal">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{ 'admin.offerList.sureArchive'|trans }}</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href={{ path('send_interested_mail', {'id':offer.id}) }} type="button" class="btn btn-default" id="modal-btn-yes">{{ 'yes'|trans }}</a>
+                        <button type="button" class="btn btn-primary modal-btn-no">{{ 'no'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        $("#modal-btn-no").on("click", function(e){
+            e.preventDefault();
+            $("#send-contact-modal").modal('hide');
+        });
+
+        $(".send-interested-mail").on("click", function(e){
+            $("#send-contact-modal").modal('show');
+        });
+
+    </script>
 
 {% endblock %}

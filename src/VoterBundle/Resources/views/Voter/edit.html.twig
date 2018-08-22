@@ -49,8 +49,11 @@
                 {# Fermeture de la balise <form> du formulaire HTML #}
                 {{ form_end(form) }}
             </div>
-            <button class="btn btn-default" id="btn-confirm">{{ 'voter.delete.delete'|trans }}</button>
-
+            <div class="button-profile">
+                <button class="btn btn-primary " id="btn-confirm">{{ 'voter.delete.delete'|trans }}</button>
+                <a class="btn btn-primary" href="{{ path('fos_user_change_password') }}">{{ 'proposer.edit.changePassword'|trans }}</a>
+                <a class="btn btn-primary" href="{{ path('fos_user_resetting_request') }}">{{ 'proposer.edit.forgotPassword'|trans }}</a>
+            </div>
             <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">

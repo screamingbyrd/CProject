@@ -58,6 +58,12 @@ change_estimation:
         fr: "/changer-estimation"
     defaults: { _controller: AdminBundle:Admin:changeEstimation }
 
+send_interested_mail:
+    locales:
+        en: "/send-interested-mail"
+        fr: "/envoyer-mail-interesses"
+    defaults: { _controller: AdminBundle:Admin:sendInterestedMail }
+
 vote_page:
     locales:
         en: "/vote-page"

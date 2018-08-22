@@ -19,7 +19,6 @@
                 <tr>
                     <th>{{ 'form.offer.search.proposerPH' | trans }}</th>
                     <th>{{ 'form.registration.email' | trans }}</th>
-                    <th>{{ 'proposer.credit.title' | trans }}</th>
                     <th>{{ 'dashboard.action' | trans }}</th>
                 </tr>
             </thead>
@@ -29,12 +28,11 @@
                     <tr>
                         <td>
                             <a class="proposer-title" href="{{ path('proposer_offers', { 'id': proposer.proposer.id }) }}">
-                                {{ proposer.proposer.name }}
+                                {{ proposer.proposer.user.firstname }} {{ proposer.proposer.user.lastname }}
                             </a>
                         </td>
                         <td>{{ proposer.email }}</td>
 
-                        <td>{{ proposer.proposer.credit }}</td>
                         <td>
                             <a class="btn btn-primary" href="{{ path('edit_proposer', { 'id': proposer.proposer.id }) }}">
                                 {{ 'dashboard.proposer.editOffer' | trans }}
@@ -42,9 +40,6 @@
                             <button class="modal-open btn btn-danger" data-href="{{ path('delete_proposer', { 'id': proposer.proposer.id }) }}">
                                 {{ 'delete' | trans }}
                             </button>
-                            <a class="btn btn-primary" href="{{ path('cproject_bills', { 'id': proposer.proposer.id }) }}">
-                                {{ 'price.bills' | trans }}
-                            </a>
                         </td>
                     </tr>
                 {% endfor %}

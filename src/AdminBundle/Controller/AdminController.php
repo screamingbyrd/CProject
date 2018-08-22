@@ -313,7 +313,7 @@ class AdminController extends Controller
         $translated = $this->get('translator')->trans('email.closed.subject');
         $messageProposer = (new \Swift_Message($translated . ' ' . $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
             ->setFrom('cprojectlu@noreply.lu')
-            ->setTo('arthur.regnault@altea.lu')
+            ->setTo($offer->getProposer()->getUser()->getEmail())
             ->setBody(
                 $this->renderView(
                     'AppBundle:Emails:offerClosedProposer.html.twig',
@@ -340,7 +340,7 @@ class AdminController extends Controller
         foreach ($votes as $vote){
             $messageVoter = (new \Swift_Message($translated . ' ' . $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
                 ->setFrom('cprojectlu@noreply.lu')
-                ->setTo('arthur.regnault@altea.lu')
+                ->setTo($vote->getVoter()->getUser()->getEmail())
                 ->setBody(
                     $this->renderView(
                         'AppBundle:Emails:offerClosedVoter.html.twig',
@@ -446,6 +446,58 @@ class AdminController extends Controller
             'winners' => $winners,
             'averageValue' => $averageValue
         ));
+    }
+
+    public function sendInterestedMailAction(Request $request){
+        $id = $request->get('id');
+
+        $session = $request->getSession();
+
+        $user = $this->getUser();
+
+        if(!(isset($user) and in_array('ROLE_ADMIN', $user->getRoles()))){
+            return $this->redirectToRoute('cproject_home');
+        }
+
+        $offerRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Offer')
+        ;
+        $offer = $offerRepository->findOneBy(array('id' => $id));
+
+        $voteRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Vote')
+        ;
+
+        $votes = $voteRepository->findBy(array('offer' => $offer, 'interested' => 1));
+
+        $mailer = $this->container->get('swiftmailer.mailer');
+        $translated = $this->get('translator')->trans('email.stillInterested.subject');
+        foreach ($votes as $vote){
+            $messageVoter = (new \Swift_Message($translated . ' ' . $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
+                ->setFrom('cprojectlu@noreply.lu')
+                ->setTo($vote->getVoter()->getUser()->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'AppBundle:Emails:stillInterested.html.twig',
+                        array('offer' => $offer
+                        )
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $messageVoter->getHeaders()->addTextHeader(
+                CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
+            );
+
+            $mailer->send($messageVoter);
+        }
+
+        return $this->redirectToRoute('list_offer_admin');
     }
 
     public function logPageAction(Request $request)
