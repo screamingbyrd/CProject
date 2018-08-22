@@ -8,16 +8,16 @@
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-
+    <div class="container-progress-bar">
+        <div class="progress-bar"></div>
+    </div>
     <div class="container post-offer">
 
         <h3 class="text-center">{{ 'header.proposers.post'|trans }}</h3>
 
-        <div class="row">
-
+        <div class="row form-row">
 
         <div class="col-md-8 col-sm-8">
-
 
         {{ form_start(form, {'attr': {'class': 'form-vertical'}}) }}
 
@@ -121,7 +121,7 @@
 
 
 
-            <div class="col-md-4 col-md-offset-4">
+            <div class="submit-offer-button-container">
                 {{ form_widget(form.submit, { 'label': 'offer.submit','class': 'btn' }) }}
             </div>
         </div>
@@ -200,9 +200,7 @@
         </div>
 
         <div class="bottom-navigation col-md-12">
-            <div class="container-progress-bar">
-                <div class="progress-bar"></div>
-            </div>
+
 
             <hr>
             <button class="btn btn-primary previous bottom-button">Previous</button>
@@ -348,6 +346,30 @@
         var current = $('.active').data('step');
         $('.progress-bar').css('width',(100*current/5)+"%");
     }
+
+    function detectmob() {
+        if( navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)
+        ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    $(document).ready(function() {
+        if(detectmob()){
+            var topForm = $('.form-vertical').offset().top;
+            var windowHeight = $(window).height();
+            var bottomHeight = $('.bottom-navigation').height();
+            $('.form-panel').css('min-height',windowHeight-topForm-bottomHeight +22);
+        }
+    });
 
 </script>
 

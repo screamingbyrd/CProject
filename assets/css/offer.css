@@ -650,6 +650,68 @@
         margin-left: 0!important;
         margin-top: 10px;
     }
+    .text-center{
+        display: none;
+    }
+    .bottom-button{
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+        width: 125px !important;
+    }
+    .bottom-navigation{
+        border-top: 2px solid;
+        padding-top: 5px;
+        margin-left: -9px;
+        background-color: white;
+        padding-bottom: 5px;
+        margin-bottom: 0 !important;
+        padding-left: 15px !important;
+        bottom: 0 !important;
+    }
+    .bottom-navigation hr{
+        display: none;
+    }
+    .mandatory-text{
+        bottom: 37px !important;
+    }
+    .container-progress-bar{
+        height: 12px !important;
+    }
+    .container-progress-bar .progress-bar{
+        height: 12px !important;
+    }
+    #appbundle_proposer_type{
+        display: inherit !important;
+    }
+    #appbundle_proposer_type label{
+        width: 86% !important;
+        margin: 6px !important;
+    }
+    #appbundle_proposer_type .box{
+        height: 140px !important;
+        transition: none !important;
+    }
+    #appbundle_proposer_type span{
+        top: -30px;
+        transition: none !important;
+    }
+    #appbundle_proposer_type span:before{
+        content: none;
+    }
+    input[type="radio"]:checked + span{
+        transform: none !important;
+    }
+    input[type="radio"]:checked:before{
+        transform: none !important;
+    }
+    #appbundle_proposer_type .box:active{
+        transform: none !important;
+    }
+}
+
+.submit-offer-button-container{
+    width: 200px;
+    margin: auto;
 }
 
 .modal-offer-image{
@@ -819,13 +881,14 @@ h3.post-offer{
 }
 .bottom-navigation{
     position: absolute;
-    bottom: 0;
+    bottom: 20px;
     width: 100%;
     padding-left: 0;
 }
 .container-progress-bar{
+    margin-top: -14px;
     background-color: lightgray;
-    height: 24px;
+    height: 14px;
     -webkit-box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
     -moz-box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
     box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
@@ -834,7 +897,7 @@ h3.post-offer{
     -o-transition: -o-transform 0.5s cubic-bezier(0.9, 0.26, 0.58, 1) false false;
 }
 .progress-bar{
-    height:24px;
+    height:14px;
     color: #337ab7;
 }
 .previous{
