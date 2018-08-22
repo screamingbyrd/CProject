@@ -99,43 +99,43 @@
         </script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
-        <ul id="sortable">
-            <li class="ui-state-default">
+        <ul id="sortable" class="row">
+            <li class="ui-state-default col-md-3 col-sm-3">
                 <input type="file" onchange="readURL(this);" data-image-id="0" class="inputfile inputfile-1" id="appbundle_proposer_images_0_imageFile_file" name="appbundle_proposer[images][0][imageFile][file]">
                 <label for="appbundle_proposer_images_0_imageFile_file"><i class="fas fa-download"></i><span>  1</span></label>
                 <button type="button" class="remove-image" onclick="removeImage(this)"><i class="fas fa-times"></i></button>
             </li>
-            <li class="ui-state-default">
+            <li class="ui-state-default col-md-3 col-sm-3">
                 <input type="file" onchange="readURL(this);" data-image-id="1" class="inputfile inputfile-1" id="appbundle_proposer_images_1_imageFile_file" name="appbundle_proposer[images][1][imageFile][file]">
                 <label for="appbundle_proposer_images_1_imageFile_file"><i class="fas fa-download"></i><span>  2</span></label>
                 <button type="button" class="remove-image" onclick="removeImage(this)"><i class="fas fa-times"></i></button>
             </li>
-            <li class="ui-state-default">
+            <li class="ui-state-default col-md-3 col-sm-3">
                 <input type="file" onchange="readURL(this);" data-image-id="2" class="inputfile inputfile-1" id="appbundle_proposer_images_2_imageFile_file" name="appbundle_proposer[images][2][imageFile][file]">
                 <label for="appbundle_proposer_images_2_imageFile_file"><i class="fas fa-download"></i><span>  3</span></label>
                 <button type="button" class="remove-image" onclick="removeImage(this)"><i class="fas fa-times"></i></button>
             </li>
-            <li class="ui-state-default">
+            <li class="ui-state-default col-md-3 col-sm-3">
                 <input type="file" onchange="readURL(this);" data-image-id="3" class="inputfile inputfile-1" id="appbundle_proposer_images_3_imageFile_file" name="appbundle_proposer[images][3][imageFile][file]">
                 <label for="appbundle_proposer_images_3_imageFile_file"><i class="fas fa-download"></i><span>  4</span></label>
                 <button type="button" class="remove-image" onclick="removeImage(this)"><i class="fas fa-times"></i></button>
             </li>
-            <li class="ui-state-default">
+            <li class="ui-state-default col-md-3 col-sm-3">
                 <input type="file" onchange="readURL(this);" data-image-id="4" class="inputfile inputfile-1" id="appbundle_proposer_images_4_imageFile_file" name="appbundle_proposer[images][4][imageFile][file]">
                 <label for="appbundle_proposer_images_4_imageFile_file"><i class="fas fa-download"></i><span>  5</span></label>
                 <button type="button" class="remove-image" onclick="removeImage(this)"><i class="fas fa-times"></i></button>
             </li>
-            <li class="ui-state-default">
+            <li class="ui-state-default col-md-3 col-sm-3">
                 <input type="file" onchange="readURL(this);" data-image-id="5" class="inputfile inputfile-1" id="appbundle_proposer_images_5_imageFile_file" name="appbundle_proposer[images][5][imageFile][file]">
                 <label for="appbundle_proposer_images_5_imageFile_file"><i class="fas fa-download"></i><span>  6</span></label>
                 <button type="button" class="remove-image" onclick="removeImage(this)"><i class="fas fa-times"></i></button>
             </li>
-            <li class="ui-state-default">
+            <li class="ui-state-default col-md-3 col-sm-3">
                 <input type="file" onchange="readURL(this);" data-image-id="6" class="inputfile inputfile-1" id="appbundle_proposer_images_6_imageFile_file" name="appbundle_proposer[images][6][imageFile][file]">
                 <label for="appbundle_proposer_images_6_imageFile_file"><i class="fas fa-download"></i><span>  7</span></label>
                 <button type="button" class="remove-image" onclick="removeImage(this)"><i class="fas fa-times"></i></button>
             </li>
-            <li class="ui-state-default">
+            <li class="ui-state-default col-md-3 col-sm-3">
                 <input type="file" onchange="readURL(this);" data-image-id="7" class="inputfile inputfile-1" id="appbundle_proposer_images_7_imageFile_file" name="appbundle_proposer[images][7][imageFile][file]">
                 <label for="appbundle_proposer_images_7_imageFile_file"><i class="fas fa-download"></i><span>  8</span></label>
                 <button type="button" class="remove-image" onclick="removeImage(this)"><i class="fas fa-times"></i></button>
@@ -143,6 +143,10 @@
         </ul>
 
         <style>
+            #sortable li{
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
             .remove-image{
                 border-radius: 50%;
                 background-color: #00000080;
@@ -165,7 +169,6 @@
                 list-style-type: none; margin: 0; padding: 0;
             }
             #sortable li {
-                margin: 3px 3px 3px 0;.
                 padding: 1px; float: left;
                 width: 24%;
                 height: 106px;

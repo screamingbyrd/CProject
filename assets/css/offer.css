@@ -707,6 +707,9 @@
     #appbundle_proposer_type .box:active{
         transform: none !important;
     }
+    #appbundle_proposer_submit{
+        margin-top: 25px !important;
+    }
 }
 
 .submit-offer-button-container{

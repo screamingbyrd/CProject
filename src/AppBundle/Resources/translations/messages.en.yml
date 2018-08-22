@@ -238,6 +238,7 @@ slot:
     success: The slot has been emptied
 
 offer:
+  title: Title
   posted: Posted the
   location: Location
   locationPH: Indicate a place

@@ -238,6 +238,7 @@ slot:
     success: Le slot à bien été vidé
 
 offer:
+  title: Titre
   posted: Ajouté le
   location: Adresse
   locationPH: Indiquez un lieu

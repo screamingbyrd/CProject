@@ -115,7 +115,7 @@
         <div class="form-panel row shadow-box" data-step="5">
 
                 {% form_theme form.images 'jquery.collection.html.twig' %}
-                {{ form_label (form.images, "Photos") }}
+                {{ form_label (form.images, null, { 'label_attr': {'class': 'label-form'} }) }}
                 {{ form_widget(form.images) }}
                 {{ form_errors(form.images) }}
 
