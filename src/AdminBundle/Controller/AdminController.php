@@ -511,10 +511,6 @@ class AdminController extends Controller
             return $this->redirectToRoute('cproject_home');
         }
 
-        $logRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:ActiveLog');
 
         $proposerRepository = $this
             ->getDoctrine()
@@ -526,16 +522,14 @@ class AdminController extends Controller
             ->getManager()
             ->getRepository('AppBundle:Voter');
 
-        $logCreditRepository = $this
+        $voteRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:LogCredit');
+            ->getRepository('AppBundle:Vote');
 
         $finalActiveLog = array();
         $finalVoterLog = array();
         $finalProposerLog = array();
-        $finalCreditLog = array();
-        $monthlyCreditLog = array();
 
         for ($i = 1; $i <= 12; $i++){
             $startDate = new \DateTime();
@@ -544,19 +538,14 @@ class AdminController extends Controller
             $lastDay = date('t',strtotime($dateToTest));
             $endDate= new \DateTime();
             $endDate->setDate($year, $i, $lastDay);
-            $finalActiveLog[] = (int)$logRepository->countActiveBetween($startDate,$endDate)[0]['total'];
             $finalVoterLog[] = (int)$voterRepository->countActiveBetween($endDate)[0]['total'];
             $finalProposerLog[] =(int)$proposerRepository->countActiveBetween($endDate)[0]['total'];
-            $finalCreditLog[] =(int)$logCreditRepository->countTotalBefore($endDate)[0]['total'];
-            $monthlyCreditLog[] = (int)$logCreditRepository->countTotalMonthly($i, $year)[0]['total'];
         }
 
         return $this->render('AdminBundle::logPage.html.twig',array(
             'activeOfferLog' => $finalActiveLog,
             'activeProposerLog' => $finalProposerLog,
             'activeVoterLog' => $finalVoterLog,
-            'creditLog' => $finalCreditLog,
-            'monthlyCreditLog' => $monthlyCreditLog,
             'year' => $year
         ));
     }

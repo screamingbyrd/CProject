@@ -399,6 +399,9 @@ email:
   endOfActivation:
     closed: The estimation time of your offer is finished
     youOffer: The estimation time of your offer %title% is finished. It has been evaluated to %averageValue%, our expert will choose a final value. You will be informed of it at this moment.
+  archived:
+    subject: The offer has been archived :
+    mail: The offer %title% has been archived before the end of estimation.
   closed:
     subject: The final value has been chosen
     mailProposer: Our expert estimated that the price of your offer %title% is %finalPrice% euros. You will be directly contacted by phone if we chose to buy it.

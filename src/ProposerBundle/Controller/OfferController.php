@@ -183,31 +183,78 @@ class OfferController extends Controller
         ;
         $proposer = $proposerRepository->findOneBy(array('id' => $user->getProposer()));
 
-        $ids = is_array($id)?$id:array($id);
-
         $offerRepository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('AppBundle:Offer')
         ;
 
-        foreach ($ids as $id){
-            $offer = $offerRepository->findOneBy(array('id' => $id));
+        $offer = $offerRepository->findOneBy(array('id' => $id));
 
-            if(!((isset($user) and in_array('ROLE_PROPOSER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
-                $translated = $this->get('translator')->trans('form.offer.edition.error');
-                $session->getFlashBag()->add('danger', $translated);
-                return $this->redirectToRoute('dashboard_proposer', array('archived' => $_SESSION['archived']));
-            }
-
-            $bool = boolval($offer->isArchived());
-            $offer->setArchived(!$bool);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->merge($offer);
+        if(!((isset($user) and in_array('ROLE_PROPOSER', $user->getRoles()) and $offer->getProposer()->getId() == $proposer->getId()) || in_array('ROLE_ADMIN', $user->getRoles()))){
+            $translated = $this->get('translator')->trans('form.offer.edition.error');
+            $session->getFlashBag()->add('danger', $translated);
+            return $this->redirectToRoute('dashboard_proposer', array('archived' => $_SESSION['archived']));
         }
 
+        $bool = boolval($offer->isArchived());
+        $offer->setArchived(!$bool);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->merge($offer);
+
         $em->flush();
+
+        if(!$bool == true){
+            $voteRepository = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('AppBundle:Vote')
+            ;
+
+            $votes = $voteRepository->findBy(array('offer' => $offer));
+            $mailer = $this->container->get('swiftmailer.mailer');
+            $translated = $this->get('translator')->trans('email.archived.subject');
+            foreach ($votes as $vote){
+                $messageVoter = (new \Swift_Message($translated . ' ' . $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
+                    ->setFrom('cprojectlu@noreply.lu')
+                    ->setTo($vote->getVoter()->getUser()->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'AppBundle:Emails:offerArchived.html.twig',
+                            array('offer' => $offer,
+                            )
+                        ),
+                        'text/html'
+                    )
+                ;
+
+                $messageVoter->getHeaders()->addTextHeader(
+                    CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
+                );
+
+                $mailer->send($messageVoter);
+            }
+
+            $messageProposer = (new \Swift_Message($translated . ' ' . $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
+                ->setFrom('cprojectlu@noreply.lu')
+                ->setTo($offer->getProposer()->getUser()->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'AppBundle:Emails:offerArchived.html.twig',
+                        array('offer' => $offer,
+                        )
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $messageProposer->getHeaders()->addTextHeader(
+                CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
+            );
+
+            $mailer->send($messageProposer);
+        }
 
         $translated = $this->get('translator')->trans(!$bool?'form.offer.archived.success':'form.offer.unarchived.success');
         $session->getFlashBag()->add('info', $translated);
@@ -278,6 +325,34 @@ class OfferController extends Controller
         );
         $mailer->send($message);
 
+        $voteRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Vote')
+        ;
+
+        $votes = $voteRepository->findBy(array('offer' => $offer));
+        $translated = $this->get('translator')->trans('email.archived.subject');
+        foreach ($votes as $vote){
+            $messageVoter = (new \Swift_Message($translated . ' ' . $this->get('translator')->trans($offer->getType()) . ' ' . $offer->getTown()))
+                ->setFrom('cprojectlu@noreply.lu')
+                ->setTo($vote->getVoter()->getUser()->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'AppBundle:Emails:offerArchived.html.twig',
+                        array('offer' => $offer,
+                        )
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $messageVoter->getHeaders()->addTextHeader(
+                CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
+            );
+
+            $mailer->send($messageVoter);
+        }
 
         return $this->redirectToRoute('list_offer_admin');
     }
@@ -579,63 +654,6 @@ class OfferController extends Controller
             'autoComplete' => $autoCompleteHelper->render($autoComplete),
             'autoCompleteScript' => $apiHelper->render([$autoComplete])
         ));
-    }
-
-    public function boostAction(Request $request){
-        $session = $request->getSession();
-
-        $user = $this->getUser();
-
-        $proposerRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Proposer')
-        ;
-        $proposer = $proposerRepository->findOneBy(array('id' => $user->getProposer()));
-
-        $offerRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Offer')
-        ;
-
-        if(!isset($user) || !in_array('ROLE_PROPOSER', $user->getRoles())){
-            $translated = $this->get('translator')->trans('redirect.proposer');
-            $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('create_proposer');
-        }
-
-        $creditInfo = $this->container->get('app.credit_info');
-
-        $creditProposer = $proposer->getCredit();
-        $creditBoost = $creditInfo->getBoostOffers();
-
-        if($creditProposer < $creditBoost){
-            $translated = $this->get('translator')->trans('form.offer.boost.error');
-            $session->getFlashBag()->add('danger', $translated);
-            return $this->redirectToRoute('cproject_credit');
-        }
-
-        $proposer->setCredit($creditProposer - $creditBoost);
-
-        $offers = $offerRepository->findBy(array('proposer' => $proposer, 'archived' => false));
-        $em = $this->getDoctrine()->getManager();
-        if(count($offers) > 0){
-            $now =  new \DateTime();
-            foreach ($offers as $offer){
-                $offer->setUpdateDate($now);
-                $em->merge($offer);
-            }
-        }
-
-
-        $em->merge($proposer);
-        $em->flush();
-
-        $translated = $this->get('translator')->trans('form.offer.boost.success');
-        $session->getFlashBag()->add('info', $translated);
-
-        return $this->redirectToRoute('proposer_offers', array('archived' => $_SESSION['archived']));
     }
 
     public function voteAction(Request $request){

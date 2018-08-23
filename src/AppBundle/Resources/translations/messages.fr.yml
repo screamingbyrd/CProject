@@ -10,7 +10,7 @@ type:
 homepage:
   title: Find the career you deserve
   subtitle: Your job search starts and ends with us
-  ourMission: Notre mission est d'habiliter les entreprises locales à trouver le candidat idéal. Nous travaillons également pour les candidats afin de les aider à trouver et obtenir leur emploi idéal au Luxembourg. Notre équipe dévouée d'experts en recrutement travaille tous les jours pour offrir le meilleur service à la clientèle et le meilleur jumelage pour les employeurs et les candidats. Notre tout nouveau site offre un développement continu pour une meilleure expérience chaque jour.
+  ourMission: Notre mission est d'habiliter les entreprises locales à trouver le voteur idéal. Nous travaillons également pour les voteurs afin de les aider à trouver et obtenir leur emploi idéal au Luxembourg. Notre équipe dévouée d'experts en recrutement travaille tous les jours pour offrir le meilleur service à la clientèle et le meilleur jumelage pour les proposeurs et les voteurs. Notre tout nouveau site offre un développement continu pour une meilleure expérience chaque jour.
   category: Catégories
   ourPartners: Nos partenaire
 
@@ -29,23 +29,23 @@ header:
   profile: Mon compte
   logout: Déconnexion
   voters:
-    title: Candidats
+    title: Voteurs
     findJob: Trouver un travail
     companies: Entreprise
     submit: Envoyer votre cv
     profile: Mon profile
     dashboard:
       alert: Mes Notifications
-      applied: Mes candidatures
+      applied: Mes voteurures
       favorites: Mes favoris
-    register: Candidat
+    register: Voteur
   proposers:
-    title: Employeurs
+    title: Proposeurs
     post: Poster une offre
-    findVoter: Trouver un candidat
+    findVoter: Trouver un voteur
     pricing: Prix
     dashboard: Tableau de bord
-    register: Employeur
+    register: Proposeur
   about:
     title: A propos de nous
     faq: FAQ
@@ -62,8 +62,8 @@ form:
   registration:
     title:
       title: Titre
-      voter: S'incrire en tant que candidat
-      proposer: S'inscrire en tant qu'employeur
+      voter: S'incrire en tant que voteur
+      proposer: S'inscrire en tant qu'proposeur
       create: Créer votre compte
       edit: Modifier vos informations
     subTitle:
@@ -87,11 +87,11 @@ form:
     description: Description
     license: Permis de conduire
     success: Vous êtes à présent inscrit en temps que recruteur !
-    edited: L'employeur a bien été modifé !
+    edited: L'proposeur a bien été modifé !
     editedVoter: Votre compté à bien été modifié !
     error: Adresse e-mail déjà utilisé, veuillez réessayer !
     successProposer: Vous êtes à présent inscrit en temps que recruteur !
-    successVoter: Vous êtes à présent inscrit en temps que candidat !
+    successVoter: Vous êtes à présent inscrit en temps que voteur !
     error: Adresse e-mail déjà utilisé, veuillez réessayer !
     language: Langues
     exp0: -- Indiquez votre expérience --
@@ -223,8 +223,8 @@ dashboard:
     type: Type
   action: Action
   view: Vue
-  applied: Candidature
-  viewVoter: Voir la liste des candidats
+  applied: Voteurure
+  viewVoter: Voir la liste des voteurs
   not: Non activée
 
 slot:
@@ -292,12 +292,12 @@ offer:
     message: Lettre de motivation
     cv: CV
   countView: Vues
-  countContact: Candidatures
+  countContact: Voteurures
 
   applied:
     success: Vous avez bien postulé à l'offre %title% !
     voter: Vous avez postulez à l'offre
-    proposer: Un candidat à postulé à cette offre :
+    proposer: Un voteur à postulé à cette offre :
 
   value: Valeur :
   interested: Je suis interessé par ce bien
@@ -319,7 +319,7 @@ voter:
     deleted: Your profile has been deleted
   age: Âge
   tag: Domaines de compétence
-  about: A propos de ce candidat
+  about: A propos de ce voteur
 
 proposer:
   show:
@@ -330,9 +330,9 @@ proposer:
     allOffers: Toute nos offres
     tags: Catégories
     spontaenous:
-      title: Candidature spontanée
-      send: Vous avez reçu une candidature spontanée
-      sent: Votre candidature à bien été envoyé
+      title: Voteurure spontanée
+      send: Vous avez reçu une voteurure spontanée
+      sent: Votre voteurure à bien été envoyé
   edit:
     complete: Completer vos informations
     completed: Profile complété
@@ -371,7 +371,7 @@ featured:
   week: Semaine
   reserved: Réservé
   proposer:
-    title: Employeurs en avant
+    title: Proposeurs en avant
     modal: Etes vous sure de vouloir réserver cette semaine? Cela vous coutera %credit% crédits.
     reserve: Réserver
   offer:
@@ -398,6 +398,9 @@ email:
   endOfActivation:
     closed: La periode d'estimation de votre offre est terminé
     youOffer: La periode d'estimation de votre offre %title% est terminé elle à été estimé par les voteurs a %averageValue%, notre expert immobilier va décider du prix final, vous serez avertit par email a ce moment là.
+  archived:
+    subject: L'offre à été archivé :
+    mail: L'offre %title% à été archivée avant la fin de sa periode d'estimation.
   closed:
     subject: La valeur final de l'offre à été choisit.
     mailProposer: Notre expert à éstimé que le prix de votre offre %title% était de %finalPrice% euros. Vous serez directement contacté par téléphone si nous décidond d'acheter.
@@ -448,7 +451,7 @@ notification:
   mine: Mes notifications
   already: La notification existe déjà !
   tag: Categorie
-  proposer: Employeur
+  proposer: Proposeur
   search: Recherche
   if: Si vous ne souhaitez plus reçevoir cette alert email clickez
   here: ici
@@ -469,7 +472,7 @@ searchProposer:
 
 about:
   let: Let us present ourselves
-  text1: Jobnow est une très jeune startup. Notre fondateur, Jean-Charles Weiss, avait déjà une expérience dans le domaine du recrutement et a souhaité proposer aux entreprises et aux candidats une meilleure approche de ce moment stressant. Une approche moins chère et plus moderne. Il a donc créé cette plateforme, dont le concept est unique au Luxembourg.
+  text1: Jobnow est une très jeune startup. Notre fondateur, Jean-Charles Weiss, avait déjà une expérience dans le domaine du recrutement et a souhaité proposer aux entreprises et aux voteurs une meilleure approche de ce moment stressant. Une approche moins chère et plus moderne. Il a donc créé cette plateforme, dont le concept est unique au Luxembourg.
   text2: L'équipe est également composée de deux développeurs dédiés et quelque peu grincheux, qui sont à l'origine de la construction, de la conception et de l'exécution du site.
   text3: Enfin, notre équipe dévouée de conseillers est là pour répondre à vos questions et vous guider tout au long du processus d'acquisition de crédits pour vos offres d'emploi.
 
@@ -480,36 +483,36 @@ faq:
   kind: Quelle type d'utilisateur êtes vous ?
   subTitle: Une explication est toujours mieux
   proposer:
-    intro: Parce que nous croyons que le recrutement devrait être une tâche facile, nous avons rendu les choses aussi simples que possible pour vous! Le site est conçu pour vous aider à trouver le candidat idéal au moment idéal. Comment ça marche? Une fois que vous avez créé votre compte et que vous avez publié votre première annonce pour une position ouverte pour votre entreprise, vous devez simplement vous asseoir, vous détendre et laisser les candidats venir à vous! Alors, comment trouvez-vous votre match parfait? Lors de la création de l’annonce vous pourrez choisir des étiquettes (tags) pour affiner votre recherche et vous assurer d'obtenir des candidats correspondant à votre offre d'emploi, ce qui facilite le choix du bon candidat.
+    intro: Parce que nous croyons que le recrutement devrait être une tâche facile, nous avons rendu les choses aussi simples que possible pour vous! Le site est conçu pour vous aider à trouver le voteur idéal au moment idéal. Comment ça marche? Une fois que vous avez créé votre compte et que vous avez publié votre première annonce pour une position ouverte pour votre entreprise, vous devez simplement vous asseoir, vous détendre et laisser les voteurs venir à vous! Alors, comment trouvez-vous votre match parfait? Lors de la création de l’annonce vous pourrez choisir des étiquettes (tags) pour affiner votre recherche et vous assurer d'obtenir des voteurs correspondant à votre offre d'emploi, ce qui facilite le choix du bon voteur.
     1:
       question: Pourquoi et comment s'inscrire ?
       answer: L'inscription auprès de notre site vous permet de bénéficier de toutes les fonctionnalités offertes par notre plateforme. C'est très facile à faire et gratuit! Vous devez simplement cliquer sur s'inscrire et remplir les informations demandées. Vous serez alors en mesure de modifier le profil de votre entreprise et commencer à ajouter toute offre d'emploi que vous avez.
     2:
       question: Comment fonctionne mon tableau de bord ?
-      answer: Vous trouverez un tableau de bord réfléchi et conçu pour votre confort. Vous aurez toutes les informations dont vous avez besoin concernant vos profils favoris, vos offres d'emploi, vos factures et vos crédits restants en une seul endroit. Cliquez simplement sur l'une des sections pour découvrir ce qu'ils cachent et comment ils peuvent vous aider à obtenir le candidat idéal.
+      answer: Vous trouverez un tableau de bord réfléchi et conçu pour votre confort. Vous aurez toutes les informations dont vous avez besoin concernant vos profils favoris, vos offres d'emploi, vos factures et vos crédits restants en une seul endroit. Cliquez simplement sur l'une des sections pour découvrir ce qu'ils cachent et comment ils peuvent vous aider à obtenir le voteur idéal.
     3:
       question: Comment poster une offre ?
-      answer: Publier une offre est extrêmement facile! Il suffit de cliquer sur "publier une offre" sous Employeurs dans la barre de menu et vous serez guidé pour remplir les informations concernant la position ouverte. Vous serez en mesure de prévisualiser votre offre d'emploi avant d'accepter sa mise en page et son contenu et de la publier.
+      answer: Publier une offre est extrêmement facile! Il suffit de cliquer sur "publier une offre" sous Proposeurs dans la barre de menu et vous serez guidé pour remplir les informations concernant la position ouverte. Vous serez en mesure de prévisualiser votre offre d'emploi avant d'accepter sa mise en page et son contenu et de la publier.
     4:
       question: Quels sont les crédits ?
       answer: Chaque offre d'emploi vaut un crédit afin que vous puissiez suivre vos dépenses facilement. Vous pouvez également utiliser des crédits pour de nombreuses autres fonctionnalités de notre plate-forme, telles que les offres en vedettes.
     5:
       question: Combien valent-ils ?
-      answer: Une fois que vous vous êtes inscrit en tant qu'employeur, vous trouverez une section détaillant le prix des crédits. Notre propre expérience nous a appris que le recrutement coûte cher, alors nous avons décidé de rendre ces crédits abordables pour vous ... et ils viennent avec des bonus!
+      answer: Une fois que vous vous êtes inscrit en tant qu'proposeur, vous trouverez une section détaillant le prix des crédits. Notre propre expérience nous a appris que le recrutement coûte cher, alors nous avons décidé de rendre ces crédits abordables pour vous ... et ils viennent avec des bonus!
     6:
       question: Qu'est-ce qu'une offre en vedette ?
-      answer: Si vous souhaitez mettre en évidence une offre d'emploi, vous utiliserez l'option d'emploi en vedette. Cela vous permet de rester en tête du moteur de recherche et donc d'être beaucoup plus visible pour les candidats potentiels.
+      answer: Si vous souhaitez mettre en évidence une offre d'emploi, vous utiliserez l'option d'emploi en vedette. Cela vous permet de rester en tête du moteur de recherche et donc d'être beaucoup plus visible pour les voteurs potentiels.
     7:
-      question: Qu'est-ce qu'un employeur en vedette ?
-      answer: Vous voulez promouvoir votre entreprise et les nombreux avantages que vous offrez à vos employés? C'est pourquoi nous avons créé l'employeur vedette. Votre entreprise sera visible sur notre page d'accueil pour vous offrir le maximum de visibilité auprès de nos candidats. Ils seront en mesure de parcourir l'historique et la description de votre entreprise et de voir tous les postes disponibles que vous avez.
+      question: Qu'est-ce qu'un proposeur en vedette ?
+      answer: Vous voulez promouvoir votre entreprise et les nombreux avantages que vous offrez à vos employés? C'est pourquoi nous avons créé l'proposeur vedette. Votre entreprise sera visible sur notre page d'accueil pour vous offrir le maximum de visibilité auprès de nos voteurs. Ils seront en mesure de parcourir l'historique et la description de votre entreprise et de voir tous les postes disponibles que vous avez.
     8:
       question: Que sont les slots?
       answer: Les slots sont des espaces que vous pouvez «louer» pour une année entière et où vous pouvez afficher toute offre d'emploi que vous pourriez avoir.
   voter:
-      intro: Parce que nous croyons fermement que le recrutement devrait être une tâche facile, c’est pourquoi nous avons rendu les choses aussi simples que possible pour vous! Le site est conçu pour vous aider à trouver le candidat idéal au moment idéal. Comment ça marche? Une fois que vous avez créé votre compte et que vous avez publié votre première annonce sur une position ouverte pour votre entreprise, vous devez simplement vous asseoir, vous détendre et laisser les candidats venir à vous! Alors, comment trouvez-vous votre match parfait? L'offre d'emploi vous permet de choisir des étiquettes pour affiner votre bassin de candidats et vous assurer d'obtenir des candidats correspondant à votre offre d'emploi, ce qui facilite le choix du bon candidat.
+      intro: Parce que nous croyons fermement que le recrutement devrait être une tâche facile, c’est pourquoi nous avons rendu les choses aussi simples que possible pour vous! Le site est conçu pour vous aider à trouver le voteur idéal au moment idéal. Comment ça marche? Une fois que vous avez créé votre compte et que vous avez publié votre première annonce sur une position ouverte pour votre entreprise, vous devez simplement vous asseoir, vous détendre et laisser les voteurs venir à vous! Alors, comment trouvez-vous votre match parfait? L'offre d'emploi vous permet de choisir des étiquettes pour affiner votre bassin de voteurs et vous assurer d'obtenir des voteurs correspondant à votre offre d'emploi, ce qui facilite le choix du bon voteur.
       1:
         question: Comment créer un profil ?
-        answer: Pour créer un profil de candidat, vous devrez vous inscrire. C'est super facile et ne prendra qu'une minute environ. Vous serez en mesure de compléter votre profil avec vos expériences passées et de postuler à l'ouverture d'emplois.
+        answer: Pour créer un profil de voteur, vous devrez vous inscrire. C'est super facile et ne prendra qu'une minute environ. Vous serez en mesure de compléter votre profil avec vos expériences passées et de postuler à l'ouverture d'emplois.
       2:
         question: Comment postuler à un emploi ?
         answer: Maintenant vous êtes vraiment ici parce que vous cherchez un nouvel emploi, alors voici comment appliquer à un. Notre section «trouver un emploi» vous montrera toutes les positions ouvertes que nous avons. Vous pouvez affiner votre recherche en utilisant le moteur de recherche et ses filtres. Une fois que vous avez trouvé un emploi qui vous convient, il vous suffit de cliquer sur Appliquer, ajouter votre CV et une lettre de motivation si vous le souhaitez. Voilà! Vous avez fait le premier pas vers un nouveau voyage passionnant!
@@ -518,13 +521,13 @@ faq:
         answer: Par mail en passant par notre plateforme ou directement par votre cv.
 
 redirect:
-  voter: Veuillez vous inscrire en tant que candidat
+  voter: Veuillez vous inscrire en tant que voteur
   proposer: Veuillez vous inscrire en tant qu'proposer
 
 price:
   credit: Crédit
   credits: Crédit(s)
-  find: Trouver le candidat idéal peut prendre du temps, mais il est plus important encore d’utiliser la bonne plateforme. Parfois, cela est lié à combien vous êtes prêt à dépenser pour votre offre d'emploi. Nos forfaits compétitifs vous offrent une option abordable pour recruter le candidat idéal à moindre coût!
+  find: Trouver le voteur idéal peut prendre du temps, mais il est plus important encore d’utiliser la bonne plateforme. Parfois, cela est lié à combien vous êtes prêt à dépenser pour votre offre d'emploi. Nos forfaits compétitifs vous offrent une option abordable pour recruter le voteur idéal à moindre coût!
   price: Prix
   bills: Facture
   ourPackages: Nos offres
@@ -561,15 +564,15 @@ bill:
 admin:
   title: Administrateur
   dashboard:
-    proposerList: Liste des employeurs
-    voterList: Liste des candidats
+    proposerList: Liste des proposeurs
+    voterList: Liste des voteurs
     adList: Liste des pubs
     createAd: Créer une pub
     stat: Statistique
     offerList: Liste des offres
     adminList: Liste des admins
     totalActiveOffers: Total offre active:
-    totalProposers: Total employeurs:
+    totalProposers: Total proposeurs:
   adminList:
     addAdmin:  Ajouter un admin
     enter: Entrer l'email d'un user existant
@@ -588,8 +591,8 @@ admin:
   enterMail: Entrer un email
   enterCompnay: Entrer un nom de société
   enterTitle: Entrer un titre
-  sureVoter: Etes vous sûre de vouloir effacer ce candidat ?
-  sureProposer: Etes vous sûre de vouloir effacer cette employeur ?
+  sureVoter: Etes vous sûre de vouloir effacer ce voteur ?
+  sureProposer: Etes vous sûre de vouloir effacer cette proposeur ?
   offerList:
     totalNonVerifiedOffer: Total offre active non vérifié
     nonArchivedOffers: Offres non archivées
@@ -604,8 +607,8 @@ admin:
     whyInvalid: Pourquoi cette offre n'est elle pas valide ?
   log:
     nbrActive: Nombre d'offre active
-    nbrProposer: Nombre d'employeur
-    nbrVoter: Nombre de candidat
+    nbrProposer: Nombre d'proposeur
+    nbrVoter: Nombre de voteur
     total: Total
     monthly: Mensuel
     totalCredit: Nombre total de credit

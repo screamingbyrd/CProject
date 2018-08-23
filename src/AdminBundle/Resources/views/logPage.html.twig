@@ -20,13 +20,11 @@
         <div class="navbar-dashboard">
             <ul class="nav nav-tabs nav-voter navbar-dashboard">
                 <li class="active">
-                    <a class="tab-log" data-target="#applied" data-toggle="tab" data-id="offer">{{ 'dashboard.proposer.slot.offer'|trans }}</a>
+                    <a class="tab-log" data-target="#applied" data-toggle="tab" data-id="offer">vote</a>
                 </li>
                 <li><a class="tab-log" data-target="#alerts" data-toggle="tab" data-id="proposer">{{ 'notification.proposer'|trans }}</a>
                 </li>
                 <li><a class="tab-log" data-target="#favorites" data-toggle="tab" data-id="voter">{{ 'header.voters.register'|trans }}</a>
-                </li>
-                <li><a class="tab-log" data-target="#credit" data-toggle="tab" data-id="credit">{{ 'price.credit'|trans }}</a>
                 </li>
             </ul>
         </div>
@@ -52,35 +50,6 @@
                         <h2>{{ 'admin.log.nbrVoter'|trans }}</h2>
                         <div class="ct-chart ct-voter ct-perfect-fourth" style="height: 500px;"></div>
                         <div class="point-value"></div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="credit">
-                    <div class="shadow-box">
-                        <div class="tab-content voter-content">
-                            <div class="navbar-dashboard">
-                                <ul class="nav nav-tabs nav-voter navbar-dashboard">
-                                    <li class="active">
-                                        <a class="tab-log" data-target="#total" data-toggle="tab" data-id="total">{{ 'admin.log.total'|trans }}</a>
-                                    </li>
-                                    <li><a class="tab-log" data-target="#monthly" data-toggle="tab" data-id="monthly">{{ 'admin.log.monthly'|trans }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="tab-pane active initial fade" id="total">
-                                <div class="shadow-box">
-                                    <h2>{{ 'admin.log.totalCredit'|trans }}</h2>
-                                    <div class="ct-chart ct-credit ct-perfect-fourth" style="height: 500px;"></div>
-                                    <div class="point-value"></div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="monthly">
-                                <div class="shadow-box">
-                                    <h2>{{ 'admin.log.monthlyCredit'|trans }}</h2>
-                                    <div class="ct-chart ct-credit-monthly ct-perfect-fourth" style="height: 500px;"></div>
-                                    <div class="point-value"></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -176,48 +145,10 @@
                         });
                     }, 500);
                     break;
-                case 'credit':
-                    setTimeout(function(){  var data = {
-                        labels: ['1', '2', '3', '4', '5','6', '7', '8', '9', '10', '11', '12'],
-                        series: [
-                            {{ creditLog |json_encode|raw}}
-                        ]
-                    };
-                    let chart = new Chartist.Line('.ct-credit', data, options);
-                    let addedEvents = false;
-                    chart.on('draw', function() {
-                        if (!addedEvents) {
-                            $('.ct-point').on('mouseover', function() {
-                                $('.point-value').html('<b>{{'admin.log.selected'|trans }}: </b>' + $(this).attr('ct:value'));
-                            });
-                        }
-                    });
-                    }, 500);
-                    break;
-                case 'monthly':
-                    $('#total').removeClass('initial');
-                    setTimeout(function(){  var data = {
-                        labels: ['1', '2', '3', '4', '5','6', '7', '8', '9', '10', '11', '12'],
-                        series: [
-                            {{ monthlyCreditLog |json_encode|raw}}
-                        ]
-                    };
-                        let chart = new Chartist.Line('.ct-credit-monthly', data, options);
-                        let addedEvents = false;
-                        chart.on('draw', function() {
-                            if (!addedEvents) {
-                                $('.ct-point').on('mouseover', function() {
-                                    $('.point-value').html('<b>{{'admin.log.selected'|trans }}: </b>' + $(this).attr('ct:value'));
-                                });
-                            }
-                        });
-                    }, 500);
-                    break;
             }
 
         });
         $('.ct-point').on('mouseover', function(e){
-            console.log('rr');
             $('.point-value').html($(this).val());
         });
 
