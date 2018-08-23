@@ -16,8 +16,8 @@ voter:
     resource: "@VoterBundle/Resources/config/routing.yml"
     type: "be_simple_i18n"
     prefix:
-        en: "/{_locale}/voteur"
-        fr: "/{_locale}/voter"
+        en: "/{_locale}/voter"
+        fr: "/{_locale}/voteur"
 
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"

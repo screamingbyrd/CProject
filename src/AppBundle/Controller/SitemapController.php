@@ -35,9 +35,6 @@ class SitemapController extends Controller
             $this->get('router')->generate('fos_user_security_login',array('_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
         $urls[] = ['loc' =>
-            $this->get('router')->generate('cproject_credit',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
-        ];
-        $urls[] = ['loc' =>
             $this->get('router')->generate('contact_us_page',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
         $urls[] = ['loc' =>
@@ -53,10 +50,6 @@ class SitemapController extends Controller
 
         $urls[] = ['loc' =>
             $this->get('router')->generate('legal_page',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
-        ];
-
-        $urls[] = ['loc' =>
-            $this->get('router')->generate('howitwork_page',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
 
         //VoterBundle routing
@@ -78,21 +71,21 @@ class SitemapController extends Controller
             $this->get('router')->generate('search_page_offer',array('locale' => $locale, '_locale' => $locale)), 'changefreq' => 'weekly', 'priority' => '1.0'
         ];
 
-        // Then, we will find all our articles stored in the database
-        $offerRepository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Offer');
-        $offers = $offerRepository->getActiveOffers();
-
-        $generateUrlService = $this->get('app.offer_generate_url');
-
-        // We loop on them
-        foreach ($offers as $offer) {
-            $urls[] = ['loc' =>
-                $this->get('router')->generate('show_offer',array('locale' => $locale, '_locale' => $locale, 'id' => $offer->getId(), 'url' => $generateUrlService->generateOfferUrl($offer))), 'changefreq' => 'weekly', 'priority' => '1.0'
-            ];
-        }
+//        // Then, we will find all our articles stored in the database
+//        $offerRepository = $this
+//            ->getDoctrine()
+//            ->getManager()
+//            ->getRepository('AppBundle:Offer');
+//        $offers = $offerRepository->getActiveOffers();
+//
+//        $generateUrlService = $this->get('app.offer_generate_url');
+//
+//        // We loop on them
+//        foreach ($offers as $offer) {
+//            $urls[] = ['loc' =>
+//                $this->get('router')->generate('show_offer',array('locale' => $locale, '_locale' => $locale, 'id' => $offer->getId(), 'url' => $generateUrlService->generateOfferUrl($offer))), 'changefreq' => 'weekly', 'priority' => '1.0'
+//            ];
+//        }
 
 
         // Once our array is filled, we define the controller response

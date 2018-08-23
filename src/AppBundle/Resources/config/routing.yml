@@ -49,11 +49,6 @@ legal_page:
         en: "/legal"
         fr: "/legale"
     defaults: { _controller: AppBundle:App:legalPage }
-howitwork_page:
-    locales:
-        en: "/how-it-work"
-        fr: "/guide-utilisation"
-    defaults: { _controller: AppBundle:App:howitworkPage }
 create_notification:
     locales:
         en: "/create-notification"
