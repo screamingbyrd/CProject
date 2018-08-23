@@ -7,13 +7,13 @@ dashboard_admin:
 list_proposer_admin:
     locales:
         en: "/proposer/list"
-        fr: "/employeur/liste"
+        fr: "/proposeur/liste"
     defaults: { _controller: AdminBundle:Admin:listProposer }
 
 list_voter_admin:
     locales:
         en: "/voter/list"
-        fr: "/candidat/liste"
+        fr: "/voteur/liste"
     defaults: { _controller: AdminBundle:Admin:listVoter }
 
 list_admin:

@@ -24,7 +24,7 @@ show_proposer:
 list_proposer:
     locales:
         en: "/list-proposer"
-        fr: "/liste-employeur"
+        fr: "/liste-proposeur"
     defaults: { _controller: ProposerBundle:Proposer:list }
 dashboard_proposer:
     locales:
@@ -103,62 +103,6 @@ increment_offer:
         en: "/increment-offer"
         fr: "/incrementer-offre"
     defaults: { _controller: ProposerBundle:Offer:increment }
-featured_proposer_page:
-    locales:
-        en: "/featured-proposer"
-        fr: "/employeur-en-avant"
-    defaults: { _controller: ProposerBundle:Proposer:featuredProposerPage }
-reserve_featured_proposer:
-    locales:
-        en: "/reserve-featured-proposer"
-        fr: "/reserver-employeur-en-avant"
-    defaults: { _controller: ProposerBundle:Proposer:reserveFeaturedProposer }
-delete_featured_proposer:
-    locales:
-        en: "/delete-featured-proposer"
-        fr: "/supprimer-employeur-en-avant"
-    defaults: { _controller: ProposerBundle:Proposer:deleteFeaturedProposer }
-featured_offer_page:
-    locales:
-        en: "/featured-offer"
-        fr: "/offre-en-avant"
-    defaults: { _controller: ProposerBundle:Proposer:featuredOfferPage }
-reserve_featured_offer:
-    locales:
-        en: "/reserve-featured-offer"
-        fr: "/reserver-offre-en-avant"
-    defaults: { _controller: ProposerBundle:Proposer:reserveFeaturedOffer }
-delete_featured_offer:
-    locales:
-        en: "/delete-featured-offer"
-        fr: "/supprimer-offre-en-avant"
-    defaults: { _controller: ProposerBundle:Proposer:deleteFeaturedOffer }
-buy_slot:
-    locales:
-        en: "/buy-slot"
-        fr: "/acheter-slot"
-    defaults: { _controller: ProposerBundle:Proposer:buySlot }
-add_to_slot:
-    locales:
-        en: "/add-to-slot"
-        fr: "/ajouter-aux-slot"
-    defaults: { _controller: ProposerBundle:Proposer:addToSlot }
-    requirements:
-      id: \d+
-remove_from_slot:
-    locales:
-        en: "/remove-from-slot/{id}"
-        fr: "/enlever-du-slot/{id}"
-    defaults: { _controller: ProposerBundle:Proposer:removeFromSlot }
-    requirements:
-      id: \d+
-empty_slot:
-    locales:
-        en: "/empty-slot/{id}"
-        fr: "/vider-slot/{id}"
-    defaults: { _controller: ProposerBundle:Proposer:EmptySlot }
-    requirements:
-      id: \d+
 offer_archived:
     locales:
         en: "/offer-archived/{id}"
@@ -167,13 +111,8 @@ offer_archived:
 applied_voter_page:
     locales:
         en: "/voters-for-offer/{id}"
-        fr: "/candidats-a-offre/{id}"
+        fr: "/voteur-de-offre/{id}"
     defaults: { _controller: ProposerBundle:Proposer:listAppliedVoterPage }
-apply_spontaneous:
-    locales:
-        en: "/spontaneous-application/{id}"
-        fr: "/candidature-spontane/{id}"
-    defaults: { _controller: ProposerBundle:Proposer:sendSearch }
 end_activation_offer_mail:
     locales:
         en: "/mail-end-activation"

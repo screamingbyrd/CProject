@@ -9,22 +9,22 @@ cproject_contact:
 cproject_credit:
     locales:
         en: "/proposer/credit"
-        fr: "/employeur/credit"
+        fr: "/proposeur/credit"
     defaults: { _controller: AppBundle:Credit:credit }
 cproject_bills:
     locales:
         en: "/proposer/bills"
-        fr: "/employeur/facture"
+        fr: "/proposeur/facture"
     defaults: { _controller: AppBundle:Credit:bills }
 cproject_bills_generate:
     locales:
         en: "/proposer/bills/pdf"
-        fr: "/employeur/facture/pdf"
+        fr: "/proposeur/facture/pdf"
     defaults: { _controller: AppBundle:Credit:generateBill }
 cproject_payment:
     locales:
         en: "/proposer/payment/{id}"
-        fr: "/employeur/paiement/{id}"
+        fr: "/proposeur/paiement/{id}"
     defaults: { _controller: AppBundle:Credit:credit }
 contact_us_page:
     locales:

@@ -10,13 +10,13 @@ proposer:
     type: "be_simple_i18n"
     prefix:
          en: "/{_locale}/proposer"
-         fr: "/{_locale}/employeur"
+         fr: "/{_locale}/proposeur"
 
 voter:
     resource: "@VoterBundle/Resources/config/routing.yml"
     type: "be_simple_i18n"
     prefix:
-        en: "/{_locale}/candidat"
+        en: "/{_locale}/voteur"
         fr: "/{_locale}/voter"
 
 admin:
