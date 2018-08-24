@@ -20,9 +20,9 @@ class GenerateUrl
     }
 
     /**
-     * This method registers an user in the database manually.
+     * generate a seo friendly url
      *
-     * @return User
+     * @return string
      **/
     public function generateOfferUrl($offer){
         $url = '';
