@@ -65,7 +65,6 @@ class ContactController extends Controller
         $message->getHeaders()->addTextHeader(
             CssInlinerPlugin::CSS_HEADER_KEY_AUTODETECT
         );
-        $mailer->send($message);
 
         return $this->get('mailer')->send($message);
     }
