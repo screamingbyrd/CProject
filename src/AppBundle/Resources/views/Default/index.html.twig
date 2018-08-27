@@ -8,14 +8,14 @@
 
     <div class="jumbotron homepage-jumbotron">
         <h2>Estimer votre bien</h2>
-        <div class="col-md-6">
+        <div class="col-md-6 col-xs-6">
             <div class="cproject-container">
                 <div class="cproject-description">
                     <a href="{{ path('post_offer') }}" class="cproject-button homepage-button">Post offer</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-xs-6">
             <div class="cproject-container">
                 <div class="cproject-description">
                     <div class="cproject-description homepage-button">
@@ -27,11 +27,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 post-homepage ">
+        <div class="col-md-6 col-xs-6 post-homepage ">
             <div class="cproject-container">
                 <div class="cproject-description">
                     <div style="display: -webkit-inline-box;">
-                        <img class="about-us-icon" src="{{asset('images/house.svg')}}"><h3>Submit your offer</h3>
+                        <img class="about-us-icon" src="{{asset('images/house.svg')}}"><span class="cproject-title">Submit your offer</span>
                     </div>
                     <p>{{ 'homepage.ourMission' |trans}}</p>
                     <div class="process-block">
@@ -47,11 +47,11 @@
                 </div>
             </div>
         </div>
-        <div class="estimate-homepage col-md-6">
+        <div class="estimate-homepage col-md-6 col-xs-6">
             <div class="cproject-container">
                 <div class="cproject-description">
                     <div style="display: -webkit-inline-box;">
-                        <img class="about-us-icon" src="{{asset('images/tag.svg')}}"><h3>Gagner une commission en estimant le prix</h3>
+                        <img class="about-us-icon" src="{{asset('images/tag.svg')}}"><span class="cproject-title">Gagner une commission en estimant le prix</span>
                     </div>
                     <p>{{ 'homepage.ourMission' |trans}}</p>
                     <div class="process-block"><i class="fas fa-file"></i></div>
@@ -71,9 +71,9 @@
     </div>
 
 
-    <div class="jumbotron">
-        <div style="display: -webkit-inline-box;">
-            <img class="about-us-icon" src="{{asset('images/search.svg')}}"><h3>{{ 'header.about.title'|trans }}</h3>
+    <div class="jumbotron about-us-jumbotron">
+        <div class="about-us-title-container" style="display: -webkit-inline-box;">
+            <img class="about-us-icon" src="{{asset('images/search.svg')}}"><span class="cproject-title">{{ 'header.about.title'|trans }}</span>
         </div>
         <p>{{ 'homepage.ourMission' |trans}}</p>
     </div>
@@ -162,8 +162,8 @@
             z-index: -1;
         }
         .homepage-jumbotron{
-            margin-bottom: 0 !important;
-            padding: 141px 0 !important;
+            margin-bottom: 0;
+            padding: 141px 0 ;
         }
         .homepage-button{
             min-width: 150px;
@@ -197,7 +197,7 @@
             padding-right: 50px;
             padding-left: 50px;
         }
-         .jumbotron::after{
+         .about-us-jumbotron::after{
              content: '';
              background-image:url({{asset('images/cproject-home.jpg')}});
              background-size: cover;
@@ -209,6 +209,9 @@
              position:absolute;
              z-index: -1;
          }
+        .about-us-jumbotron{
+            margin-bottom: -10px !important;
+        }
     </style>
 
 {% endblock %}

@@ -13,24 +13,6 @@
     </div>
 
     <div class="container container-offer-page">
-        <div class="row">
-            {% for image in offer.images %}
-                {% set image = asset('uploads' ~ vich_uploader_asset(image, 'imageFile', 'AppBundle\\Entity\\Image')) %}
-            <div class="col-xs-6 col-md-3">
-                <div class="shadow-box image-button zoom" data-src="{{ image }}">
-                    <div class="square" style="background-image: url({{ image }})"></div>
-                </div>
-            </div>
-            {% endfor %}
-<style>
-    .square{
-        width: 100%;
-        padding-bottom: 100%;
-        background-size: cover;
-        background-position: center center;
-    }
-</style>
-        </div>
 
         <div class="shadow-box row">
             <div class="col-xs-6 col-sm-4 col-md-4 about-offer-elements">
@@ -112,7 +94,7 @@
         </div>
 
         {% if "now"|date('Y-m-d') < offer.activationDate|date_modify("+2 week")|date('Y-m-d') %}
-            <div class="shadow-box row">
+            <div class="shadow-box row animated fadeIn">
                 <form id="vote-form" method="post" action="{{ path('vote_offer', {'id':offer.id}) }}">
                     <div class="range-input-box">
                         <div class="fromToPrice">{{ offer.fromPrice }}</div>
@@ -127,15 +109,18 @@
                         </div>
                         <div  class="fromToPrice">{{ offer.toPrice }}</div>
                     </div>
-                    <p>{{ 'offer.value'|trans }} <span id="demo"></span></p>
+                    <p>{{ 'offer.value'|trans }} <span id="demo"></span></p><div>
                     <input type="checkbox" name="interested" value="1"/>
+
+
+
                     <label for="horns">{{ 'offer.interested'|trans }}</label> {{ 'offer.contacted'|trans }}
                     <div>
                         <input type="submit" class="btn btn-primary bottom-button" value="{{ 'offer.estimate'|trans }}">
                     </div>
 
                     <div>{{ 'offer.numberVote'|trans }} {{ countVote }}</div>
-
+            </div>
                     {% if app.user == offer.proposer.user %}
                     <div>{{ 'offer.estimated'|trans }} {{ averageValue }}</div>
                     {% endif %}
@@ -160,6 +145,26 @@
                 <div class="offer-status">Status: {{ statusOffer }}</div>
             </div>
         {% endif %}
+
+        <div class="row">
+            {% for image in offer.images %}
+                {% set image = asset('uploads' ~ vich_uploader_asset(image, 'imageFile', 'AppBundle\\Entity\\Image')) %}
+                <div class="col-xs-6 col-md-3">
+                    <div class="shadow-box image-button zoom" data-src="{{ image }}">
+                        <div class="square" style="background-image: url({{ image }})"></div>
+                    </div>
+                </div>
+            {% endfor %}
+            <style>
+                .square{
+                    width: 100%;
+                    padding-bottom: 100%;
+                    background-size: cover;
+                    background-position: center center;
+                }
+            </style>
+        </div>
+
 
     </div>
 
@@ -189,6 +194,20 @@
         </div>
     </div>
     <style>
+        .bottom-button{
+            background-color: #ff3800;
+        }
+        .bottom-button:hover{
+            background-color: #d84116;
+        }
+        body{
+            background-image: linear-gradient(red, orange);
+        }
+        .shadow-box{
+            border-radius: 4px;
+            box-shadow: 2px 5px 20px rgba(0,0,0,0.4);
+
+        }
         .close span{
             position: absolute;
             top: 1px;
@@ -235,7 +254,7 @@
             cursor: pointer;
             animate: 0.2s;
             box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-            background: #3071a9;
+            background: #ff3800;
             border-radius: 1.3px;
             border: 0.2px solid #010101;
         }
@@ -251,7 +270,7 @@
             margin-top: -14px;
         }
         input[type=range]:focus::-webkit-slider-runnable-track {
-            background: #367ebd;
+            background: #ff3800;
         }
         input[type=range]::-moz-range-track {
             width: 100%;
@@ -259,7 +278,7 @@
             cursor: pointer;
             animate: 0.2s;
             box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-            background: #3071a9;
+            background: #ff3800;
             border-radius: 1.3px;
             border: 0.2px solid #010101;
         }
@@ -283,13 +302,13 @@
             color: transparent;
         }
         input[type=range]::-ms-fill-lower {
-            background: #2a6495;
+            background: #ff3800;
             border: 0.2px solid #010101;
             border-radius: 2.6px;
             box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
         }
         input[type=range]::-ms-fill-upper {
-            background: #3071a9;
+            background: #ff3800;
             border: 0.2px solid #010101;
             border-radius: 2.6px;
             box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
@@ -304,16 +323,19 @@
             cursor: pointer;
         }
         input[type=range]:focus::-ms-fill-lower {
-            background: #3071a9;
+            background: #ff3800;
         }
         input[type=range]:focus::-ms-fill-upper {
-            background: #367ebd;
+            background: #ff3800;
         }
         {% if offer.images.first != false and offer.images.first.imageName is not null %}
             {% set image =  'uploads' ~ vich_uploader_asset(offer.images.first, 'imageFile', 'AppBundle\\Entity\\Image') %}
         {% else %}
             {% set image = 'images/default_cover_image6.jpg' %}
         {% endif %}
+        .offer-jumbotron{
+            padding: 25px;
+        }
         .offer-jumbotron::after{
             content: '';
             background-image:url({{ asset(image) }});

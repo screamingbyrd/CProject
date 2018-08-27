@@ -484,9 +484,7 @@ class OfferController extends Controller
 
             $data = $offerRepository->findBy(array('id'=>$keywords));
         }else{
-
-            $data = $offerRepository->findBy(array('archived' => 0));
-
+            $data = $offerRepository->findBy(array('archived' => 0, 'validated' => 1), array('activationDate' => 'desc'));
         }
 
         $voteRepository = $this
