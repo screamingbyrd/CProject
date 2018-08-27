@@ -101,6 +101,7 @@ vich_uploader:
         offer_image:
             uri_prefix: /images/offer
             upload_destination: '%kernel.project_dir%/web/uploads/images/offer'
+            namer: app.offer_image
 
 
 ivory_google_map:

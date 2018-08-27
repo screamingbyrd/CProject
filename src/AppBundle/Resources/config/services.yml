@@ -16,6 +16,10 @@ services:
   app.redirect.after.login:
         class: AppBundle\Service\AfterLoginRedirect
         arguments: ['@router']
+  app.offer_image:
+        class: AppBundle\Service\Namer
+        tags:
+          - { name: namer }
 
 
 
