@@ -124,25 +124,25 @@
                 <h3>{{ 'form.offer.signIn'|trans }}</h3>
 
                 <div class="col-md-6 form-group">
-                    {{ form_label (form.firstName) }}
+                    {{ form_label (form.firstName) }}<div class="mandatory">*</div>
                     {{ form_widget(form.firstName) }}
                     {{ form_errors(form.firstName) }}
                 </div>
                 <div class="col-md-6 form-group">
-                    {{ form_label (form.lastName) }}
+                    {{ form_label (form.lastName) }}<div class="mandatory">*</div>
                     {{ form_widget(form.lastName) }}
                     {{ form_errors(form.lastName) }}
                 </div>
 
                 <div class="col-md-6 form-group">
-                    {{ form_label (form.email) }}
+                    {{ form_label (form.email) }}<div class="mandatory">*</div>
                     {{ form_widget(form.email) }}
                     {{ form_errors(form.email) }}
                     <div class="error-already-exist">{{ 'form.registration.mailAlreadyExist'|trans }}</div>
                 </div>
 
                 <div class="col-md-6 form-group">
-                    {{ form_label (form.phone) }}
+                    {{ form_label (form.phone) }}<div class="mandatory">*</div>
                     {{ form_widget(form.phone) }}
                     {{ form_errors(form.phone) }}
                 </div>
@@ -151,6 +151,7 @@
                     <p>{{ 'form.registration.passwordValidation'|trans }}</p>
                     {{ form_widget(form.password) }}
                     {{ form_errors(form.password) }}
+                    <div class="error-wrong-password">{{ 'form.registration.passwordValidation'|trans }}</div>
                 </div>
                 <div class="col-md-12">
                     {{ form_widget(form.terms) }}
@@ -419,6 +420,29 @@
         }
     });
 
+    {% if (app.user.roles is not defined) %}
+        $("#appbundle_proposer_submit").prop("disabled",true);
+
+        $('.post-create-proposer-container input').on('blur', function () {
+            var empty = $(".post-create-proposer-container input").filter(function() {
+                return this.value === "";
+            });
+            if(empty.length == 0 && $('#appbundle_proposer_terms').prop('checked') && checkPassword()) {
+                $("#appbundle_proposer_submit").prop("disabled",false);
+            }
+        });
+
+        $('#appbundle_proposer_password_first').on('blur', function () {
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*).*$/;
+            if(!$(this).val().match(regex)){
+                $('.error-wrong-password').show()
+            }else {
+                $('.error-wrong-password').hide()
+            }
+        });
+
+
+    {% endif %}
 </script>
     <script>
         $('#appbundle_proposer_email').on('blur', function () {
@@ -433,7 +457,12 @@
                     $("#appbundle_proposer_submit").prop("disabled",true);
                 }else{
                     $('.error-already-exist').css({'display':'none'});
-                    $("#appbundle_proposer_submit").prop("disabled",false);
+                    var empty = $(".post-create-proposer-container input").filter(function() {
+                        return this.value === "";
+                    });
+                    if(empty.length == 0 && $('#appbundle_proposer_terms').prop('checked') && checkPassword()) {
+                        $("#appbundle_proposer_submit").prop("disabled",false);
+                    }
                 }
 
             });
@@ -447,16 +476,38 @@
             }).done(function( data ) {
                 if(data == ''){
                     $('.error-already-exist').css({'display':'none'});
-                    $("#appbundle_voter_submit").prop("disabled",false);
+                    var empty = $(".post-create-proposer-container input").filter(function() {
+                        return this.value === "";
+                    });
+                    if(empty.length == 0 && $('#appbundle_proposer_terms').prop('checked') && checkPassword()) {
+                        $("#appbundle_proposer_submit").prop("disabled",false);
+                    }
                 }
 
             });
         });
+
+        function checkPassword() {
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*).*$/;
+            var response = false;
+
+
+            if($('#appbundle_proposer_password_first').val() == $('#appbundle_proposer_password_second').val() && $('#appbundle_proposer_password_first').val().match(regex)){
+                response = true;
+            }
+
+            return response;
+        }
     </script>
     <style>
         .error-already-exist{
             display: none;
             color: #f0aa23;
+            margin-top: 5px;
+        }
+        .error-wrong-password{
+            display: none;
+            color: red;
             margin-top: 5px;
         }
     </style>
