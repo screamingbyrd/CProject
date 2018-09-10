@@ -93,7 +93,7 @@
             {% endif %}
         </div>
 
-        {% if "now"|date('Y-m-d') < offer.activationDate|date_modify("+2 week")|date('Y-m-d') %}
+        {% if "now"|date('Y-m-d') < offer.activationDate|date_modify("+2 week")|date('Y-m-d') and offer.finalPrice is null %}
             <div class="shadow-box row animated fadeIn">
                 <form id="vote-form" method="post" action="{{ path('vote_offer', {'id':offer.id}) }}">
                     <div class="range-input-box">
@@ -199,9 +199,6 @@
         }
         .bottom-button:hover{
             background-color: #d84116;
-        }
-        body{
-            background-image: linear-gradient(red, orange);
         }
         .shadow-box{
             border-radius: 4px;

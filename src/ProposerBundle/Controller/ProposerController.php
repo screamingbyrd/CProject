@@ -443,6 +443,8 @@ class ProposerController extends Controller
 
         $searchArray = array('proposer' => $user->getProposer());
 
+        $totalOffers = $OfferRepository->findBy($searchArray);
+
         if($archived == 0){
             $searchArray['archived'] = 0;
         }
@@ -457,7 +459,7 @@ class ProposerController extends Controller
             $finalArray[$offer->getId()]['offer'] = $offer;
         }
 
-        if(count($finalArray) == 1){
+        if(count($totalOffers) == 1){
             return $this->redirectToRoute('show_offer', array('id' => current($finalArray)['offer']->getId(), 'url' => current($finalArray)['offer']->getOfferUrl()));
         }
 

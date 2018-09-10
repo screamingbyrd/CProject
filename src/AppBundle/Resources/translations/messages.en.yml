@@ -308,6 +308,7 @@ offer:
   status:
     active: Active
     standBy: Stand by
+    closed: Closed
 
 voter:
   delete:

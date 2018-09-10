@@ -311,6 +311,7 @@ offer:
   status:
     active: Active
     standBy: En attente
+    closed: Fermée
 
 voter:
   delete:

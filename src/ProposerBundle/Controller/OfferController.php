@@ -432,6 +432,8 @@ class OfferController extends Controller
             $remainingDays = $activationDate->diff($now)->format("%a");
         }
 
+        $finalPrice = $offer->getFinalPrice();
+
         $validated = $offer->getValidated();
         $statusOffer = $this->get('translator')->trans('offer.status.active');
         if($offer->isArchived()){
@@ -440,6 +442,8 @@ class OfferController extends Controller
             $statusOffer = $this->get('translator')->trans('offer.status.standBy');
         }elseif (!$validated){
             $statusOffer = $this->get('translator')->trans('admin.offerList.invalid');
+        }elseif (isset($finalPrice)){
+            $statusOffer = $this->get('translator')->trans('offer.status.closed');
         }
 
         return $this->render('ProposerBundle:Offer:show.html.twig', array(
@@ -500,12 +504,11 @@ class OfferController extends Controller
         $now = new \datetime();
         $now = $now->modify('-2 week');
         $comparaisonNow = new \datetime();
-
         foreach ($data as &$offer){
             $offer->setOfferUrl($generateUrlService->generateOfferUrl($offer));
             $offer->setCountVote($voteRepository->countVoteOffer($offer));
             $validated = $offer->isValidated();
-            if((!isset($validated) || $validated) && $offer->getActivationDate() >= $now){
+            if((!isset($validated) || $validated)){
                 $activationDate = $offer->getActivationDate();
                 date_modify($activationDate, '+2 week');
                 $remainingDays = $activationDate->diff($comparaisonNow)->format("%a");
