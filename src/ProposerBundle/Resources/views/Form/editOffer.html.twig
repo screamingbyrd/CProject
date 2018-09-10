@@ -123,8 +123,41 @@
             </div>
         </div>
 
+        <div style="display: none">
+            <div class="col-md-6 form-group">
+                {{ form_label (form.firstName) }}
+                {{ form_widget(form.firstName) }}
+                {{ form_errors(form.firstName) }}
+            </div>
+            <div class="col-md-6 form-group">
+                {{ form_label (form.lastName) }}
+                {{ form_widget(form.lastName) }}
+                {{ form_errors(form.lastName) }}
+            </div>
 
+            <div class="col-md-6 form-group">
+                {{ form_label (form.email) }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+                <div class="error-already-exist">{{ 'form.registration.mailAlreadyExist'|trans }}</div>
+            </div>
 
+            <div class="col-md-6 form-group">
+                {{ form_label (form.phone) }}
+                {{ form_widget(form.phone) }}
+                {{ form_errors(form.phone) }}
+            </div>
+
+            <div class="col-md-12">
+                <p>{{ 'form.registration.passwordValidation'|trans }}</p>
+                {{ form_widget(form.password) }}
+                {{ form_errors(form.password) }}
+            </div>
+            <div class="col-md-12">
+                {{ form_widget(form.terms) }}
+                {{ form_errors(form.terms) }}
+            </div>
+        </div>
 
 
 

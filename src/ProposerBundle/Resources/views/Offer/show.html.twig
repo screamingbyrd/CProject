@@ -126,7 +126,7 @@
                     {% endif %}
                 </form>
             </div>
-        {% else %}
+        {% elseif offer.validated is not null%}
             <div class="shadow-box row">
                 <h1>{{ 'offer.closed'|trans }}</h1>
                 <div>{{ 'offer.numberVote'|trans }} {{ countVote }}</div>

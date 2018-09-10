@@ -187,6 +187,8 @@ form:
       categoryPH: Select tag(s)
       empty: empty
 
+    signIn: Please sign in
+
 dashboard:
   title: Dashboard
   proposer:

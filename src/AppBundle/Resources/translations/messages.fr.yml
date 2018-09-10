@@ -185,6 +185,8 @@ form:
       categoryPH: Catégorie
       empty: vide
 
+    signIn: Veuillez vous crééer un compte
+
 
 dashboard:
   title: Tableau de bord

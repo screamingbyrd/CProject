@@ -832,6 +832,9 @@
 
 }
 
+.post-create-proposer-container{
+    margin-top: 18px;
+}
 
 .featured-offer-search .offer-thumb-description{
     height: inherit;

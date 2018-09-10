@@ -46,11 +46,6 @@ class OfferController extends Controller
 
         $user = $this->getUser();
 
-        if(isset($_SESSION['request'])){
-            $request = $_SESSION['request'];
-            unset($_SESSION['request']);
-        }
-
         $offer = new Offer();
 
 
@@ -60,13 +55,25 @@ class OfferController extends Controller
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
+            $data = $form->getData();
 
             if(!isset($user)){
-                $_SESSION['request'] = $request;
-                return $this->redirectToRoute('create_proposer', array('postOffer' => true));
+                $userRegister = $this->get('app.user_register');
+                $user = $userRegister->register($data->getEmail(),$data->getEmail(),$data->getPassword(),$data->getFirstName(),$data->getLastName(), 'ROLE_PROPOSER');
             }
 
+            $proposer = new Proposer();
+
             $em = $this->getDoctrine()->getManager();
+
+            $proposer->setPhone($data->getPhone());
+            $proposer->addUser($user);
+            $user->setProposer($proposer);
+
+            $em->persist($user);
+            $em->persist($proposer);
+            $em->flush();
+
 
             $offer->setProposer($user->getProposer());
 

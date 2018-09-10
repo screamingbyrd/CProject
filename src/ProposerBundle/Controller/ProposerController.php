@@ -2,11 +2,7 @@
 
 namespace ProposerBundle\Controller;
 
-use AppBundle\Entity\ActiveLog;
 use AppBundle\Entity\Proposer;
-use AppBundle\Entity\FeaturedProposer;
-use AppBundle\Entity\FeaturedOffer;
-use AppBundle\Entity\Slot;
 use AppBundle\Form\ProposerType;
 use AppBundle\Form\OfferType;
 use Ivory\GoogleMap\Base\Coordinate;

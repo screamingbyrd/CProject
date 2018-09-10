@@ -119,7 +119,44 @@
                 {{ form_widget(form.images) }}
                 {{ form_errors(form.images) }}
 
+            <div class="post-create-proposer-container" {% if (app.user.roles is defined) %}style="display: none"{% endif %}>
 
+                <h3>{{ 'form.offer.signIn'|trans }}</h3>
+
+                <div class="col-md-6 form-group">
+                    {{ form_label (form.firstName) }}
+                    {{ form_widget(form.firstName) }}
+                    {{ form_errors(form.firstName) }}
+                </div>
+                <div class="col-md-6 form-group">
+                    {{ form_label (form.lastName) }}
+                    {{ form_widget(form.lastName) }}
+                    {{ form_errors(form.lastName) }}
+                </div>
+
+                <div class="col-md-6 form-group">
+                    {{ form_label (form.email) }}
+                    {{ form_widget(form.email) }}
+                    {{ form_errors(form.email) }}
+                    <div class="error-already-exist">{{ 'form.registration.mailAlreadyExist'|trans }}</div>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    {{ form_label (form.phone) }}
+                    {{ form_widget(form.phone) }}
+                    {{ form_errors(form.phone) }}
+                </div>
+
+                <div class="col-md-12">
+                    <p>{{ 'form.registration.passwordValidation'|trans }}</p>
+                    {{ form_widget(form.password) }}
+                    {{ form_errors(form.password) }}
+                </div>
+                <div class="col-md-12">
+                    {{ form_widget(form.terms) }}
+                    {{ form_errors(form.terms) }}
+                </div>
+            </div>
 
             <div class="submit-offer-button-container">
                 {{ form_widget(form.submit, { 'label': 'offer.submit','class': 'btn' }) }}
@@ -260,7 +297,11 @@
             $('.form-panel').removeClass('active');
             $('.form-panel').eq(cur-1).addClass('active');
         }
-
+        if(cur != $('.form-panel').length-2){
+            if({{ app.user.role is not defined }}){
+                $('.bottom-navigation').css('position','absolute');
+            }
+        }
         checkMandatory();
         progress();
     });
@@ -297,6 +338,13 @@
         }
         if(cur == $('.form-panel').length-2){
             $(this).hide();
+            if({{ app.user.role is not defined }}){
+                $('.bottom-navigation').css('position','inherit');
+            }
+        }else {
+            if({{ app.user.role is not defined }}){
+                $('.bottom-navigation').css('position','absolute');
+            }
         }
         if (cur!=$('.form-panel').length-1) {
             $('.form-panel').removeClass('active');
@@ -372,5 +420,45 @@
     });
 
 </script>
+    <script>
+        $('#appbundle_proposer_email').on('blur', function () {
+            let mail = this.value;
+            url = "{{ path('user_already_exist') }}";
+            $.ajax({
+                url: url,
+                data: {mail:mail}
+            }).done(function( data ) {
+                if(data != ''){
+                    $('.error-already-exist').css({'display':'block'});
+                    $("#appbundle_proposer_submit").prop("disabled",true);
+                }else{
+                    $('.error-already-exist').css({'display':'none'});
+                    $("#appbundle_proposer_submit").prop("disabled",false);
+                }
+
+            });
+        });
+        $('#appbundle_proposer_email').on('keyup', function () {
+            let mail = this.value;
+            url = "{{ path('user_already_exist') }}";
+            $.ajax({
+                url: url,
+                data: {mail:mail}
+            }).done(function( data ) {
+                if(data == ''){
+                    $('.error-already-exist').css({'display':'none'});
+                    $("#appbundle_voter_submit").prop("disabled",false);
+                }
+
+            });
+        });
+    </script>
+    <style>
+        .error-already-exist{
+            display: none;
+            color: #f0aa23;
+            margin-top: 5px;
+        }
+    </style>
 
 {% endblock %}
