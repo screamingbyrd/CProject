@@ -428,7 +428,7 @@ class AdminController extends Controller
         }
 
         $closest = null;
-
+        $winners = null;
         $finaPrice = $offer->getFinalPrice();
 
         foreach ($sortingArray as $item) {
@@ -437,7 +437,10 @@ class AdminController extends Controller
             }
         }
 
-        $winners = $voteArray[$closest];
+        if(!empty($voteArray)){
+            $winners = $voteArray[$closest];
+        }
+
 
 
         return $this->render('AdminBundle::votePage.html.twig', array(

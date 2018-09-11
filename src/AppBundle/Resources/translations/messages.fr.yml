@@ -36,7 +36,7 @@ header:
     profile: Mon profile
     dashboard:
       alert: Mes Notifications
-      applied: Mes voteurures
+      applied: Mes Votes
       favorites: Mes favoris
     register: Voteur
   proposers:
@@ -215,7 +215,7 @@ dashboard:
     watchProfile: Voir mon profile
     return: Retour au table de bord
   voter:
-    list: Un résumé rapide des postes auxquels vous avez postulé
+    list: Les offres auquelles vous avez voté
     appliedThe: Postulé le
     appliedOffers: Mes offres
     notifications: Notifications
@@ -294,10 +294,10 @@ offer:
     message: Lettre de motivation
     cv: CV
   countView: Vues
-  countContact: Voteurures
+  countContact: Votes
 
   applied:
-    success: Vous avez bien postulé à l'offre %title% !
+    success: Votre vote à été pris en compte !
     voter: Vous avez postulez à l'offre
     proposer: Un voteur à postulé à cette offre :
 
